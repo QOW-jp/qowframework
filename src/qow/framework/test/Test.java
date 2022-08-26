@@ -26,7 +26,7 @@ import java.awt.Rectangle;
 
 public class Test{
 	public static void main(String[] args){
-		System.out.println("Test");
+		System.out.println("Testテスト");
 		try{
 			new KeyConfigWriter("data\\config\\keyconfig.txt");
 		}catch(Exception e){
@@ -69,10 +69,10 @@ class TestGameRule extends Rule{
 	@Override
 	public void pressKey(KeyEvent e){
 		int code = e.getKeyCode();
-		for(int i=0;i<actionKey.length;i++){
-			for(int j=0;j<actionKey[i].length;j++){
-				if(code == actionKey[i][j].getKeyCode()){
-					actionKey[i][j].press();
+		for(ActionKey[] keys:actionKey){
+			for(ActionKey key:keys){
+				if(code == key.getKeyCode()){
+					key.press();
 				}
 			}
 		}
@@ -80,10 +80,10 @@ class TestGameRule extends Rule{
 	@Override
 	public void releaseKey(KeyEvent e){
 		int code = e.getKeyCode();
-		for(int i=0;i<actionKey.length;i++){
-			for(int j=0;j<actionKey[i].length;j++){
-				if(code == actionKey[i][j].getKeyCode()){
-					actionKey[i][j].release();
+		for(ActionKey[] keys:actionKey){
+			for(ActionKey key:keys){
+				if(code == key.getKeyCode()){
+					key.release();
 				}
 			}
 		}
@@ -192,10 +192,10 @@ class TestGameRule2 extends Rule{
 	@Override
 	public void pressKey(KeyEvent e){
 		int code = e.getKeyCode();
-		for(int i=0;i<actionKey.length;i++){
-			for(int j=0;j<actionKey[i].length;j++){
-				if(code == actionKey[i][j].getKeyCode()){
-					actionKey[i][j].press();
+		for(ActionKey[] keys:actionKey){
+			for(ActionKey key:keys){
+				if(code == key.getKeyCode()){
+					key.press();
 				}
 			}
 		}
@@ -203,10 +203,10 @@ class TestGameRule2 extends Rule{
 	@Override
 	public void releaseKey(KeyEvent e){
 		int code = e.getKeyCode();
-		for(int i=0;i<actionKey.length;i++){
-			for(int j=0;j<actionKey[i].length;j++){
-				if(code == actionKey[i][j].getKeyCode()){
-					actionKey[i][j].release();
+		for(ActionKey[] keys:actionKey){
+			for(ActionKey key:keys){
+				if(code == key.getKeyCode()){
+					key.release();
 				}
 			}
 		}
