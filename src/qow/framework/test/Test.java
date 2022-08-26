@@ -26,6 +26,7 @@ import java.awt.Rectangle;
 
 public class Test{
 	public static void main(String[] args){
+		System.out.println("Test");
 		try{
 			new KeyConfigWriter("data\\config\\keyconfig.txt");
 		}catch(Exception e){
@@ -171,7 +172,6 @@ class TestGameRule extends Rule{
 class TestGameRule2 extends Rule{
 	int timer;
 	ActionKey[][] actionKey;
-	MainFrame frame;
 
 	TestGameRule2(){
 		Canvas canvas = new Canvas(530,300);
