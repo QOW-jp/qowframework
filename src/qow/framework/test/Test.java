@@ -18,11 +18,11 @@ import qow.framework.logic.screen.window.MainFrame;
 import qow.framework.logic.screen.window.MainPanel;
 import qow.framework.logic.util.ActionKey;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.FontMetrics;
-import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Test{
 	public static void main(String[] args){
@@ -88,6 +88,14 @@ class TestGameRule extends Rule{
 			}
 		}
 	}
+	@Override
+	public void moveMouse(MouseEvent e){
+
+	}
+	@Override
+	public void dragMouse(MouseEvent e){
+
+	}
 	int x=0,y=0;
 	public void loopActive(){
 		timer++;
@@ -113,6 +121,8 @@ class TestGameRule extends Rule{
 		if(actionKey[0][4].isPress()){
 			changeRule = true;
 		}
+
+
 	}
 	boolean inactive = true;
 	public void loopInactive(){
@@ -172,6 +182,11 @@ class TestGameRule extends Rule{
 class TestGameRule2 extends Rule{
 	int timer;
 	ActionKey[][] actionKey;
+	private List<Point> clickPoint;
+	private List<Integer> clickPointRange;
+	private int clickX,clickY;
+	private boolean clicked;
+	private final int CLICK_MAX_RANGE = 500;
 
 	TestGameRule2(){
 		Canvas canvas = new Canvas(530,300);
@@ -185,6 +200,9 @@ class TestGameRule2 extends Rule{
 				actionKey[i][j] = new ActionKey(keyCode[i][j]);
 			}
 		}
+
+		clickPoint = new ArrayList<Point>();
+		clickPointRange = new ArrayList<Integer>();
 
 		setExecuteRate(200);
 		setFrameRate(100);
@@ -211,6 +229,12 @@ class TestGameRule2 extends Rule{
 			}
 		}
 	}
+
+	@Override
+	public void clickMouse(MouseEvent e){
+		clickX = e.getX();
+		clickY = e.getY();
+	}
 	int x=0,y=0;
 	public void loopActive(){
 		timer++;
@@ -236,6 +260,27 @@ class TestGameRule2 extends Rule{
 		if(actionKey[0][4].isPress()){
 			changeRule = true;
 		}
+
+		if(clicked){
+			clicked = false;
+			clickPoint.add(new Point(clickX,clickY));
+			clickPointRange.add(0);
+		}
+
+		if(0 < clickPoint.size()){
+			for(int i=0;i<clickPoint.size();i++){
+				//int x = (int) clickPoint.get(i).getX();
+				//int y = (int) clickPoint.get(i).getX();
+				clickPoint.set(i,new Point(clickX,clickY));
+
+				if(clickPointRange.get(i) < CLICK_MAX_RANGE) {
+					clickPointRange.set(i, clickPointRange.get(i) + 1);
+				}else{
+					clickPoint.remove(i);
+					clickPointRange.remove(i);
+				}
+			}
+		}
 	}
 	boolean inactive = true;
 	public void loopInactive(){
@@ -251,6 +296,13 @@ class TestGameRule2 extends Rule{
 
 		g.setColor(Color.white);
 		g.fillOval(x-timer/2,y-timer/2,timer,timer);
+
+		for(int i=0;i<clickPoint.size();i++){
+			int range = clickPointRange.get(i);
+			int x = (int)clickPoint.get(i).getX()-range;
+			int y = (int)clickPoint.get(i).getY()-range;
+			g.drawOval(x,y,range,range);
+		}
 
 		g.drawString("アンチエイリアシング有効",0,getCanvas().getHeight());
 	}
