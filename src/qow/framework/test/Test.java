@@ -52,6 +52,12 @@ class TestGameRule extends Rule{
 	int timer;
 	ActionKey[][] actionKey;
 
+	boolean draged;
+	int dragX,dragY;
+	List<Point> dragPoint;
+	List<Integer> dragPointRange;
+	final int DRAG_MAX_RANGE = 100;
+
 	TestGameRule(){
 		setCanvas(new Canvas(530,300));
 
@@ -62,6 +68,9 @@ class TestGameRule extends Rule{
 				actionKey[i][j] = new ActionKey(keyCode[i][j]);
 			}
 		}
+
+		dragPoint = new ArrayList<>();
+		dragPointRange = new ArrayList<>();
 
 		setExecuteRate(100);
 		setFrameRate(50);
@@ -89,12 +98,10 @@ class TestGameRule extends Rule{
 		}
 	}
 	@Override
-	public void moveMouse(MouseEvent e){
-
-	}
-	@Override
 	public void dragMouse(MouseEvent e){
-
+		draged = true;
+		dragX = e.getX();
+		dragY = e.getY();
 	}
 	int x=0,y=0;
 	public void loopActive(){
@@ -122,7 +129,26 @@ class TestGameRule extends Rule{
 			changeRule = true;
 		}
 
+		if(draged){
+			draged = false;
+			dragPoint.add(new Point(dragX,dragY));
+			dragPointRange.add(0);
+		}
 
+		if(0 < dragPoint.size()){
+			for(int i=0;i<dragPoint.size();i++){
+				//int x = (int) clickPoint.get(i).getX();
+				//int y = (int) clickPoint.get(i).getX();
+				//clickPoint.set(i,new Point(clickX,clickY));
+
+				if(dragPointRange.get(i) < DRAG_MAX_RANGE) {
+					dragPointRange.set(i, dragPointRange.get(i) + 1);
+				}else{
+					dragPoint.remove(i);
+					dragPointRange.remove(i);
+				}
+			}
+		}
 	}
 	boolean inactive = true;
 	public void loopInactive(){
@@ -138,6 +164,13 @@ class TestGameRule extends Rule{
 
 		g.setColor(Color.white);
 		g.fillOval(x-timer/2,y-timer/2,timer,timer);
+
+		for(int i=0;i<dragPoint.size();i++){
+			int range = dragPointRange.get(i);
+			int x = (int)dragPoint.get(i).getX()-range/2;
+			int y = (int)dragPoint.get(i).getY()-range/2;
+			g.drawOval(x,y,range,range);
+		}
 
 		g.drawString("アンチエイリアシング無効",0,getCanvas().getHeight());
 	}
@@ -174,9 +207,11 @@ class TestGameRule extends Rule{
 	}
 	public void addListener(MainFrame mf){
 		mf.addKeyListener(this);
+		mf.addMouseMotionListener(this);
 	}
 	public void removeListener(MainFrame mf){
 		mf.removeKeyListener(this);
+		mf.removeMouseMotionListener(this);
 	}
 }
 class TestGameRule2 extends Rule{
@@ -186,7 +221,7 @@ class TestGameRule2 extends Rule{
 	private List<Integer> clickPointRange;
 	private int clickX,clickY;
 	private boolean clicked;
-	private final int CLICK_MAX_RANGE = 500;
+	private final int CLICK_MAX_RANGE = 1200;
 
 	TestGameRule2(){
 		Canvas canvas = new Canvas(530,300);
@@ -201,8 +236,8 @@ class TestGameRule2 extends Rule{
 			}
 		}
 
-		clickPoint = new ArrayList<Point>();
-		clickPointRange = new ArrayList<Integer>();
+		clickPoint = new ArrayList<>();
+		clickPointRange = new ArrayList<>();
 
 		setExecuteRate(200);
 		setFrameRate(100);
@@ -234,6 +269,7 @@ class TestGameRule2 extends Rule{
 	public void clickMouse(MouseEvent e){
 		clickX = e.getX();
 		clickY = e.getY();
+		clicked = true;
 	}
 	int x=0,y=0;
 	public void loopActive(){
@@ -271,7 +307,7 @@ class TestGameRule2 extends Rule{
 			for(int i=0;i<clickPoint.size();i++){
 				//int x = (int) clickPoint.get(i).getX();
 				//int y = (int) clickPoint.get(i).getX();
-				clickPoint.set(i,new Point(clickX,clickY));
+				//clickPoint.set(i,new Point(clickX,clickY));
 
 				if(clickPointRange.get(i) < CLICK_MAX_RANGE) {
 					clickPointRange.set(i, clickPointRange.get(i) + 1);
@@ -299,8 +335,8 @@ class TestGameRule2 extends Rule{
 
 		for(int i=0;i<clickPoint.size();i++){
 			int range = clickPointRange.get(i);
-			int x = (int)clickPoint.get(i).getX()-range;
-			int y = (int)clickPoint.get(i).getY()-range;
+			int x = (int)clickPoint.get(i).getX()-range/2;
+			int y = (int)clickPoint.get(i).getY()-range/2;
 			g.drawOval(x,y,range,range);
 		}
 
@@ -339,8 +375,10 @@ class TestGameRule2 extends Rule{
 	}
 	public void addListener(MainFrame mf){
 		mf.addKeyListener(this);
+		mf.mp.addMouseListener(this);
 	}
 	public void removeListener(MainFrame mf){
 		mf.removeKeyListener(this);
+		mf.mp.removeMouseListener(this);
 	}
 }

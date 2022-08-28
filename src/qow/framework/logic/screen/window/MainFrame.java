@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 *@version 1.0.0
 */
 public class MainFrame extends JFrame{
-	private final MainPanel mp;
+	public final MainPanel mp;
 	
 	/**
 	*タイトルを設定し、インスタンス化する
