@@ -4,15 +4,16 @@ import qow.framework.logic.screen.window.MainFrame;
 import qow.framework.logic.system.rule.Rule;
 
 /**
- * 画面のレートを制御するクラス
+ * 画面のレートを制御する<br>
  * 可能な限り一秒間に設定されたレートの回数の画面の描写をする
  *
  * @author QOW
- * @version 1.0.0
+ * @version 2022-08-29
+ * @since 1.0.0
  */
 public class FrameLoop extends Loop {
-    private Rule rule;
     private final MainFrame mf;
+    private Rule rule;
 
     /**
      * レートの初期値を設定し、インスタンス化する
@@ -20,16 +21,24 @@ public class FrameLoop extends Loop {
      * @param rate レートの初期値
      */
     public FrameLoop(int rate) {
-        super(rate);
+        this();
+        setRate(rate);
+    }
+
+    /**
+     * レートの初期値を設定せずインスタンス化する
+     */
+    public FrameLoop() {
+        super();
         mf = new MainFrame("MainFrame");
     }
 
     /**
-     * 可能な限り一秒間に設定されたレートの回数このメソッドを実行する
+     * 可能な限り一秒間に設定されたレートの回数このメソッドを実行する<br>
+     * 指定時間内に処理が終わらない場合は{@link FrameLoop#overTime(long)}が呼び出される
      */
     public void loop() {
         setRate(rule.getFrameRate());
-
         rule.draw();
     }
 
@@ -44,6 +53,8 @@ public class FrameLoop extends Loop {
 
     /**
      * @return 設定されているMainFrame
+     * @see MainFrame
+     * @see javax.swing.JFrame
      */
     public MainFrame getFrame() {
         return mf;

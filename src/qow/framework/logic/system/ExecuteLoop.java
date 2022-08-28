@@ -3,7 +3,7 @@ package qow.framework.logic.system;
 import qow.framework.logic.system.rule.Rule;
 
 /**
- * 処理のレートを制御するクラス<br>
+ * 処理のレートを制御する<br>
  * 可能な限り一秒間に設定されたレートの回数の処理を実行する
  *
  * @author QOW
@@ -21,6 +21,13 @@ public class ExecuteLoop extends Loop {
      */
     public ExecuteLoop(int rate) {
         super(rate);
+    }
+
+    /**
+     * レートの初期値を設定せずインスタンス化する
+     */
+    public ExecuteLoop() {
+        super();
     }
 
     /**

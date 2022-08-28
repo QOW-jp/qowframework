@@ -4,10 +4,10 @@ import qow.framework.logic.screen.window.MainFrame;
 import qow.framework.logic.system.rule.Rule;
 
 /**
- * 処理レートとフレームレートを制御するクラス
+ * 処理レートとフレームレートを制御する
  *
  * @author QOW
- * @version 1.2.3
+ * @version 1.3.0   2022-08-29
  */
 public class MainSystem {
     private final ExecuteLoop el;
@@ -19,16 +19,15 @@ public class MainSystem {
      * @param rate rateの初期値
      */
     public MainSystem(int rate) {
-        el = new ExecuteLoop(rate);
-        fl = new FrameLoop(rate);
-        el.setFrameLoop(fl);
+        this();
+        el.setRate(rate);
+        fl.setRate(rate);
     }
 
-    /**
-     * rateを60に設定し、インスタンス化する
-     */
     public MainSystem() {
-        this(60);
+        el = new ExecuteLoop();
+        fl = new FrameLoop();
+        el.setFrameLoop(fl);
     }
 
     /**
@@ -42,27 +41,29 @@ public class MainSystem {
     }
 
     /**
-     * 処理のループを開始または停止する
+     * 処理ループを開始または停止する
      *
      * @param start ループを開始または停止
+     * @see ExecuteLoop#start(boolean)
      */
     public void startExecuteLoop(boolean start) {
         el.start(start);
     }
 
     /**
-     * 描写のループを開始または停止する
+     * 描写ループを開始または停止する
      *
      * @param start ループを開始または停止
+     * @see FrameLoop#start(boolean)
      */
     public void startFrameLoop(boolean start) {
         fl.start(start);
     }
 
     /**
-     * 設定されているMainFrameを返す
+     * {@link FrameLoop}に設定されている{@link MainFrame}を返す
      *
-     * @return 設定されているMainFrame
+     * @return 描写されるフレーム
      */
     public MainFrame getFrame() {
         return fl.getFrame();

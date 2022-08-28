@@ -6,26 +6,28 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * フレームに張り付けるパネル
+ * {@link MainFrame}に張り付けるパネル<br>
+ * {@link Canvas}から得た画像データをペイントする
  *
  * @author QOW
- * @version 1.0.0
+ * @version 2022-08-29
+ * @since 1.0.0
  */
 public class MainPanel extends JPanel {
     private Canvas canvas;
 
     /**
-     * インスタンス化
+     * レイアウトを設定してインスタンス化
      */
     public MainPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     }
 
     /**
-     * Canvasを更新する
-     * Canvasに合ったサイズに変更する
+     * {@link Canvas}を更新する<br>
+     * {@link Canvas}に合ったサイズに変更する
      *
-     * @param canvas 新しいCanvas
+     * @param canvas 新しい{@link Canvas}
      */
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
@@ -35,11 +37,10 @@ public class MainPanel extends JPanel {
     /**
      * 再描写するときに呼び出される
      *
-     * @param g Graphicsの変数
+     * @param g ペイント対象の{@link Graphics}コンテキスト
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         canvas.draw(g);
     }
 

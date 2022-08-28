@@ -1,26 +1,31 @@
 package qow.framework.logic.util;
 
+import java.awt.event.KeyEvent;
+
 /**
- * KeyListenerの入力をキーごとに保持するクラス
+ * {@link KeyEvent}の{@link KeyEvent#getKeyCode()}を保持しキーの状態を記録する
  *
  * @author QOW
- * @version 1.0.0
+ * @version 2022-08-29
+ * @since 1.0.0
  */
 public class ActionKey {
-    private boolean press, justRelease, justPress, justPressDelay;
     private final int keyCode;
+    private boolean press, justRelease, justPress, justPressDelay;
 
     /**
-     * keyCodeを設定し、インスタンス化する
+     * {@link KeyEvent#getKeyCode()}を設定し、インスタンス化する
      *
-     * @param keyCode KeyListenerで呼び出されたKeyEvent.getKeyCode();
+     * @param keyCode {@link java.awt.event.KeyListener}で呼び出された{@link KeyEvent#getKeyCode()}
      */
     public ActionKey(int keyCode) {
         this.keyCode = keyCode;
     }
 
     /**
-     * @return 設定されたkeyCode
+     * 設定された{@link KeyEvent#getKeyCode()}を返す
+     *
+     * @return 設定された値
      */
     public int getKeyCode() {
         return keyCode;

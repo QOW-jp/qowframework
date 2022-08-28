@@ -3,11 +3,12 @@ package qow.framework.logic.system;
 import java.util.concurrent.TimeUnit;
 
 /**
- * レートを制御するクラス
- * 可能な限り一秒間に設定されたレートの回数プログラムを実行する
+ * レートを制御するクラス<br>
+ * 可能な限り一秒間に設定されたレートの回数{@link Loop#loop()}を実行する
  *
  * @author QOW
- * @version 1.0.0
+ * @version 2022-08-29
+ * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
     private final int oneSec = (int) Math.pow(10, 9);    //1,000,000,000ns
@@ -24,20 +25,27 @@ public abstract class Loop implements Runnable {
     }
 
     /**
+     * レートの初期値を設定せずインスタンス化する
+     */
+    public Loop() {
+    }
+
+    /**
      * ループ処理を開始または停止する
      *
-     * @param loop ループ処理を開始または停止する
+     * @param loop ループ処理を開始する場合はtrue
      */
     public void start(boolean loop) {
         this.loop = loop;
         if (loop && !looping) {
-            Thread thread = new Thread(this);
-            thread.start();
+            new Thread(this).start();
         }
     }
 
     /**
-     * @return 一秒間に実行される予定の回数
+     * 一秒間に設定されたレートの回数の処理を行う
+     *
+     * @return 一秒間に実行される回数
      */
     public int getRate() {
         return rate;
@@ -64,6 +72,11 @@ public abstract class Loop implements Runnable {
      */
     public abstract void overTime(long overTime);
 
+    /**
+     * {@link Thread}がループにしようするメソッド
+     *
+     * @deprecated マルチスレッド用のメソッドなので使用しない
+     */
     public void run() {
         try {
             looping = true;

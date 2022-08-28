@@ -6,10 +6,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * パネルに投影する画面
+ * {@link MainPanel}に投影する画像を保持する
  *
  * @author QOW
- * @version 1.0.0
+ * @version 2022-08-29
+ * @since 1.0.0
  */
 public class Canvas {
     private final BufferedImage img;
@@ -39,9 +40,9 @@ public class Canvas {
     }
 
     /**
-     * 画面に画像を描写する
+     * {@link MainPanel}に保持している画像を描写する
      *
-     * @param g 画像を描写する画面
+     * @param g ペイント対象の{@link Graphics}コンテキスト
      */
     public void draw(Graphics g) {
         g.drawImage(img, 0, 0, null);
@@ -57,16 +58,23 @@ public class Canvas {
     }
 
     /**
-     * MainPanelを設定する
+     * 描写する{@link MainPanel}を設定する
      *
      * @param mp 新しいMainPanel
      */
     public void setPanel(MainPanel mp) {
         this.mp = mp;
     }
-    public Graphics2D getGraphics2D(){
-        return (Graphics2D)gra;
+
+    /**
+     * {@link Graphics2D}にキャストされた{@link Graphics}を返す
+     *
+     * @return ペイント対象
+     */
+    public Graphics2D getGraphics2D() {
+        return (Graphics2D) gra;
     }
+
     /**
      * 横のサイズを取得する
      *

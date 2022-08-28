@@ -161,7 +161,7 @@ class TestGameRule extends Rule {
             g.drawOval(x, y, range, range);
         }
 
-        g.drawString("アンチエイリアシング無効", 0, getCanvas().getHeight());
+        g.drawString("アンチエイリアシング無効化", 0, getCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {
@@ -342,7 +342,7 @@ class TestGameRule2 extends Rule {
             g.drawOval(x, y, range, range);
         }
 
-        g.drawString("アンチエイリアシング有効", 0, getCanvas().getHeight());
+        g.drawString("アンチエイリアシング有効化", 0, getCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {
