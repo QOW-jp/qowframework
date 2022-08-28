@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
 /**
 *ループ内での処理を設定するクラス
 *
@@ -45,11 +46,7 @@ public abstract class Rule implements KeyListener,MouseListener,MouseMotionListe
 	public int getFrameRate(){
 		return frameRate;
 	}
-	
-	
-	
-	
-	
+
 	/**
 	*処理ループによって一秒間にレートの回数実行されるメソッド
 	*/

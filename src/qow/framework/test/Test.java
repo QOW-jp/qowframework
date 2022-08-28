@@ -1,21 +1,10 @@
 package qow.framework.test;
 
-import qow.framework.setting.KeyConfigReader;
 import qow.framework.setting.KeyConfigWriter;
-/*
-import qow.framework.setting.KeyConfigOutFile;
-import qow.framework.setting.KeyConfigChanger;
-import qow.framework.setting.KeyConfigChangerPanel;
-import qow.framework.setting.KeyConfigButton;
-*/
 import qow.framework.logic.system.MainSystem;
-import qow.framework.logic.system.ExecuteLoop;
-import qow.framework.logic.system.FrameLoop;
-import qow.framework.logic.system.Loop;
 import qow.framework.logic.system.rule.Rule;
 import qow.framework.logic.screen.graphics.Canvas;
 import qow.framework.logic.screen.window.MainFrame;
-import qow.framework.logic.screen.window.MainPanel;
 import qow.framework.logic.util.ActionKey;
 
 import java.awt.*;
@@ -33,25 +22,23 @@ public class Test{
 			e.printStackTrace();
 		}
 		try{
-			new Test();
+			MainSystem ms = new MainSystem();
+			TestGameRule gr = new TestGameRule();
+			ms.setRule(gr);
+
+			ms.getFrame().setVisible(true);
+			ms.start(true);
+			System.out.println("start");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
-	public Test(){
-		MainSystem ms = new MainSystem();
-		TestGameRule gr = new TestGameRule();
-		ms.setRule(gr);
-
-		ms.getFrame().setVisible(true);
-		ms.start(true);
-		System.out.println("start");
 	}
 }
 class TestGameRule extends Rule{
 	int timer;
 	ActionKey[][] actionKey;
 
+	int ballX,ballY;
 	boolean draged;
 	int dragX,dragY;
 	List<Point> dragPoint;
@@ -103,7 +90,7 @@ class TestGameRule extends Rule{
 		dragX = e.getX();
 		dragY = e.getY();
 	}
-	int x=0,y=0;
+
 	public void loopActive(){
 		timer++;
 
@@ -114,16 +101,16 @@ class TestGameRule extends Rule{
 		}
 
 		if(actionKey[0][0].isPress()){
-			x -= 5;
+			ballX -= 5;
 		}
 		if(actionKey[0][1].isPress()){
-			x += 5;
+			ballX += 5;
 		}
 		if(actionKey[0][2].isPress()){
-			y -= 5;
+			ballY -= 5;
 		}
 		if(actionKey[0][3].isPress()){
-			y += 5;
+			ballY += 5;
 		}
 		if(actionKey[0][4].isPress()){
 			changeRule = true;
@@ -163,7 +150,7 @@ class TestGameRule extends Rule{
 		g.fillRect(0,0,getCanvas().getWidth(),getCanvas().getHeight());
 
 		g.setColor(Color.white);
-		g.fillOval(x-timer/2,y-timer/2,timer,timer);
+		g.fillOval(ballX-timer/2,ballY-timer/2,timer,timer);
 
 		for(int i=0;i<dragPoint.size();i++){
 			int range = dragPointRange.get(i);
@@ -216,12 +203,13 @@ class TestGameRule extends Rule{
 }
 class TestGameRule2 extends Rule{
 	int timer;
+	int ballX,ballY;
 	ActionKey[][] actionKey;
-	private List<Point> clickPoint;
-	private List<Integer> clickPointRange;
-	private int clickX,clickY;
-	private boolean clicked;
-	private final int CLICK_MAX_RANGE = 1200;
+	List<Point> clickPoint;
+	List<Integer> clickPointRange;
+	int clickX,clickY;
+	boolean clicked;
+	final int CLICK_MAX_RANGE = 1200;
 
 	TestGameRule2(){
 		Canvas canvas = new Canvas(530,300);
@@ -271,7 +259,6 @@ class TestGameRule2 extends Rule{
 		clickY = e.getY();
 		clicked = true;
 	}
-	int x=0,y=0;
 	public void loopActive(){
 		timer++;
 
@@ -282,16 +269,16 @@ class TestGameRule2 extends Rule{
 		}
 
 		if(actionKey[0][0].isPress()){
-			x -= 5;
+			ballX -= 5;
 		}
 		if(actionKey[0][1].isPress()){
-			x += 5;
+			ballX += 5;
 		}
 		if(actionKey[0][2].isPress()){
-			y -= 5;
+			ballY -= 5;
 		}
 		if(actionKey[0][3].isPress()){
-			y += 5;
+			ballY += 5;
 		}
 		if(actionKey[0][4].isPress()){
 			changeRule = true;
@@ -305,10 +292,6 @@ class TestGameRule2 extends Rule{
 
 		if(0 < clickPoint.size()){
 			for(int i=0;i<clickPoint.size();i++){
-				//int x = (int) clickPoint.get(i).getX();
-				//int y = (int) clickPoint.get(i).getX();
-				//clickPoint.set(i,new Point(clickX,clickY));
-
 				if(clickPointRange.get(i) < CLICK_MAX_RANGE) {
 					clickPointRange.set(i, clickPointRange.get(i) + 1);
 				}else{
@@ -331,7 +314,7 @@ class TestGameRule2 extends Rule{
 		g.fillRect(0,0,getCanvas().getWidth(),getCanvas().getHeight());
 
 		g.setColor(Color.white);
-		g.fillOval(x-timer/2,y-timer/2,timer,timer);
+		g.fillOval(ballX-timer/2,ballY-timer/2,timer,timer);
 
 		for(int i=0;i<clickPoint.size();i++){
 			int range = clickPointRange.get(i);
