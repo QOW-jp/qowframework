@@ -27,19 +27,8 @@ public class ExecuteLoop extends Loop{
 		rule.loop();
 		
 		if(rule.isChangeRule()){
-			System.out.println("<1> "+Runtime.getRuntime().freeMemory());
 			rule.removeListener(rule.getFrame());
-			System.out.println("<2> "+Runtime.getRuntime().freeMemory());
-
-			/*
-			Rule newRule = rule.getNewRule();
-			rule = null;
-			setRule(newRule);
-			*/
 			setRule(rule.getNewRule());
-			//System.gc();
-			System.out.println("<3> "+Runtime.getRuntime().freeMemory());
-
 		}
 	}
 	/**

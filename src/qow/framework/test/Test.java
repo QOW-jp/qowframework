@@ -7,7 +7,11 @@ import qow.framework.logic.screen.graphics.Canvas;
 import qow.framework.logic.screen.window.MainFrame;
 import qow.framework.logic.util.ActionKey;
 
-import java.awt.*;
+import java.awt.Point;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
