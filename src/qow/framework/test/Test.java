@@ -1,371 +1,393 @@
 package qow.framework.test;
 
-import qow.framework.setting.KeyConfigWriter;
-import qow.framework.logic.system.MainSystem;
-import qow.framework.logic.system.rule.Rule;
 import qow.framework.logic.screen.graphics.Canvas;
 import qow.framework.logic.screen.window.MainFrame;
+import qow.framework.logic.system.MainSystem;
+import qow.framework.logic.system.rule.Rule;
 import qow.framework.logic.util.ActionKey;
+import qow.framework.setting.KeyConfigWriter;
 
-import java.awt.Point;
-import java.awt.Graphics;
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Test{
-	public static void main(String[] args){
-		System.out.println("Testテスト");
-		try{
-			new KeyConfigWriter("data\\config\\keyconfig.txt");
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		try{
-			MainSystem ms = new MainSystem();
-			TestGameRule gr = new TestGameRule();
-			ms.setRule(gr);
+public class Test {
+    public static void main(String[] args) {
+        System.out.println("Testテスト");
+        try {
+            new KeyConfigWriter("data\\config\\keyconfig.txt");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            MainSystem ms = new MainSystem();
+            TestGameRule gr = new TestGameRule();
+            ms.setRule(gr);
 
-			ms.getFrame().setVisible(true);
-			ms.start(true);
-			System.out.println("start");
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+            ms.getFrame().setVisible(true);
+            ms.start(true);
+            System.out.println("start");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
-class TestGameRule extends Rule{
-	int timer;
-	ActionKey[][] actionKey;
 
-	int ballX,ballY;
-	boolean draged;
-	int dragX,dragY;
-	List<Point> dragPoint;
-	List<Integer> dragPointRange;
-	final int DRAG_MAX_RANGE = 100;
+class TestGameRule extends Rule {
+    final int DRAG_MAX_RANGE = 100;
+    int timer;
+    ActionKey[][] actionKey;
+    int ballX, ballY;
+    boolean dragged;
+    int dragX, dragY;
+    List<Point> dragPoint;
+    List<Integer> dragPointRange;
+    boolean inactive = true;
+    boolean changeRule;
 
-	TestGameRule(){
-		setCanvas(new Canvas(530,300));
+    TestGameRule() {
+        setCanvas(new Canvas(530, 300));
 
-		int[][] keyCode = {{65,68,87,83,10}};
-		actionKey = new ActionKey[keyCode.length][keyCode[0].length];
-		for(int i=0;i<actionKey.length;i++){
-			for(int j=0;j<actionKey[i].length;j++){
-				actionKey[i][j] = new ActionKey(keyCode[i][j]);
-			}
-		}
+        int[][] keyCode = {{65, 68, 87, 83, 10}};
+        actionKey = new ActionKey[keyCode.length][keyCode[0].length];
+        for (int i = 0; i < actionKey.length; i++) {
+            for (int j = 0; j < actionKey[i].length; j++) {
+                actionKey[i][j] = new ActionKey(keyCode[i][j]);
+            }
+        }
 
-		dragPoint = new ArrayList<>();
-		dragPointRange = new ArrayList<>();
+        dragPoint = new ArrayList<>();
+        dragPointRange = new ArrayList<>();
 
-		setExecuteRate(100);
-		setFrameRate(50);
-	}
-	@Override
-	public void pressKey(KeyEvent e){
-		int code = e.getKeyCode();
-		for(ActionKey[] keys:actionKey){
-			for(ActionKey key:keys){
-				if(code == key.getKeyCode()){
-					key.press();
-				}
-			}
-		}
-	}
-	@Override
-	public void releaseKey(KeyEvent e){
-		int code = e.getKeyCode();
-		for(ActionKey[] keys:actionKey){
-			for(ActionKey key:keys){
-				if(code == key.getKeyCode()){
-					key.release();
-				}
-			}
-		}
-	}
-	@Override
-	public void dragMouse(MouseEvent e){
-		draged = true;
-		dragX = e.getX();
-		dragY = e.getY();
-	}
+        setExecuteRate(100);
+        setFrameRate(50);
+    }
 
-	public void loopActive(){
-		timer++;
+    @Override
+    public void pressKey(KeyEvent e) {
+        int code = e.getKeyCode();
+        for (ActionKey[] keys : actionKey) {
+            for (ActionKey key : keys) {
+                if (code == key.getKeyCode()) {
+                    key.press();
+                }
+            }
+        }
+    }
 
-		inactive = true;
+    @Override
+    public void releaseKey(KeyEvent e) {
+        int code = e.getKeyCode();
+        for (ActionKey[] keys : actionKey) {
+            for (ActionKey key : keys) {
+                if (code == key.getKeyCode()) {
+                    key.release();
+                }
+            }
+        }
+    }
 
-		if(timer > 200){
-			timer = 0;
-		}
+    @Override
+    public void dragMouse(MouseEvent e) {
+        dragged = true;
+        dragX = e.getX();
+        dragY = e.getY();
+    }
 
-		if(actionKey[0][0].isPress()){
-			ballX -= 5;
-		}
-		if(actionKey[0][1].isPress()){
-			ballX += 5;
-		}
-		if(actionKey[0][2].isPress()){
-			ballY -= 5;
-		}
-		if(actionKey[0][3].isPress()){
-			ballY += 5;
-		}
-		if(actionKey[0][4].isPress()){
-			changeRule = true;
-		}
+    public void loopActive() {
+        timer++;
 
-		if(draged){
-			draged = false;
-			dragPoint.add(new Point(dragX,dragY));
-			dragPointRange.add(0);
-		}
+        inactive = true;
 
-		if(0 < dragPoint.size()){
-			for(int i=0;i<dragPoint.size();i++){
-				//int x = (int) clickPoint.get(i).getX();
-				//int y = (int) clickPoint.get(i).getX();
-				//clickPoint.set(i,new Point(clickX,clickY));
+        if (timer > 200) {
+            timer = 0;
+        }
 
-				if(dragPointRange.get(i) < DRAG_MAX_RANGE) {
-					dragPointRange.set(i, dragPointRange.get(i) + 1);
-				}else{
-					dragPoint.remove(i);
-					dragPointRange.remove(i);
-				}
-			}
-		}
-	}
-	boolean inactive = true;
-	public void loopInactive(){
-		for(ActionKey[] keys:actionKey){
-			for(ActionKey key:keys){
-				key.release();
-			}
-		}
-	}
-	public void paintActive(Graphics g){
-		g.setColor(Color.black);
-		g.fillRect(0,0,getCanvas().getWidth(),getCanvas().getHeight());
+        if (actionKey[0][0].isPress()) {
+            ballX -= 5;
+        }
+        if (actionKey[0][1].isPress()) {
+            ballX += 5;
+        }
+        if (actionKey[0][2].isPress()) {
+            ballY -= 5;
+        }
+        if (actionKey[0][3].isPress()) {
+            ballY += 5;
+        }
+        if (actionKey[0][4].isPress()) {
+            changeRule = true;
+        }
 
-		g.setColor(Color.white);
-		g.fillOval(ballX-timer/2,ballY-timer/2,timer,timer);
+        if (dragged) {
+            dragged = false;
+            dragPoint.add(new Point(dragX, dragY));
+            dragPointRange.add(0);
+        }
 
-		for(int i=0;i<dragPoint.size();i++){
-			int range = dragPointRange.get(i);
-			int x = (int)dragPoint.get(i).getX()-range/2;
-			int y = (int)dragPoint.get(i).getY()-range/2;
-			g.drawOval(x,y,range,range);
-		}
+        if (0 < dragPoint.size()) {
+            for (int i = 0; i < dragPoint.size(); i++) {
+                if (dragPointRange.get(i) < DRAG_MAX_RANGE) {
+                    dragPointRange.set(i, dragPointRange.get(i) + 1);
+                } else {
+                    dragPoint.remove(i);
+                    dragPointRange.remove(i);
+                }
+            }
+        }
+    }
 
-		g.drawString("アンチエイリアシング無効",0,getCanvas().getHeight());
-	}
-	public void paintInactive(Graphics g){
-		if(inactive){
-			inactive = false;
-			paintPause(g);
-		}
-	}
-	public void paintPause(Graphics g){
-		g.setColor(new Color(0,0,0,100));
-		g.fillRect(0,0,getCanvas().getWidth(),getCanvas().getHeight());
+    public void loopInactive() {
+        for (ActionKey[] keys : actionKey) {
+            for (ActionKey key : keys) {
+                key.release();
+            }
+        }
+    }
 
-		FontMetrics fm = g.getFontMetrics();
-		String text = "FRAME MODE PAUSE";
-		Rectangle rectText = fm.getStringBounds(text, g).getBounds();
-		int startX = getCanvas().getWidth()/2-rectText.width/2;
-		int startY = getCanvas().getHeight()/2-rectText.height/2+fm.getMaxAscent();
-		g.setColor(Color.white);
-		g.drawString(text ,startX ,startY);
-	}
-	public void overTimeExecute(long overTime){
-		System.out.println(-overTime/1000000+"ms超過s");
-	}
-	public void overTimeFrame(long overTime){
-		System.out.println(-overTime/1000000+"ms超過f");
-	}
-	boolean changeRule;
-	public boolean isChangeRule(){
-		return changeRule;
-	}
-	public Rule getNewRule(){
-		return new TestGameRule2();
-	}
-	public void addListener(MainFrame mf){
-		mf.addKeyListener(this);
-		mf.getMainPanel().addMouseMotionListener(this);
-	}
-	public void removeListener(MainFrame mf){
-		mf.removeKeyListener(this);
-		mf.getMainPanel().removeMouseMotionListener(this);
-	}
+    public void paintActive(Graphics g) {
+        g.setColor(Color.black);
+        g.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+
+        g.setColor(Color.white);
+        g.fillOval(ballX - timer / 2, ballY - timer / 2, timer, timer);
+
+        for (int i = 0; i < dragPoint.size(); i++) {
+            int range = dragPointRange.get(i);
+            int x = (int) dragPoint.get(i).getX() - range / 2;
+            int y = (int) dragPoint.get(i).getY() - range / 2;
+            g.drawOval(x, y, range, range);
+        }
+
+        g.drawString("アンチエイリアシング無効", 0, getCanvas().getHeight());
+    }
+
+    public void paintInactive(Graphics g) {
+        if (inactive) {
+            inactive = false;
+            paintPause(g);
+        }
+    }
+
+    public void paintPause(Graphics g) {
+        g.setColor(new Color(0, 0, 0, 100));
+        g.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+
+        FontMetrics fm = g.getFontMetrics();
+        String text = "FRAME MODE PAUSE";
+        Rectangle rectText = fm.getStringBounds(text, g).getBounds();
+        int startX = getCanvas().getWidth() / 2 - rectText.width / 2;
+        int startY = getCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
+        g.setColor(Color.white);
+        g.drawString(text, startX, startY);
+    }
+
+    public void overTimeExecute(long overTime) {
+        System.out.println(-overTime / 1000000 + "ms超過s");
+    }
+
+    public void overTimeFrame(long overTime) {
+        System.out.println(-overTime / 1000000 + "ms超過f");
+    }
+
+    public boolean isChangeRule() {
+        return changeRule;
+    }
+
+    public Rule getNewRule() {
+        return new TestGameRule2();
+    }
+
+    public void addListener(MainFrame mf) {
+        mf.addKeyListener(this);
+        mf.getMainPanel().addMouseMotionListener(this);
+    }
+
+    public void removeListener(MainFrame mf) {
+        mf.removeKeyListener(this);
+        mf.getMainPanel().removeMouseMotionListener(this);
+    }
 }
-class TestGameRule2 extends Rule{
-	int timer;
-	int ballX,ballY;
-	ActionKey[][] actionKey;
-	List<Point> clickPoint;
-	List<Integer> clickPointRange;
-	int clickX,clickY;
-	boolean clicked;
-	final int CLICK_MAX_RANGE = 1200;
 
-	TestGameRule2(){
-		Canvas canvas = new Canvas(530,300);
-		canvas.setAntialiasing(true);
-		setCanvas(canvas);
+class TestGameRule2 extends Rule {
+    final int CLICK_MAX_RANGE = 1200;
+    int timer;
+    int ballX, ballY;
+    ActionKey[][] actionKey;
+    List<Point> clickPoint;
+    List<Integer> clickPointRange;
+    int clickX, clickY;
+    boolean clicked;
+    boolean inactive = true;
+    boolean changeRule;
 
-		int[][] keyCode = {{65,68,87,83,10}};
-		actionKey = new ActionKey[keyCode.length][keyCode[0].length];
-		for(int i=0;i<actionKey.length;i++){
-			for(int j=0;j<actionKey[i].length;j++){
-				actionKey[i][j] = new ActionKey(keyCode[i][j]);
-			}
-		}
+    TestGameRule2() {
+        Canvas canvas = new Canvas(530, 300);
+        //図形や線のアンチエイリアシングの有効化
+        canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //文字描画のアンチエイリアシングの有効化
+        canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        setCanvas(canvas);
 
-		clickPoint = new ArrayList<>();
-		clickPointRange = new ArrayList<>();
+        int[][] keyCode = {{65, 68, 87, 83, 10}};
+        actionKey = new ActionKey[keyCode.length][keyCode[0].length];
+        for (int i = 0; i < actionKey.length; i++) {
+            for (int j = 0; j < actionKey[i].length; j++) {
+                actionKey[i][j] = new ActionKey(keyCode[i][j]);
+            }
+        }
 
-		setExecuteRate(200);
-		setFrameRate(100);
-	}
-	@Override
-	public void pressKey(KeyEvent e){
-		int code = e.getKeyCode();
-		for(ActionKey[] keys:actionKey){
-			for(ActionKey key:keys){
-				if(code == key.getKeyCode()){
-					key.press();
-				}
-			}
-		}
-	}
-	@Override
-	public void releaseKey(KeyEvent e){
-		int code = e.getKeyCode();
-		for(ActionKey[] keys:actionKey){
-			for(ActionKey key:keys){
-				if(code == key.getKeyCode()){
-					key.release();
-				}
-			}
-		}
-	}
+        clickPoint = new ArrayList<>();
+        clickPointRange = new ArrayList<>();
 
-	@Override
-	public void clickMouse(MouseEvent e){
-		clickX = e.getX();
-		clickY = e.getY();
-		clicked = true;
-	}
-	public void loopActive(){
-		timer++;
+        setExecuteRate(200);
+        setFrameRate(100);
+    }
 
-		inactive = true;
+    @Override
+    public void pressKey(KeyEvent e) {
+        int code = e.getKeyCode();
+        for (ActionKey[] keys : actionKey) {
+            for (ActionKey key : keys) {
+                if (code == key.getKeyCode()) {
+                    key.press();
+                }
+            }
+        }
+    }
 
-		if(timer > 200){
-			timer = 0;
-		}
+    @Override
+    public void releaseKey(KeyEvent e) {
+        int code = e.getKeyCode();
+        for (ActionKey[] keys : actionKey) {
+            for (ActionKey key : keys) {
+                if (code == key.getKeyCode()) {
+                    key.release();
+                }
+            }
+        }
+    }
 
-		if(actionKey[0][0].isPress()){
-			ballX -= 5;
-		}
-		if(actionKey[0][1].isPress()){
-			ballX += 5;
-		}
-		if(actionKey[0][2].isPress()){
-			ballY -= 5;
-		}
-		if(actionKey[0][3].isPress()){
-			ballY += 5;
-		}
-		if(actionKey[0][4].isPress()){
-			changeRule = true;
-		}
+    @Override
+    public void clickMouse(MouseEvent e) {
+        clickX = e.getX();
+        clickY = e.getY();
+        clicked = true;
+    }
 
-		if(clicked){
-			clicked = false;
-			clickPoint.add(new Point(clickX,clickY));
-			clickPointRange.add(0);
-		}
+    public void loopActive() {
+        timer++;
 
-		if(0 < clickPoint.size()){
-			for(int i=0;i<clickPoint.size();i++){
-				if(clickPointRange.get(i) < CLICK_MAX_RANGE) {
-					clickPointRange.set(i, clickPointRange.get(i) + 1);
-				}else{
-					clickPoint.remove(i);
-					clickPointRange.remove(i);
-				}
-			}
-		}
-	}
-	boolean inactive = true;
-	public void loopInactive(){
-		for(ActionKey[] keys:actionKey){
-			for(ActionKey key:keys){
-				key.release();
-			}
-		}
-	}
-	public void paintActive(Graphics g){
-		g.setColor(Color.black);
-		g.fillRect(0,0,getCanvas().getWidth(),getCanvas().getHeight());
+        inactive = true;
 
-		g.setColor(Color.white);
-		g.fillOval(ballX-timer/2,ballY-timer/2,timer,timer);
+        if (timer > 200) {
+            timer = 0;
+        }
 
-		for(int i=0;i<clickPoint.size();i++){
-			int range = clickPointRange.get(i);
-			int x = (int)clickPoint.get(i).getX()-range/2;
-			int y = (int)clickPoint.get(i).getY()-range/2;
-			g.drawOval(x,y,range,range);
-		}
+        if (actionKey[0][0].isPress()) {
+            ballX -= 5;
+        }
+        if (actionKey[0][1].isPress()) {
+            ballX += 5;
+        }
+        if (actionKey[0][2].isPress()) {
+            ballY -= 5;
+        }
+        if (actionKey[0][3].isPress()) {
+            ballY += 5;
+        }
+        if (actionKey[0][4].isPress()) {
+            changeRule = true;
+        }
 
-		g.drawString("アンチエイリアシング有効",0,getCanvas().getHeight());
-	}
-	public void paintInactive(Graphics g){
-		if(inactive){
-			inactive = false;
-			paintPause(g);
-		}
-	}
-	public void paintPause(Graphics g){
-		g.setColor(new Color(0,0,0,100));
-		g.fillRect(0,0,getCanvas().getWidth(),getCanvas().getHeight());
+        if (clicked) {
+            clicked = false;
+            clickPoint.add(new Point(clickX, clickY));
+            clickPointRange.add(0);
+        }
 
-		FontMetrics fm = g.getFontMetrics();
-		String text = "FRAME MODE PAUSE";
-		Rectangle rectText = fm.getStringBounds(text, g).getBounds();
-		int startX = getCanvas().getWidth()/2-rectText.width/2;
-		int startY = getCanvas().getHeight()/2-rectText.height/2+fm.getMaxAscent();
-		g.setColor(Color.white);
-		g.drawString(text ,startX ,startY);
-	}
-	public void overTimeExecute(long overTime){
-		System.out.println(-overTime/1000000+"ms超過s");
-	}
-	public void overTimeFrame(long overTime){
-		System.out.println(-overTime/1000000+"ms超過f");
-	}
-	boolean changeRule;
-	public boolean isChangeRule(){
-		return changeRule;
-	}
-	public Rule getNewRule(){
-		return new TestGameRule();
-	}
-	public void addListener(MainFrame mf){
-		mf.addKeyListener(this);
-		mf.getMainPanel().addMouseListener(this);
-	}
-	public void removeListener(MainFrame mf){
-		mf.removeKeyListener(this);
-		mf.getMainPanel().removeMouseListener(this);
-	}
+        if (0 < clickPoint.size()) {
+            for (int i = 0; i < clickPoint.size(); i++) {
+                if (clickPointRange.get(i) < CLICK_MAX_RANGE) {
+                    clickPointRange.set(i, clickPointRange.get(i) + 1);
+                } else {
+                    clickPoint.remove(i);
+                    clickPointRange.remove(i);
+                }
+            }
+        }
+    }
+
+    public void loopInactive() {
+        for (ActionKey[] keys : actionKey) {
+            for (ActionKey key : keys) {
+                key.release();
+            }
+        }
+    }
+
+    public void paintActive(Graphics g) {
+        g.setColor(Color.black);
+        g.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+
+        g.setColor(Color.white);
+        g.fillOval(ballX - timer / 2, ballY - timer / 2, timer, timer);
+
+        for (int i = 0; i < clickPoint.size(); i++) {
+            int range = clickPointRange.get(i);
+            int x = (int) clickPoint.get(i).getX() - range / 2;
+            int y = (int) clickPoint.get(i).getY() - range / 2;
+            g.drawOval(x, y, range, range);
+        }
+
+        g.drawString("アンチエイリアシング有効", 0, getCanvas().getHeight());
+    }
+
+    public void paintInactive(Graphics g) {
+        if (inactive) {
+            inactive = false;
+            paintPause(g);
+        }
+    }
+
+    public void paintPause(Graphics g) {
+        g.setColor(new Color(0, 0, 0, 100));
+        g.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+
+        FontMetrics fm = g.getFontMetrics();
+        String text = "FRAME MODE PAUSE";
+        Rectangle rectText = fm.getStringBounds(text, g).getBounds();
+        int startX = getCanvas().getWidth() / 2 - rectText.width / 2;
+        int startY = getCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
+        g.setColor(Color.white);
+        g.drawString(text, startX, startY);
+    }
+
+    public void overTimeExecute(long overTime) {
+        System.out.println(-overTime / 1000000 + "ms超過s");
+    }
+
+    public void overTimeFrame(long overTime) {
+        System.out.println(-overTime / 1000000 + "ms超過f");
+    }
+
+    public boolean isChangeRule() {
+        return changeRule;
+    }
+
+    public Rule getNewRule() {
+        return new TestGameRule();
+    }
+
+    public void addListener(MainFrame mf) {
+        mf.addKeyListener(this);
+        mf.getMainPanel().addMouseListener(this);
+    }
+
+    public void removeListener(MainFrame mf) {
+        mf.removeKeyListener(this);
+        mf.getMainPanel().removeMouseListener(this);
+    }
 }
