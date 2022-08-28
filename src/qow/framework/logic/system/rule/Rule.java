@@ -10,7 +10,8 @@ import java.awt.event.*;
  * ループ内での処理を設定するクラス
  *
  * @author QOW
- * @version 1.0.0
+ * @version 2022-08-29
+ * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
     private Canvas canvas;
@@ -84,22 +85,20 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
 
     /**
      * フレームアクティブ時の描写
-     * Canvasに投影するGraphicsをペイントする
      *
-     * @param g Canvasに投影するGraphics
+     * @param g {@link Canvas}に投影する{@link Graphics}
      */
     public abstract void paintActive(Graphics g);
 
     /**
      * フレーム非アクティブ時の描写
-     * Canvasに投影するGraphicsをペイントする
      *
-     * @param g Canvasに投影するGraphics
+     * @param g {@link Canvas}に投影する{@link Graphics}
      */
     public abstract void paintInactive(Graphics g);
 
     /**
-     * MainFrameに投影するCanvasを返す
+     * {@link qow.framework.logic.screen.window.MainPanel}に投影する{@link Canvas}を返す
      *
      * @return 設定されたCanvas
      */
@@ -108,25 +107,25 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * 新しいCanvasを設定する
+     * 新しい{@link Canvas}を設定する
      *
-     * @param canvas 新しいCanvas
+     * @param canvas 新しい{@link Canvas}
      */
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
 
     /**
-     * 設定されたMainFrameを返す
+     * 設定された{@link MainFrame}を返す
      *
-     * @return 設定されたMainFrame
+     * @return 設定されたフレーム
      */
     public MainFrame getFrame() {
         return mf;
     }
 
     /**
-     * フレームを設定する
+     * {@link MainFrame}を設定する
      *
      * @param mf 新しいフレーム
      */
@@ -138,7 +137,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * キーがタイプされたときの処理
      *
-     * @param e KeyListenerで呼び出されたKeyEvent
+     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
     public void typeKey(KeyEvent e) {
     }
@@ -146,7 +145,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * キーが押されたときの処理
      *
-     * @param e KeyListenerで呼び出されたKeyEvent
+     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
     public void pressKey(KeyEvent e) {
     }
@@ -154,21 +153,30 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * キーが離されたときの処理
      *
-     * @param e KeyListenerで呼び出されたKeyEvent
+     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
     public void releaseKey(KeyEvent e) {
     }
 
+    /**
+     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         typeKey(e);
     }
 
+    /**
+     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         pressKey(e);
     }
 
+    /**
+     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         releaseKey(e);
@@ -177,7 +185,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * マウスがクリックされたときの処理
      *
-     * @param e MouseListenerで呼び出されたMouseEvent
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
     public void clickMouse(MouseEvent e) {
     }
@@ -185,7 +193,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * マウスがエンターされたときの処理
      *
-     * @param e MouseListenerで呼び出されたMouseEvent
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
     public void enterMouse(MouseEvent e) {
     }
@@ -193,7 +201,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * マウスがフレームからでたときの処理
      *
-     * @param e MouseListenerで呼び出されたMouseEvent
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
     public void exitMouse(MouseEvent e) {
     }
@@ -201,7 +209,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * マウスが押されたときの処理
      *
-     * @param e MouseListenerで呼び出されたMouseEvent
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
     public void pressMouse(MouseEvent e) {
     }
@@ -209,31 +217,43 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * マウスが離されたときの処理
      *
-     * @param e MouseListenerで呼び出されたMouseEvent
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
     public void releaseMouse(MouseEvent e) {
     }
 
+    /**
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         clickMouse(e);
     }
 
+    /**
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
         enterMouse(e);
     }
-
+    /**
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
+     */
     @Override
     public void mouseExited(MouseEvent e) {
         exitMouse(e);
     }
-
+    /**
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         pressMouse(e);
     }
-
+    /**
+     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         releaseMouse(e);
@@ -242,7 +262,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * マウスがドラッグされたときの処理
      *
-     * @param e MouseMotionListenerで呼び出されたMouseEvent
+     * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
      */
     public void dragMouse(MouseEvent e) {
     }
@@ -250,51 +270,55 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * マウスが動いたときの処理
      *
-     * @param e MouseMotionListenerで呼び出されたMouseEvent
+     * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
      */
     public void moveMouse(MouseEvent e) {
     }
 
+    /**
+     * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         dragMouse(e);
     }
-
+    /**
+     * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         moveMouse(e);
     }
-
     /**
-     * implementsしたListenerなどを追加する
+     * インターフェイスを追加する
      *
      * @param mf 設定するフレーム
      */
     public abstract void addListener(MainFrame mf);
 
     /**
-     * implementsしたListenerなどを破棄する
+     * インターフェイスを破棄する
      *
      * @param mf 設定されたフレーム
      */
     public abstract void removeListener(MainFrame mf);
 
     /**
-     * 処理に設定したfpsより時間がかかってしまった場合の処理
+     * 処理に設定されたレートより時間がかかってしまった場合の処理
      *
      * @param overTime 過ぎた時間のナノ秒
      */
     public abstract void overTimeExecute(long overTime);
 
     /**
-     * 描写に設定したfpsより時間がかかってしまった場合の処理
+     * 描写に設定されたレートより時間がかかってしまった場合の処理
      *
      * @param overTime 過ぎた時間のナノ秒
      */
     public abstract void overTimeFrame(long overTime);
 
     /**
-     * 新しいRuleに更新するかを返す
+     * 新しい{@link Rule}に更新するかを返す
      *
      * @return Ruleを更新する場合はtrue
      */
