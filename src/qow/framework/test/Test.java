@@ -207,11 +207,11 @@ class TestGameRule extends Rule{
 	}
 	public void addListener(MainFrame mf){
 		mf.addKeyListener(this);
-		mf.addMouseMotionListener(this);
+		mf.getMainPanel().addMouseMotionListener(this);
 	}
 	public void removeListener(MainFrame mf){
 		mf.removeKeyListener(this);
-		mf.removeMouseMotionListener(this);
+		mf.getMainPanel().removeMouseMotionListener(this);
 	}
 }
 class TestGameRule2 extends Rule{
@@ -375,10 +375,10 @@ class TestGameRule2 extends Rule{
 	}
 	public void addListener(MainFrame mf){
 		mf.addKeyListener(this);
-		mf.mp.addMouseListener(this);
+		mf.getMainPanel().addMouseListener(this);
 	}
 	public void removeListener(MainFrame mf){
 		mf.removeKeyListener(this);
-		mf.mp.removeMouseListener(this);
+		mf.getMainPanel().removeMouseListener(this);
 	}
 }

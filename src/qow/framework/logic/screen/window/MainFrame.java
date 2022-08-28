@@ -3,6 +3,8 @@ package qow.framework.logic.screen.window;
 import qow.framework.logic.screen.graphics.Canvas;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /**
 *メインのフレーム
 *
@@ -10,7 +12,7 @@ import javax.swing.JFrame;
 *@version 1.0.0
 */
 public class MainFrame extends JFrame{
-	public final MainPanel mp;
+	private final MainPanel mp;
 	
 	/**
 	*タイトルを設定し、インスタンス化する
@@ -39,5 +41,9 @@ public class MainFrame extends JFrame{
 		canvas.setPanel(mp);
 		
 		pack();
+	}
+
+	public JPanel getMainPanel(){
+		return mp;
 	}
 }
