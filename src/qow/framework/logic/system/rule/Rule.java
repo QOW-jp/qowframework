@@ -299,28 +299,32 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param mf 設定するフレーム
      */
-    public abstract void addListener(MainFrame mf);
+    public void addListener(MainFrame mf) {
+    }
 
     /**
      * インターフェイスを破棄する
      *
      * @param mf 設定されたフレーム
      */
-    public abstract void removeListener(MainFrame mf);
+    public void removeListener(MainFrame mf) {
+    }
 
     /**
      * 処理に設定されたレートより時間がかかってしまった場合の処理
      *
      * @param overTime 過ぎた時間のナノ秒
      */
-    public abstract void overTimeExecute(long overTime);
+    public void overTimeExecute(long overTime) {
+    }
 
     /**
      * 描写に設定されたレートより時間がかかってしまった場合の処理
      *
      * @param overTime 過ぎた時間のナノ秒
      */
-    public abstract void overTimeFrame(long overTime);
+    public void overTimeFrame(long overTime) {
+    }
 
     /**
      * 新しい{@link Rule}に更新するかを返す

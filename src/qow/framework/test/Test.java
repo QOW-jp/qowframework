@@ -65,7 +65,6 @@ class TestGameRule extends Rule {
         setFrameRate(50);
     }
 
-    @Override
     public void pressKey(KeyEvent e) {
         int code = e.getKeyCode();
         for (ActionKey[] keys : actionKey) {
@@ -77,7 +76,6 @@ class TestGameRule extends Rule {
         }
     }
 
-    @Override
     public void releaseKey(KeyEvent e) {
         int code = e.getKeyCode();
         for (ActionKey[] keys : actionKey) {
@@ -89,7 +87,6 @@ class TestGameRule extends Rule {
         }
     }
 
-    @Override
     public void dragMouse(MouseEvent e) {
         dragged = true;
         dragX = e.getX();
@@ -246,7 +243,6 @@ class TestGameRule2 extends Rule {
         setFrameRate(100);
     }
 
-    @Override
     public void pressKey(KeyEvent e) {
         int code = e.getKeyCode();
         for (ActionKey[] keys : actionKey) {
@@ -258,7 +254,6 @@ class TestGameRule2 extends Rule {
         }
     }
 
-    @Override
     public void releaseKey(KeyEvent e) {
         int code = e.getKeyCode();
         for (ActionKey[] keys : actionKey) {
@@ -270,7 +265,6 @@ class TestGameRule2 extends Rule {
         }
     }
 
-    @Override
     public void clickMouse(MouseEvent e) {
         clickX = e.getX();
         clickY = e.getY();
