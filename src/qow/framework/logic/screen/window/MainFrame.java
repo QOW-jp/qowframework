@@ -8,7 +8,7 @@ import javax.swing.*;
  * このフレームワーク内で主に使われる{@link JFrame}
  *
  * @author QOW
- * @version 2022-08-29
+ * @version 2022/08/29
  * @since 1.0.0
  */
 public class MainFrame extends JFrame {

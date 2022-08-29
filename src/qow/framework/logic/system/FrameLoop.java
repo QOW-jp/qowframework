@@ -8,7 +8,7 @@ import qow.framework.logic.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の画面の描写をする
  *
  * @author QOW
- * @version 2022-08-29
+ * @version 2022/08/29
  * @since 1.0.0
  */
 public class FrameLoop extends Loop {

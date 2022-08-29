@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        System.out.println("Testテスト");
+        System.out.println("TestModel");
         try {
             new KeyConfigWriter("data\\config\\keyconfig.txt");
         } catch (Exception e) {

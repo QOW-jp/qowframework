@@ -10,7 +10,7 @@ import java.awt.event.*;
  * ループ内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022-08-29
+ * @version 2022/08/29
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {

@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
  * {@link KeyEvent}の{@link KeyEvent#getKeyCode()}を保持しキーの状態を記録する
  *
  * @author QOW
- * @version 2022-08-29
+ * @version 2022/08/29
  * @since 1.0.0
  */
 public class ActionKey {

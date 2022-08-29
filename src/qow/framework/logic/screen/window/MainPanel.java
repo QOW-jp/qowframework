@@ -10,7 +10,7 @@ import java.awt.*;
  * {@link Canvas}から得た画像データをペイントする
  *
  * @author QOW
- * @version 2022-08-29
+ * @version 2022/08/29
  * @since 1.0.0
  */
 public class MainPanel extends JPanel {

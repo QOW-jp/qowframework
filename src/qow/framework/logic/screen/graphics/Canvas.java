@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  * {@link MainPanel}に投影する画像を保持する
  *
  * @author QOW
- * @version 2022-08-29
+ * @version 2022/08/29
  * @since 1.0.0
  */
 public class Canvas {
