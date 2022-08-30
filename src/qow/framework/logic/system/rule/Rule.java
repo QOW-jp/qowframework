@@ -19,7 +19,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     private int executeRate, frameRate;
 
     /**
-     * {@link qow.framework.logic.system.ExecuteLoop#setRule(Rule)}直後に呼び出されるメソッド<br>
+     * {@link qow.framework.logic.system.ExecuteLoop#setRule(Rule)}で呼び出されるメソッド<br>
      * {@link Rule#getFrame()}はこれ以降で使用できる
      */
     public void init() {

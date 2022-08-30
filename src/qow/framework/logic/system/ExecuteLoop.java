@@ -42,7 +42,6 @@ public class ExecuteLoop extends Loop {
         if (rule.isChangeRule()) {
             rule.removeListener(rule.getFrame());
             setRule(rule.getNewRule());
-            rule.init();
         }
     }
 
@@ -63,6 +62,7 @@ public class ExecuteLoop extends Loop {
     public void setRule(Rule rule) {
         this.rule = rule;
         fl.setRule(rule);
+        rule.init();
     }
 
     /**
