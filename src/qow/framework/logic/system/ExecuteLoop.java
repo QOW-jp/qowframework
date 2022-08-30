@@ -7,7 +7,7 @@ import qow.framework.logic.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の処理を実行する
  *
  * @author QOW
- * @version 2022/08/29
+ * @version 2022/08/31
  * @since 1.0.0
  */
 public class ExecuteLoop extends Loop {
@@ -42,6 +42,7 @@ public class ExecuteLoop extends Loop {
         if (rule.isChangeRule()) {
             rule.removeListener(rule.getFrame());
             setRule(rule.getNewRule());
+            rule.init();
         }
     }
 

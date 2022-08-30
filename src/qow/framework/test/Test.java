@@ -65,6 +65,10 @@ class TestGameRule extends Rule {
         setFrameRate(50);
     }
 
+    public void init() {
+        getFrame().setResizable(true);
+    }
+
     public void pressKey(KeyEvent e) {
         int code = e.getKeyCode();
         for (ActionKey[] keys : actionKey) {

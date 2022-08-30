@@ -10,13 +10,20 @@ import java.awt.event.*;
  * ループ内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022/08/29
+ * @version 2022/08/31
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
     private Canvas canvas;
     private MainFrame mf;
     private int executeRate, frameRate;
+
+    /**
+     * {@link qow.framework.logic.system.ExecuteLoop#setRule(Rule)}直後に呼び出されるメソッド<br>
+     * {@link Rule#getFrame()}はこれ以降で使用できる
+     */
+    public void init() {
+    }
 
     /**
      * @return 処理ループの一秒間に実行される予定の回数
