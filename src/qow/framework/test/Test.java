@@ -17,7 +17,7 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("TestModel");
         try {
-            new KeyConfigWriter("data\\config\\keyconfig.txt");
+            new KeyConfigWriter("data/config/key.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }
