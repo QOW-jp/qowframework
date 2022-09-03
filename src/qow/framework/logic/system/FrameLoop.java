@@ -8,7 +8,7 @@ import qow.framework.logic.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の画面の描写をする
  *
  * @author QOW
- * @version 2022/08/29
+ * @version 2022/09/03
  * @since 1.0.0
  */
 public class FrameLoop extends Loop {
@@ -22,7 +22,7 @@ public class FrameLoop extends Loop {
      */
     public FrameLoop(int rate) {
         this();
-        setRate(rate);
+        MainSystem.frameRate = rate;
     }
 
     /**
@@ -38,7 +38,7 @@ public class FrameLoop extends Loop {
      * 指定時間内に処理が終わらない場合は{@link FrameLoop#overTime(long)}が呼び出される
      */
     public void loop() {
-        setRate(rule.getFrameRate());
+        setRate(MainSystem.frameRate);
         rule.draw();
     }
 

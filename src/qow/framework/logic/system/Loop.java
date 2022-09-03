@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * 可能な限り一秒間に設定されたレートの回数{@link Loop#loop()}を実行する
  *
  * @author QOW
- * @version 2022/08/29
+ * @version 2022/09/03
  * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
@@ -40,15 +40,6 @@ public abstract class Loop implements Runnable {
         if (loop && !looping) {
             new Thread(this).start();
         }
-    }
-
-    /**
-     * 一秒間に設定されたレートの回数の処理を行う
-     *
-     * @return 一秒間に実行される回数
-     */
-    public int getRate() {
-        return rate;
     }
 
     /**
@@ -85,7 +76,7 @@ public abstract class Loop implements Runnable {
 
                 loop();
 
-                long sleepTime = oneSec / getRate() - (System.nanoTime() - st);
+                long sleepTime = oneSec / rate - (System.nanoTime() - st);
                 if (0 > sleepTime) {
                     overTime(sleepTime);
                 } else {

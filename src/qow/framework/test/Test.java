@@ -61,8 +61,8 @@ class TestGameRule extends Rule {
         dragPoint = new ArrayList<>();
         dragPointRange = new ArrayList<>();
 
-        setExecuteRate(100);
-        setFrameRate(50);
+        MainSystem.executeRate = 100;
+        MainSystem.frameRate = 50;
     }
 
     public void init() {
@@ -243,8 +243,8 @@ class TestGameRule2 extends Rule {
         clickPoint = new ArrayList<>();
         clickPointRange = new ArrayList<>();
 
-        setExecuteRate(200);
-        setFrameRate(100);
+        MainSystem.executeRate = 200;
+        MainSystem.frameRate = 100;
     }
 
     public void pressKey(KeyEvent e) {
@@ -285,16 +285,16 @@ class TestGameRule2 extends Rule {
         }
 
         if (actionKey[0][0].isPress()) {
-            ballX -= 5;
+            ballX -= 1;
         }
         if (actionKey[0][1].isPress()) {
-            ballX += 5;
+            ballX += 1;
         }
         if (actionKey[0][2].isPress()) {
-            ballY -= 5;
+            ballY -= 1;
         }
         if (actionKey[0][3].isPress()) {
-            ballY += 5;
+            ballY += 1;
         }
         if (actionKey[0][4].isPress()) {
             changeRule = true;
