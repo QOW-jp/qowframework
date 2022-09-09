@@ -289,7 +289,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param overTime 過ぎた時間のナノ秒
      */
-    public void overTimeExecute(long overTime) {
+    public void overTimeExecute(double overTime) {
     }
 
     /**
@@ -297,7 +297,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param overTime 過ぎた時間のナノ秒
      */
-    public void overTimeFrame(long overTime) {
+    public void overTimeFrame(double overTime) {
     }
 
     /**

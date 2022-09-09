@@ -135,6 +135,7 @@ class TestGameRule extends Rule {
                 } else {
                     dragPoint.remove(i);
                     dragPointRange.remove(i);
+                    i--;
                 }
             }
         }
@@ -185,11 +186,11 @@ class TestGameRule extends Rule {
         g.drawString(text, startX, startY);
     }
 
-    public void overTimeExecute(long overTime) {
+    public void overTimeExecute(double overTime) {
         System.out.println(-overTime / 1000000 + "ms超過s");
     }
 
-    public void overTimeFrame(long overTime) {
+    public void overTimeFrame(double overTime) {
         System.out.println(-overTime / 1000000 + "ms超過f");
     }
 
@@ -313,6 +314,7 @@ class TestGameRule2 extends Rule {
                 } else {
                     clickPoint.remove(i);
                     clickPointRange.remove(i);
+                    i--;
                 }
             }
         }
@@ -363,11 +365,11 @@ class TestGameRule2 extends Rule {
         g.drawString(text, startX, startY);
     }
 
-    public void overTimeExecute(long overTime) {
+    public void overTimeExecute(double overTime) {
         System.out.println(-overTime / 1000000 + "ms超過s");
     }
 
-    public void overTimeFrame(long overTime) {
+    public void overTimeFrame(double overTime) {
         System.out.println(-overTime / 1000000 + "ms超過f");
     }
 

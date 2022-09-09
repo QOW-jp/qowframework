@@ -7,17 +7,17 @@ import qow.framework.logic.system.rule.Rule;
  * 処理レートとフレームレートを制御する
  *
  * @author QOW
- * @version 1.3.2   2022/09/03
+ * @version 1.4.0   2022/09/09
  */
 public class MainSystem {
     /**
      * 一秒間に{@link ExecuteLoop#loop()}が実行される回数
      */
-    public static int executeRate;
+    public static double executeRate;
     /**
      * 一秒間に{@link FrameLoop#loop()}が実行される回数
      */
-    public static int frameRate;
+    public static double frameRate;
     private final ExecuteLoop el;
     private final FrameLoop fl;
 

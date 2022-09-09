@@ -7,20 +7,20 @@ import java.util.concurrent.TimeUnit;
  * 可能な限り一秒間に設定されたレートの回数{@link Loop#loop()}を実行する
  *
  * @author QOW
- * @version 2022/09/03
+ * @version 2022/09/09
  * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
     private final int oneSec = (int) Math.pow(10, 9);    //1,000,000,000ns
     private boolean loop, looping;
-    private int rate;
+    private double rate;
 
     /**
      * レートの初期値を設定し、インスタンス化する
      *
      * @param rate レートの初期値
      */
-    public Loop(int rate) {
+    public Loop(double rate) {
         this.rate = rate;
     }
 
@@ -28,6 +28,7 @@ public abstract class Loop implements Runnable {
      * レートの初期値を設定せずインスタンス化する
      */
     public Loop() {
+        this(0);
     }
 
     /**
@@ -47,7 +48,7 @@ public abstract class Loop implements Runnable {
      *
      * @param rate 一秒間に実行される回数
      */
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 
@@ -61,7 +62,7 @@ public abstract class Loop implements Runnable {
      *
      * @param overTime 過ぎた時間のナノ秒
      */
-    public abstract void overTime(long overTime);
+    public abstract void overTime(double overTime);
 
     /**
      * {@link Thread}がループにしようするメソッド
@@ -72,15 +73,18 @@ public abstract class Loop implements Runnable {
         try {
             looping = true;
             while (loop) {
-                long st = System.nanoTime();
+                long start = System.nanoTime();
 
                 loop();
 
-                long sleepTime = oneSec / rate - (System.nanoTime() - st);
-                if (0 > sleepTime) {
-                    overTime(sleepTime);
-                } else {
-                    TimeUnit.NANOSECONDS.sleep(sleepTime);
+                if(0 < rate) {
+                    long loopTime = System.nanoTime() - start;
+                    long sleepTime = (long) (oneSec / rate - loopTime);
+                    if (0 > sleepTime) {
+                        overTime(sleepTime);
+                    } else {
+                        TimeUnit.NANOSECONDS.sleep(sleepTime);
+                    }
                 }
             }
             looping = false;

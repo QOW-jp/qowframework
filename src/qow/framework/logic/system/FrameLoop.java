@@ -8,7 +8,7 @@ import qow.framework.logic.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の画面の描写をする
  *
  * @author QOW
- * @version 2022/09/03
+ * @version 2022/09/09
  * @since 1.0.0
  */
 public class FrameLoop extends Loop {
@@ -20,7 +20,7 @@ public class FrameLoop extends Loop {
      *
      * @param rate レートの初期値
      */
-    public FrameLoop(int rate) {
+    public FrameLoop(double rate) {
         this();
         MainSystem.frameRate = rate;
     }
@@ -35,7 +35,7 @@ public class FrameLoop extends Loop {
 
     /**
      * 可能な限り一秒間に設定されたレートの回数このメソッドを実行する<br>
-     * 指定時間内に処理が終わらない場合は{@link FrameLoop#overTime(long)}が呼び出される
+     * 指定時間内に処理が終わらない場合は{@link FrameLoop#overTime(double)}が呼び出される
      */
     public void loop() {
         setRate(MainSystem.frameRate);
@@ -47,7 +47,7 @@ public class FrameLoop extends Loop {
      *
      * @param overTime 過ぎた時間のナノ秒
      */
-    public void overTime(long overTime) {
+    public void overTime(double overTime) {
         rule.overTimeFrame(overTime);
     }
 
