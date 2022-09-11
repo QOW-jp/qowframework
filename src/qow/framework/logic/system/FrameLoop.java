@@ -59,9 +59,9 @@ public class FrameLoop extends Loop {
         return mf;
     }
 
-    public void setMainFrame(MainFrame mf) {
-        this.mf = mf;
-    }
+//    public void setMainFrame(MainFrame mf) {
+//        this.mf = mf;
+//    }
 
     /**
      * 使用するRuleを設定する

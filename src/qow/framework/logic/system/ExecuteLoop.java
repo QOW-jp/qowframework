@@ -2,6 +2,8 @@ package qow.framework.logic.system;
 
 import qow.framework.logic.system.rule.Rule;
 
+import java.awt.*;
+
 /**
  * 処理のレートを制御する<br>
  * 可能な限り一秒間に設定されたレートの回数の処理を実行する
@@ -12,6 +14,7 @@ import qow.framework.logic.system.rule.Rule;
  */
 public class ExecuteLoop extends Loop {
     private Rule rule;
+    private FrameLoop fl;
 
     /**
      * レートの初期値を設定し、インスタンス化する
@@ -38,7 +41,7 @@ public class ExecuteLoop extends Loop {
 
         if (rule.isChangeRule()) {
             rule.removeListener(rule.getMainFrame());
-            setRule(rule.getNewRule());
+            setRule(rule.getNewRule(),fl);
         }
     }
 
@@ -56,9 +59,18 @@ public class ExecuteLoop extends Loop {
      *
      * @param rule 各処理のRuleクラスを継承したクラス
      */
-    public void setRule(Rule rule) {
+    public void setRule(Rule rule,FrameLoop fl) {
         this.rule = rule;
+        this.fl = fl;
+
+        rule.setExecuteLoop(this);
+        rule.setFrameLoop(fl);
+
+        fl.setRule(rule);
+
 //        fl.setRule(rule);
+        System.out.println("ExecuteLoop#setRule Call");
         rule.init();
+        System.out.println("ExecuteLoop#setRule Called");
     }
 }

@@ -108,7 +108,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * @param mf 新しいフレーム
      */
     public void setMainFrame(MainFrame mf) {
-        this.mf = null;
+        //this.mf.dispose();
         this.mf = mf;
         addListener(getMainFrame());
     }

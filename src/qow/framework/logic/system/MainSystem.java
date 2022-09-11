@@ -75,9 +75,8 @@ public class MainSystem {
      * @param rule 各処理のRuleクラスを継承したクラス
      */
     public void setRule(Rule rule) {
-        rule.setExecuteLoop(el);
-        rule.setFrameLoop(fl);
-        el.setRule(rule);
-        fl.setRule(rule);
+        el.setRule(rule,fl);
+
+        System.out.println("MainSystem#setRule called");
     }
 }

@@ -22,7 +22,7 @@ public class Test {
         }
         try {
             MainSystem ms = new MainSystem();
-            TestGameRule gr = new TestGameRule();
+            TestGameRule1 gr = new TestGameRule1();
             ms.setRule(gr);
 
             gr.getMainFrame().setVisible(true);
@@ -34,7 +34,7 @@ public class Test {
     }
 }
 
-class TestGameRule extends Rule {
+class TestGameRule1 extends Rule {
     final int DRAG_MAX_RANGE = 100;
     int timer;
     ActionKey[][] actionKey;
@@ -46,7 +46,11 @@ class TestGameRule extends Rule {
     boolean inactive = true;
     boolean changeRule;
 
-    TestGameRule() {
+    TestGameRule1() {
+        MainFrame mf = new MainFrame("TestGameRule1");
+        mf.setUndecorated(false);
+        setMainFrame(mf);
+
         setCanvas(new Canvas(530, 300));
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
@@ -63,13 +67,17 @@ class TestGameRule extends Rule {
 
 
     public void init() {
-        MainFrame mf = new MainFrame("TestGameRule");
-        mf.setUndecorated(false);
-        setMainFrame(mf);
+        System.out.println("init call");
+//        MainFrame mf = new MainFrame("TestGameRule1");
+//        mf.setUndecorated(false);
+//        setMainFrame(mf);
 
         getMainFrame().setResizable(true);
         getExecuteLoop().setRate(100);
         getFrameLoop().setRate(50);
+
+        getMainFrame().setVisible(true);
+        System.out.println("init called");
     }
 
     public void pressKey(KeyEvent e) {
@@ -229,6 +237,7 @@ class TestGameRule2 extends Rule {
     boolean changeRule;
 
     TestGameRule2() {
+
         Canvas canvas = new Canvas(530, 300);
         //図形や線のアンチエイリアシングの有効化
         canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -249,6 +258,8 @@ class TestGameRule2 extends Rule {
 
     }
     public void init(){
+        setMainFrame(getFrameLoop().getMainFrame());
+
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);
     }
@@ -383,7 +394,7 @@ class TestGameRule2 extends Rule {
     }
 
     public Rule getNewRule() {
-        return new TestGameRule();
+        return new TestGameRule1();
     }
 
     public void addListener(MainFrame mf) {
