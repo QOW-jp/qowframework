@@ -71,7 +71,8 @@ public class FrameLoop extends Loop {
     public void setRule(Rule rule) {
         this.rule = rule;
 //        setMainFrame(rule.getMainFrame());
-        rule.setMainFrame(getMainFrame());
-        mf.setCanvas(rule.getCanvas());
+//        rule.setMainFrame(getMainFrame());
+        mf = rule.getMainFrame();
+        mf.setResolution(rule.getCanvas());
     }
 }

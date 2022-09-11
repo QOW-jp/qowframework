@@ -20,7 +20,7 @@ public class MainPanel extends JPanel {
      * レイアウトを設定してインスタンス化
      */
     public MainPanel() {
-        setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        //setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     }
 
     /**
@@ -42,13 +42,6 @@ public class MainPanel extends JPanel {
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        canvas.draw(g);
-    }
-
-    /**
-     * 再描写する
-     */
-    public void draw() {
-        repaint();
+        canvas.draw(g, (int) getPreferredSize().getWidth(), (int) getPreferredSize().getHeight());
     }
 }

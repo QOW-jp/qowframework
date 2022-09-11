@@ -12,7 +12,6 @@ import qow.framework.logic.system.rule.Rule;
  */
 public class ExecuteLoop extends Loop {
     private Rule rule;
-    private FrameLoop fl;
 
     /**
      * レートの初期値を設定し、インスタンス化する
@@ -61,14 +60,5 @@ public class ExecuteLoop extends Loop {
         this.rule = rule;
 //        fl.setRule(rule);
         rule.init();
-    }
-
-    /**
-     * 使用するFrameLoopを設定する
-     *
-     * @param fl フレームレートを制御するクラス
-     */
-    public void setFrameLoop(FrameLoop fl) {
-        this.fl = fl;
     }
 }

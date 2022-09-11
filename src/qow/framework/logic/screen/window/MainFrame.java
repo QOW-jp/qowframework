@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
      *
      * @param canvas 新しい{@link Canvas}
      */
-    public void setCanvas(Canvas canvas) {
+    public void setResolution(Canvas canvas) {
         mp.setCanvas(canvas);
         canvas.setMainPanel(mp);
 
@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
      *
      * @return このフレームのパネル
      */
-    public JPanel getMainPanel() {
+    public MainPanel getMainPanel() {
         return mp;
     }
 }

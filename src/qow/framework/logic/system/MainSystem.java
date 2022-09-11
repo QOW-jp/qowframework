@@ -27,7 +27,7 @@ public class MainSystem {
     public MainSystem() {
         el = new ExecuteLoop();
         fl = new FrameLoop();
-        el.setFrameLoop(fl);
+        //el.setFrameLoop(fl);
     }
 
     /**

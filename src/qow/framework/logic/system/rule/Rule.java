@@ -58,7 +58,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         } else {
             paintInactive(canvas.getGraphicsImage());
         }
-        canvas.draw();
+        mf.getMainPanel().repaint();
     }
 
     /**
@@ -108,6 +108,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * @param mf 新しいフレーム
      */
     public void setMainFrame(MainFrame mf) {
+        this.mf = null;
         this.mf = mf;
         addListener(getMainFrame());
     }

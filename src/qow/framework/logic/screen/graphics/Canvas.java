@@ -33,19 +33,12 @@ public class Canvas {
     }
 
     /**
-     * 再描写する
-     */
-    public void draw() {
-        mp.draw();
-    }
-
-    /**
      * {@link MainPanel}に保持している画像を描写する
      *
      * @param g ペイント対象の{@link Graphics}コンテキスト
      */
-    public void draw(Graphics g) {
-        g.drawImage(img, 0, 0, null);
+    public void draw(Graphics g,int width,int height) {
+        g.drawImage(img, 0, 0, width,height,null);
     }
 
     /**
