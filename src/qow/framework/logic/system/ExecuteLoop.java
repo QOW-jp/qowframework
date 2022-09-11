@@ -7,7 +7,7 @@ import qow.framework.logic.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の処理を実行する
  *
  * @author QOW
- * @version 2022/09/09
+ * @version 2022/09/11
  * @since 1.0.0
  */
 public class ExecuteLoop extends Loop {
@@ -35,12 +35,10 @@ public class ExecuteLoop extends Loop {
      * 指定時間内に処理が終わらない場合は{@link ExecuteLoop#overTime(double)}が呼び出される
      */
     public void loop() {
-        setRate(MainSystem.executeRate);
-
         rule.loop();
 
         if (rule.isChangeRule()) {
-            rule.removeListener(rule.getFrame());
+            rule.removeListener(rule.getMainFrame());
             setRule(rule.getNewRule());
         }
     }
@@ -61,7 +59,7 @@ public class ExecuteLoop extends Loop {
      */
     public void setRule(Rule rule) {
         this.rule = rule;
-        fl.setRule(rule);
+//        fl.setRule(rule);
         rule.init();
     }
 

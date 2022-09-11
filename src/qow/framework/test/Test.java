@@ -5,7 +5,6 @@ import qow.framework.logic.screen.window.MainFrame;
 import qow.framework.logic.system.MainSystem;
 import qow.framework.logic.system.rule.Rule;
 import qow.framework.logic.util.ActionKey;
-import qow.framework.setting.KeyConfigWriter;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -17,7 +16,7 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("TestModel");
         try {
-            new KeyConfigWriter("data/config/key.txt");
+            //new KeyConfigWriter("data/config/key.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -26,7 +25,7 @@ public class Test {
             TestGameRule gr = new TestGameRule();
             ms.setRule(gr);
 
-            ms.getFrame().setVisible(true);
+            gr.getMainFrame().setVisible(true);
             ms.start(true);
             System.out.println("start");
         } catch (Exception e) {
@@ -60,13 +59,17 @@ class TestGameRule extends Rule {
 
         dragPoint = new ArrayList<>();
         dragPointRange = new ArrayList<>();
-
-        MainSystem.executeRate = 100;
-        MainSystem.frameRate = 50;
     }
 
+
     public void init() {
-        getFrame().setResizable(true);
+        MainFrame mf = new MainFrame("TestGameRule");
+        mf.setUndecorated(false);
+        setMainFrame(mf);
+
+        getMainFrame().setResizable(true);
+        getExecuteLoop().setRate(100);
+        getFrameLoop().setRate(50);
     }
 
     public void pressKey(KeyEvent e) {
@@ -244,8 +247,10 @@ class TestGameRule2 extends Rule {
         clickPoint = new ArrayList<>();
         clickPointRange = new ArrayList<>();
 
-        MainSystem.executeRate = 200;
-        MainSystem.frameRate = 100;
+    }
+    public void init(){
+        getExecuteLoop().setRate(200);
+        getFrameLoop().setRate(100);
     }
 
     public void pressKey(KeyEvent e) {

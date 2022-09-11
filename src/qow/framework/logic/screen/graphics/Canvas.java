@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  * {@link MainPanel}に投影する画像を保持する
  *
  * @author QOW
- * @version 2022/08/29
+ * @version 2022/09/11
  * @since 1.0.0
  */
 public class Canvas {
@@ -62,7 +62,7 @@ public class Canvas {
      *
      * @param mp 新しいMainPanel
      */
-    public void setPanel(MainPanel mp) {
+    public void setMainPanel(MainPanel mp) {
         this.mp = mp;
     }
 

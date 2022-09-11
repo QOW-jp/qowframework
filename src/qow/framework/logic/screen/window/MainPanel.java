@@ -10,7 +10,7 @@ import java.awt.*;
  * {@link Canvas}から得た画像データをペイントする
  *
  * @author QOW
- * @version 2022/08/29
+ * @version 2022/09/11
  * @since 1.0.0
  */
 public class MainPanel extends JPanel {
@@ -31,6 +31,7 @@ public class MainPanel extends JPanel {
      */
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
+        //canvas.setMainPanel(this);
         setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
     }
 

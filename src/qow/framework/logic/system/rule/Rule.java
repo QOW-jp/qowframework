@@ -2,6 +2,8 @@ package qow.framework.logic.system.rule;
 
 import qow.framework.logic.screen.graphics.Canvas;
 import qow.framework.logic.screen.window.MainFrame;
+import qow.framework.logic.system.ExecuteLoop;
+import qow.framework.logic.system.FrameLoop;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,16 +12,18 @@ import java.awt.event.*;
  * ループ内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022/09/03
+ * @version 2022/09/11
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
+    private ExecuteLoop el;
+    private FrameLoop fl;
     private Canvas canvas;
     private MainFrame mf;
 
     /**
      * {@link qow.framework.logic.system.ExecuteLoop#setRule(Rule)}で呼び出されるメソッド<br>
-     * {@link Rule#getFrame()}はこれ以降で使用できる
+     * {@link Rule#getMainFrame()}はこれ以降で使用できる
      */
     public void init() {
     }
@@ -94,7 +98,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @return 設定されたフレーム
      */
-    public MainFrame getFrame() {
+    public MainFrame getMainFrame() {
         return mf;
     }
 
@@ -103,10 +107,29 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param mf 新しいフレーム
      */
-    public void setFrame(MainFrame mf) {
+    public void setMainFrame(MainFrame mf) {
         this.mf = mf;
-        addListener(getFrame());
+        addListener(getMainFrame());
     }
+
+    public ExecuteLoop getExecuteLoop() {
+        return el;
+    }
+
+    //javadoc
+    public void setExecuteLoop(ExecuteLoop el) {
+        this.el = el;
+    }
+
+    //javadoc
+    public FrameLoop getFrameLoop() {
+        return fl;
+    }
+
+    //javadoc
+    public void setFrameLoop(FrameLoop fl) {
+        this.fl = fl;
+    }//javadoc
 
     /**
      * キーがタイプされたときの処理

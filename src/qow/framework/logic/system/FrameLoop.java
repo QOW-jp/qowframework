@@ -8,11 +8,11 @@ import qow.framework.logic.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の画面の描写をする
  *
  * @author QOW
- * @version 2022/09/09
+ * @version 2022/09/11
  * @since 1.0.0
  */
 public class FrameLoop extends Loop {
-    private final MainFrame mf;
+    private MainFrame mf;
     private Rule rule;
 
     /**
@@ -22,7 +22,7 @@ public class FrameLoop extends Loop {
      */
     public FrameLoop(double rate) {
         this();
-        MainSystem.frameRate = rate;
+        setRate(rate);
     }
 
     /**
@@ -38,7 +38,6 @@ public class FrameLoop extends Loop {
      * 指定時間内に処理が終わらない場合は{@link FrameLoop#overTime(double)}が呼び出される
      */
     public void loop() {
-        setRate(MainSystem.frameRate);
         rule.draw();
     }
 
@@ -56,8 +55,12 @@ public class FrameLoop extends Loop {
      * @see MainFrame
      * @see javax.swing.JFrame
      */
-    public MainFrame getFrame() {
+    public MainFrame getMainFrame() {
         return mf;
+    }
+
+    public void setMainFrame(MainFrame mf) {
+        this.mf = mf;
     }
 
     /**
@@ -67,7 +70,8 @@ public class FrameLoop extends Loop {
      */
     public void setRule(Rule rule) {
         this.rule = rule;
-        rule.setFrame(mf);
+//        setMainFrame(rule.getMainFrame());
+        rule.setMainFrame(getMainFrame());
         mf.setCanvas(rule.getCanvas());
     }
 }

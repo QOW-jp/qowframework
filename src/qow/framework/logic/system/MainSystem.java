@@ -7,17 +7,9 @@ import qow.framework.logic.system.rule.Rule;
  * 処理レートとフレームレートを制御する
  *
  * @author QOW
- * @version 1.4.0   2022/09/09
+ * @version 1.4.1   2022/09/11
  */
 public class MainSystem {
-    /**
-     * 一秒間に{@link ExecuteLoop#loop()}が実行される回数
-     */
-    public static double executeRate;
-    /**
-     * 一秒間に{@link FrameLoop#loop()}が実行される回数
-     */
-    public static double frameRate;
     private final ExecuteLoop el;
     private final FrameLoop fl;
 
@@ -28,8 +20,8 @@ public class MainSystem {
      */
     public MainSystem(int rate) {
         this();
-        executeRate = rate;
-        frameRate = rate;
+        el.setRate(rate);
+        fl.setRate(rate);
     }
 
     public MainSystem() {
@@ -73,16 +65,19 @@ public class MainSystem {
      *
      * @return 描写されるフレーム
      */
-    public MainFrame getFrame() {
-        return fl.getFrame();
+    public MainFrame getMainFrame() {
+        return fl.getMainFrame();
     }
 
     /**
-     * 使用するのRuleを設定する
+     * {@link Rule}に使用する{@link ExecuteLoop}と{@link FrameLoop}を指定する
      *
      * @param rule 各処理のRuleクラスを継承したクラス
      */
     public void setRule(Rule rule) {
+        rule.setExecuteLoop(el);
+        rule.setFrameLoop(fl);
         el.setRule(rule);
+        fl.setRule(rule);
     }
 }

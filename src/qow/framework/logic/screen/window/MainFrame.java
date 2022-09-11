@@ -8,7 +8,7 @@ import javax.swing.*;
  * このフレームワーク内で主に使われる{@link JFrame}
  *
  * @author QOW
- * @version 2022/08/29
+ * @version 2022/09/11
  * @since 1.0.0
  */
 public class MainFrame extends JFrame {
@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
      */
     public void setCanvas(Canvas canvas) {
         mp.setCanvas(canvas);
-        canvas.setPanel(mp);
+        canvas.setMainPanel(mp);
 
         pack();
     }
