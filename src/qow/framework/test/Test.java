@@ -5,6 +5,7 @@ import qow.framework.logic.screen.window.MainFrame;
 import qow.framework.logic.system.MainSystem;
 import qow.framework.logic.system.rule.Rule;
 import qow.framework.logic.util.ActionKey;
+import qow.framework.setting.KeyConfigWriter;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,7 +17,7 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("TestModel");
         try {
-            //new KeyConfigWriter("data/config/key.txt");
+            new KeyConfigWriter("data/config/key.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,7 +49,7 @@ class TestGameRule1 extends Rule {
 
     TestGameRule1() {
         MainFrame mf = new MainFrame("TestGameRule1");
-        mf.setUndecorated(false);
+        //mf.setUndecorated(true);
         setMainFrame(mf);
 
         setCanvas(new Canvas(530, 300));
@@ -65,19 +66,12 @@ class TestGameRule1 extends Rule {
         dragPointRange = new ArrayList<>();
     }
 
-
     public void init() {
-        System.out.println("init call");
-//        MainFrame mf = new MainFrame("TestGameRule1");
-//        mf.setUndecorated(false);
-//        setMainFrame(mf);
-
         getMainFrame().setResizable(true);
         getExecuteLoop().setRate(100);
         getFrameLoop().setRate(50);
 
         getMainFrame().setVisible(true);
-        System.out.println("init called");
     }
 
     public void pressKey(KeyEvent e) {
@@ -237,7 +231,6 @@ class TestGameRule2 extends Rule {
     boolean changeRule;
 
     TestGameRule2() {
-
         Canvas canvas = new Canvas(530, 300);
         //図形や線のアンチエイリアシングの有効化
         canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -257,8 +250,9 @@ class TestGameRule2 extends Rule {
         clickPointRange = new ArrayList<>();
 
     }
-    public void init(){
-        setMainFrame(getFrameLoop().getMainFrame());
+
+    public void init() {
+        getMainFrame().setTitle("TestGameRule2");
 
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);

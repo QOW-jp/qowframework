@@ -12,7 +12,7 @@ import java.awt.event.*;
  * ループ内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022/09/11
+ * @version 2022/09/12
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
@@ -22,8 +22,9 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     private MainFrame mf;
 
     /**
-     * {@link qow.framework.logic.system.ExecuteLoop#setRule(Rule)}で呼び出されるメソッド<br>
-     * {@link Rule#getMainFrame()}はこれ以降で使用できる
+     * {@link qow.framework.logic.system.ExecuteLoop#setRule(Rule, FrameLoop)}で呼び出されるメソッド<br>
+     * インスタンス後に{@link MainFrame}を定義されてから呼び出される<br>
+     * {@link Rule#getMainFrame()}はここ以降で使用できる
      */
     public void init() {
     }
@@ -108,9 +109,17 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * @param mf 新しいフレーム
      */
     public void setMainFrame(MainFrame mf) {
-        //this.mf.dispose();
         this.mf = mf;
         addListener(getMainFrame());
+    }
+
+    /**
+     * このクラスに{@link MainFrame}が設定されているかを返す
+     *
+     * @return 設定されている場合はtrue
+     */
+    public boolean hasMainFrame() {
+        return mf != null;
     }
 
     public ExecuteLoop getExecuteLoop() {

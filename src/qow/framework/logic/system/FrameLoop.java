@@ -8,7 +8,7 @@ import qow.framework.logic.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の画面の描写をする
  *
  * @author QOW
- * @version 2022/09/11
+ * @version 2022/09/12
  * @since 1.0.0
  */
 public class FrameLoop extends Loop {
@@ -59,10 +59,6 @@ public class FrameLoop extends Loop {
         return mf;
     }
 
-//    public void setMainFrame(MainFrame mf) {
-//        this.mf = mf;
-//    }
-
     /**
      * 使用するRuleを設定する
      *
@@ -70,9 +66,13 @@ public class FrameLoop extends Loop {
      */
     public void setRule(Rule rule) {
         this.rule = rule;
-//        setMainFrame(rule.getMainFrame());
-//        rule.setMainFrame(getMainFrame());
-        mf = rule.getMainFrame();
+
+        if (rule.hasMainFrame()) {
+            mf.dispose();
+            mf = rule.getMainFrame();
+        } else {
+            rule.setMainFrame(mf);
+        }
         mf.setResolution(rule.getCanvas());
     }
 }
