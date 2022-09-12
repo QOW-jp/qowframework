@@ -1,13 +1,12 @@
 package qow.framework.logic.system;
 
-import qow.framework.logic.screen.window.MainFrame;
 import qow.framework.logic.system.rule.Rule;
 
 /**
  * 処理レートとフレームレートを制御する
  *
  * @author QOW
- * @version 1.4.1   2022/09/11
+ * @version 1.4.1   2022/09/12
  */
 public class MainSystem {
     private final ExecuteLoop el;
@@ -27,7 +26,6 @@ public class MainSystem {
     public MainSystem() {
         el = new ExecuteLoop();
         fl = new FrameLoop();
-        //el.setFrameLoop(fl);
     }
 
     /**
@@ -61,22 +59,11 @@ public class MainSystem {
     }
 
     /**
-     * {@link FrameLoop}に設定されている{@link MainFrame}を返す
-     *
-     * @return 描写されるフレーム
-     */
-    public MainFrame getMainFrame() {
-        return fl.getMainFrame();
-    }
-
-    /**
      * {@link Rule}に使用する{@link ExecuteLoop}と{@link FrameLoop}を指定する
      *
      * @param rule 各処理のRuleクラスを継承したクラス
      */
     public void setRule(Rule rule) {
-        el.setRule(rule,fl);
-
-        System.out.println("MainSystem#setRule called");
+        el.setRule(rule, fl);
     }
 }

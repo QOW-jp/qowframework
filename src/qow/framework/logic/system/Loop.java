@@ -77,7 +77,7 @@ public abstract class Loop implements Runnable {
 
                 loop();
 
-                if(0 < rate) {
+                if (0 < rate) {
                     long loopTime = System.nanoTime() - start;
                     long sleepTime = (long) (oneSec / rate - loopTime);
                     if (0 > sleepTime) {

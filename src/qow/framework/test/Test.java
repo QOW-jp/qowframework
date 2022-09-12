@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        System.out.println("TestModel");
+        System.out.println("qowframework-1.4.1.jar TestModel");
         try {
             new KeyConfigWriter("data/config/key.txt");
         } catch (Exception e) {
@@ -67,7 +67,7 @@ class TestGameRule1 extends Rule {
     }
 
     public void init() {
-        getMainFrame().setResizable(true);
+        getMainFrame().setResizable(false);
         getExecuteLoop().setRate(100);
         getFrameLoop().setRate(50);
 

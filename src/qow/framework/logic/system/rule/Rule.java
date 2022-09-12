@@ -122,24 +122,43 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         return mf != null;
     }
 
+    /**
+     * 現在使用している{@link ExecuteLoop}を取得する<br>
+     * レートの設定を行うときなどで使用する
+     *
+     * @return 処理レートを管理するクラス
+     */
     public ExecuteLoop getExecuteLoop() {
         return el;
     }
 
-    //javadoc
+    /**
+     * 使用する{@link ExecuteLoop}を設定する
+     *
+     * @param el 処理レートを管理するクラス
+     */
     public void setExecuteLoop(ExecuteLoop el) {
         this.el = el;
     }
 
-    //javadoc
+    /**
+     * 現在使用している{@link FrameLoop}を取得する<br>
+     * レートの設定を行うときなどで使用する
+     *
+     * @return フレームレートを管理するクラス
+     */
     public FrameLoop getFrameLoop() {
         return fl;
     }
 
-    //javadoc
+    /**
+     * 使用する{@link FrameLoop}を設定する
+     *
+     * @param fl フレームレートを管理するクラス
+     */
     public void setFrameLoop(FrameLoop fl) {
         this.fl = fl;
-    }//javadoc
+    }
 
     /**
      * キーがタイプされたときの処理

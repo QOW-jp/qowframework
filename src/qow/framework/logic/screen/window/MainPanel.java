@@ -10,18 +10,11 @@ import java.awt.*;
  * {@link Canvas}から得た画像データをペイントする
  *
  * @author QOW
- * @version 2022/09/11
+ * @version 2022/09/12
  * @since 1.0.0
  */
 public class MainPanel extends JPanel {
     private Canvas canvas;
-
-    /**
-     * レイアウトを設定してインスタンス化
-     */
-    public MainPanel() {
-        //setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-    }
 
     /**
      * {@link Canvas}を更新する<br>
@@ -31,7 +24,6 @@ public class MainPanel extends JPanel {
      */
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
-        //canvas.setMainPanel(this);
         setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
     }
 

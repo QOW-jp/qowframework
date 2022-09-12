@@ -9,14 +9,13 @@ import java.awt.image.BufferedImage;
  * {@link MainPanel}に投影する画像を保持する
  *
  * @author QOW
- * @version 2022/09/11
+ * @version 2022/09/12
  * @since 1.0.0
  */
 public class Canvas {
     private final BufferedImage img;
     private final Graphics gra;
     private int width, height;
-    private MainPanel mp;
 
     /**
      * サイズを設定してインスタンス化する
@@ -37,8 +36,8 @@ public class Canvas {
      *
      * @param g ペイント対象の{@link Graphics}コンテキスト
      */
-    public void draw(Graphics g,int width,int height) {
-        g.drawImage(img, 0, 0, width,height,null);
+    public void draw(Graphics g, int width, int height) {
+        g.drawImage(img, 0, 0, width, height, null);
     }
 
     /**
@@ -48,15 +47,6 @@ public class Canvas {
      */
     public Graphics getGraphicsImage() {
         return gra;
-    }
-
-    /**
-     * 描写する{@link MainPanel}を設定する
-     *
-     * @param mp 新しいMainPanel
-     */
-    public void setMainPanel(MainPanel mp) {
-        this.mp = mp;
     }
 
     /**

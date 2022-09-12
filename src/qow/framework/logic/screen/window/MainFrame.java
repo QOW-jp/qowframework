@@ -43,8 +43,6 @@ public class MainFrame extends JFrame {
      */
     public void setResolution(Canvas canvas) {
         mp.setCanvas(canvas);
-        canvas.setMainPanel(mp);
-
         pack();
     }
 
