@@ -1,4 +1,4 @@
-package qow.framework.test;
+package qow.demo;
 
 import qow.framework.logic.screen.graphics.Canvas;
 import qow.framework.logic.screen.window.MainFrame;
@@ -13,9 +13,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test {
+public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("qowframework-1.4.1.jar TestModel");
+        System.out.println("qowframework-1.4.2.jar TestModel");
         try {
             new KeyConfigWriter("data/config/key.txt");
         } catch (Exception e) {
@@ -23,7 +23,7 @@ public class Test {
         }
         try {
             MainSystem ms = new MainSystem();
-            TestGameRule1 gr = new TestGameRule1();
+            DemoFrameworkGameRule1 gr = new DemoFrameworkGameRule1();
             ms.setRule(gr);
 
             gr.getMainFrame().setVisible(true);
@@ -35,7 +35,7 @@ public class Test {
     }
 }
 
-class TestGameRule1 extends Rule {
+class DemoFrameworkGameRule1 extends Rule {
     final int DRAG_MAX_RANGE = 100;
     int timer;
     ActionKey[][] actionKey;
@@ -47,8 +47,8 @@ class TestGameRule1 extends Rule {
     boolean inactive = true;
     boolean changeRule;
 
-    TestGameRule1() {
-        MainFrame mf = new MainFrame("TestGameRule1");
+    DemoFrameworkGameRule1() {
+        MainFrame mf = new MainFrame("DemoFrameworkGameRule1");
         //mf.setUndecorated(true);
         setMainFrame(mf);
 
@@ -67,7 +67,6 @@ class TestGameRule1 extends Rule {
     }
 
     public void init() {
-        getMainFrame().setResizable(false);
         getExecuteLoop().setRate(100);
         getFrameLoop().setRate(50);
 
@@ -204,7 +203,7 @@ class TestGameRule1 extends Rule {
     }
 
     public Rule getNewRule() {
-        return new TestGameRule2();
+        return new DemoFrameworkGameRule2();
     }
 
     public void addListener(MainFrame mf) {
@@ -218,7 +217,7 @@ class TestGameRule1 extends Rule {
     }
 }
 
-class TestGameRule2 extends Rule {
+class DemoFrameworkGameRule2 extends Rule {
     final int CLICK_MAX_RANGE = 1200;
     int timer;
     int ballX, ballY;
@@ -230,7 +229,7 @@ class TestGameRule2 extends Rule {
     boolean inactive = true;
     boolean changeRule;
 
-    TestGameRule2() {
+    DemoFrameworkGameRule2() {
         Canvas canvas = new Canvas(530, 300);
         //図形や線のアンチエイリアシングの有効化
         canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -252,7 +251,7 @@ class TestGameRule2 extends Rule {
     }
 
     public void init() {
-        getMainFrame().setTitle("TestGameRule2");
+        getMainFrame().setTitle("DemoFrameworkGameRule2");
 
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);
@@ -388,7 +387,7 @@ class TestGameRule2 extends Rule {
     }
 
     public Rule getNewRule() {
-        return new TestGameRule1();
+        return new DemoFrameworkGameRule1();
     }
 
     public void addListener(MainFrame mf) {
