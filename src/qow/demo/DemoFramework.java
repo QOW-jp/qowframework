@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("qowframework-1.4.1.jar DemoModel");
+        System.out.println("qowframework-1.4.2.jar DemoModel");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkGameRule1 gr = new DemoFrameworkGameRule1();
