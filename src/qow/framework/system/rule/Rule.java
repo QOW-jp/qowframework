@@ -1,8 +1,8 @@
 package qow.framework.system.rule;
 
-import qow.framework.screen.MainPanel;
-import qow.framework.screen.Canvas;
-import qow.framework.screen.MainFrame;
+import qow.framework.screen.QCanvas;
+import qow.framework.screen.QFrame;
+import qow.framework.screen.QPanel;
 import qow.framework.system.ExecuteLoop;
 import qow.framework.system.FrameLoop;
 
@@ -10,28 +10,28 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * ループ内での処理を設定するクラス
+ * {@link ExecuteLoop}と{@link FrameLoop}内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022/09/12
+ * @version 2022/09/23
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
     private ExecuteLoop el;
     private FrameLoop fl;
-    private Canvas canvas;
-    private MainFrame mf;
+    private QCanvas canvas;
+    private QFrame mf;
 
     /**
      * {@link qow.framework.system.ExecuteLoop#setRule(Rule, FrameLoop)}で呼び出されるメソッド<br>
-     * インスタンス後に{@link MainFrame}を定義されてから呼び出される<br>
+     * インスタンス後に{@link QFrame}を定義されてから呼び出される<br>
      * {@link Rule#getMainFrame()}はここ以降で使用できる
      */
     public void init() {
     }
 
     /**
-     * 処理ループによって一秒間にレートの回数実行されるメソッド
+     * {@link ExecuteLoop#loop()}によって一秒間にレートの回数実行されるメソッド
      */
     public void loop() {
         if (mf.isActive()) {
@@ -52,7 +52,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     public abstract void loopInactive();
 
     /**
-     * 描写ループによって一秒間にレートの回数実行されるメソッド
+     * {@link FrameLoop#loop()}によって一秒間にレートの回数実行されるメソッド
      */
     public void draw() {
         if (mf.isActive()) {
@@ -66,56 +66,56 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * フレームアクティブ時の描写
      *
-     * @param g {@link Canvas}に投影する{@link Graphics}
+     * @param g {@link QCanvas}に投影する{@link Graphics}
      */
     public abstract void paintActive(Graphics g);
 
     /**
      * フレーム非アクティブ時の描写
      *
-     * @param g {@link Canvas}に投影する{@link Graphics}
+     * @param g {@link QCanvas}に投影する{@link Graphics}
      */
     public abstract void paintInactive(Graphics g);
 
     /**
-     * {@link MainPanel}に投影する{@link Canvas}を返す
+     * {@link QPanel}に投影する{@link QCanvas}を返す
      *
      * @return 設定されたCanvas
      */
-    public Canvas getCanvas() {
+    public QCanvas getCanvas() {
         return canvas;
     }
 
     /**
-     * 新しい{@link Canvas}を設定する
+     * 新しい{@link QCanvas}を設定する
      *
-     * @param canvas 新しい{@link Canvas}
+     * @param canvas 新しい{@link QCanvas}
      */
-    public void setCanvas(Canvas canvas) {
+    public void setCanvas(QCanvas canvas) {
         this.canvas = canvas;
     }
 
     /**
-     * 設定された{@link MainFrame}を返す
+     * 設定された{@link QFrame}を返す
      *
      * @return 設定されたフレーム
      */
-    public MainFrame getMainFrame() {
+    public QFrame getMainFrame() {
         return mf;
     }
 
     /**
-     * {@link MainFrame}を設定する
+     * {@link QFrame}を設定する
      *
      * @param mf 新しいフレーム
      */
-    public void setMainFrame(MainFrame mf) {
+    public void setMainFrame(QFrame mf) {
         this.mf = mf;
         addListener(getMainFrame());
     }
 
     /**
-     * このクラスに{@link MainFrame}が設定されているかを返す
+     * このクラスに{@link QFrame}が設定されているかを返す
      *
      * @return 設定されている場合はtrue
      */
@@ -326,7 +326,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param mf 設定するフレーム
      */
-    public void addListener(MainFrame mf) {
+    public void addListener(QFrame mf) {
     }
 
     /**
@@ -334,7 +334,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param mf 設定されたフレーム
      */
-    public void removeListener(MainFrame mf) {
+    public void removeListener(QFrame mf) {
     }
 
     /**

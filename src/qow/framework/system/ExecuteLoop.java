@@ -7,7 +7,7 @@ import qow.framework.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の処理を実行する
  *
  * @author QOW
- * @version 2022/09/12
+ * @version 2022/09/23
  * @since 1.0.0
  */
 public class ExecuteLoop extends Loop {
@@ -53,9 +53,9 @@ public class ExecuteLoop extends Loop {
     }
 
     /**
-     * 使用するのRuleを設定する
+     * ループする{@link Rule}を設定する
      *
-     * @param rule 各処理のRuleクラスを継承したクラス
+     * @param rule 各処理の{@link Rule}を継承したクラス
      */
     public void setRule(Rule rule, FrameLoop fl) {
         this.rule = rule;

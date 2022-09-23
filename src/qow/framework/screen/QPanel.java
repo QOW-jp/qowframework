@@ -4,23 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * {@link MainFrame}に張り付けるパネル<br>
- * {@link Canvas}から得た画像データをペイントする
+ * {@link QFrame}に張り付けるパネル<br>
+ * {@link QCanvas}から得た画像データをペイントする
  *
  * @author QOW
- * @version 2022/09/12
- * @since 1.0.0
+ * @version 2022/09/23
+ * @since 1.4.2
  */
-public class MainPanel extends JPanel {
-    private Canvas canvas;
+public class QPanel extends JPanel {
+    private QCanvas canvas;
 
     /**
-     * {@link Canvas}を更新する<br>
-     * {@link Canvas}に合ったサイズに変更する
+     * {@link QCanvas}を更新する<br>
+     * {@link QCanvas}に合ったサイズに変更する
      *
-     * @param canvas 新しい{@link Canvas}
+     * @param canvas 新しい{@link QCanvas}
      */
-    public void setCanvas(Canvas canvas) {
+    public void setCanvas(QCanvas canvas) {
         this.canvas = canvas;
         setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
     }

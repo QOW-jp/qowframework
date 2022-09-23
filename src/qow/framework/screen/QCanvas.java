@@ -4,13 +4,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * {@link MainPanel}に投影する画像を保持する
+ * {@link QPanel}に投影する画像を保持する
  *
  * @author QOW
- * @version 2022/09/12
- * @since 1.0.0
+ * @version 2022/09/23
+ * @since 1.4.2
  */
-public class Canvas {
+public class QCanvas {
     private final BufferedImage img;
     private final Graphics gra;
     private int width, height;
@@ -21,7 +21,7 @@ public class Canvas {
      * @param width  横のサイズ
      * @param height 縦のサイズ
      */
-    public Canvas(int width, int height) {
+    public QCanvas(int width, int height) {
         setWidth(width);
         setHeight(height);
 
@@ -30,7 +30,7 @@ public class Canvas {
     }
 
     /**
-     * {@link MainPanel}に保持している画像を描写する
+     * {@link QPanel}に保持している画像を描写する
      *
      * @param g ペイント対象の{@link Graphics}コンテキスト
      */

@@ -1,18 +1,18 @@
 package qow.framework.system;
 
-import qow.framework.screen.MainFrame;
+import qow.framework.screen.QFrame;
 import qow.framework.system.rule.Rule;
 
 /**
  * 画面のレートを制御する<br>
- * 可能な限り一秒間に設定されたレートの回数の画面の描写をする
+ * 可能な限り一秒間に設定されたレートの回数の画面の再描写をする
  *
  * @author QOW
- * @version 2022/09/12
+ * @version 2022/09/23
  * @since 1.0.0
  */
 public class FrameLoop extends Loop {
-    private MainFrame mf;
+    private QFrame qf;
     private Rule rule;
 
     /**
@@ -30,7 +30,7 @@ public class FrameLoop extends Loop {
      */
     public FrameLoop() {
         super();
-        mf = new MainFrame("MainFrame");
+        qf = new QFrame("QFrame");
     }
 
     /**
@@ -51,28 +51,28 @@ public class FrameLoop extends Loop {
     }
 
     /**
-     * @return 設定されているMainFrame
-     * @see MainFrame
+     * @return 設定されているフレーム
+     * @see QFrame
      * @see javax.swing.JFrame
      */
-    public MainFrame getMainFrame() {
-        return mf;
+    public QFrame getMainFrame() {
+        return qf;
     }
 
     /**
-     * 使用するRuleを設定する
+     * ループする{@link Rule}を設定する
      *
-     * @param rule 各処理のRuleクラスを継承したクラス
+     * @param rule 各処理の{@link Rule}を継承したクラス
      */
     public void setRule(Rule rule) {
         this.rule = rule;
 
         if (rule.hasMainFrame()) {
-            mf.dispose();
-            mf = rule.getMainFrame();
+            qf.dispose();
+            qf = rule.getMainFrame();
         } else {
-            rule.setMainFrame(mf);
+            rule.setMainFrame(qf);
         }
-        mf.setResolution(rule.getCanvas());
+        qf.setResolution(rule.getCanvas());
     }
 }

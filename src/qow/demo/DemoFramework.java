@@ -1,7 +1,7 @@
 package qow.demo;
 
-import qow.framework.screen.Canvas;
-import qow.framework.screen.MainFrame;
+import qow.framework.screen.QCanvas;
+import qow.framework.screen.QFrame;
 import qow.framework.system.MainSystem;
 import qow.framework.system.rule.Rule;
 import qow.framework.util.ActionKey;
@@ -42,11 +42,11 @@ class DemoFrameworkGameRule1 extends Rule {
     boolean changeRule;
 
     DemoFrameworkGameRule1() {
-        MainFrame mf = new MainFrame("DemoFrameworkGameRule1");
-        //mf.setUndecorated(true);
-        setMainFrame(mf);
+        QFrame qf = new QFrame("DemoFrameworkGameRule1");
+        //qf.setUndecorated(true);
+        setMainFrame(qf);
 
-        setCanvas(new Canvas(530, 300));
+        setCanvas(new QCanvas(530, 300));
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
@@ -200,14 +200,14 @@ class DemoFrameworkGameRule1 extends Rule {
         return new DemoFrameworkGameRule2();
     }
 
-    public void addListener(MainFrame mf) {
-        mf.addKeyListener(this);
-        mf.getMainPanel().addMouseMotionListener(this);
+    public void addListener(QFrame qf) {
+        qf.addKeyListener(this);
+        qf.getMainPanel().addMouseMotionListener(this);
     }
 
-    public void removeListener(MainFrame mf) {
-        mf.removeKeyListener(this);
-        mf.getMainPanel().removeMouseMotionListener(this);
+    public void removeListener(QFrame qf) {
+        qf.removeKeyListener(this);
+        qf.getMainPanel().removeMouseMotionListener(this);
     }
 }
 
@@ -224,7 +224,7 @@ class DemoFrameworkGameRule2 extends Rule {
     boolean changeRule;
 
     DemoFrameworkGameRule2() {
-        Canvas canvas = new Canvas(530, 300);
+        QCanvas canvas = new QCanvas(530, 300);
         //図形や線のアンチエイリアシングの有効化
         canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //文字描画のアンチエイリアシングの有効化
@@ -384,13 +384,13 @@ class DemoFrameworkGameRule2 extends Rule {
         return new DemoFrameworkGameRule1();
     }
 
-    public void addListener(MainFrame mf) {
-        mf.addKeyListener(this);
-        mf.getMainPanel().addMouseListener(this);
+    public void addListener(QFrame qf) {
+        qf.addKeyListener(this);
+        qf.getMainPanel().addMouseListener(this);
     }
 
-    public void removeListener(MainFrame mf) {
-        mf.removeKeyListener(this);
-        mf.getMainPanel().removeMouseListener(this);
+    public void removeListener(QFrame qf) {
+        qf.removeKeyListener(this);
+        qf.getMainPanel().removeMouseListener(this);
     }
 }
