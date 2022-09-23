@@ -114,13 +114,15 @@ public abstract class Loop implements Runnable {
         try {
             if (0 < rate) {
                 long sleepTime = (long) (oneSec / rate - (System.nanoTime() - currentTime));
-                if (0 > sleepTime) {
-                    overTime(sleepTime);
-                } else {
+                updateRate();
+                if (0 < sleepTime) {
                     TimeUnit.NANOSECONDS.sleep(sleepTime);
+                } else {
+                    overTime(sleepTime);
                 }
+            } else {
+                updateRate();
             }
-            updateRate();
             currentTime = System.nanoTime();
         } catch (Exception ignored) {
         }
