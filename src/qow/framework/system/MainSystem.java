@@ -1,6 +1,6 @@
-package qow.framework.logic.system;
+package qow.framework.system;
 
-import qow.framework.logic.system.rule.Rule;
+import qow.framework.system.rule.Rule;
 
 /**
  * 処理レートとフレームレートを制御する

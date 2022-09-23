@@ -1,4 +1,4 @@
-package qow.framework.logic.util;
+package qow.framework.util;
 
 import java.awt.event.KeyEvent;
 

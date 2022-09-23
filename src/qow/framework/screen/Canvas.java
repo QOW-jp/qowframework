@@ -1,6 +1,4 @@
-package qow.framework.logic.screen.graphics;
-
-import qow.framework.logic.screen.window.MainPanel;
+package qow.framework.screen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

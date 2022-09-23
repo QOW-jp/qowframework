@@ -1,11 +1,10 @@
 package qow.demo;
 
-import qow.framework.logic.screen.graphics.Canvas;
-import qow.framework.logic.screen.window.MainFrame;
-import qow.framework.logic.system.MainSystem;
-import qow.framework.logic.system.rule.Rule;
-import qow.framework.logic.util.ActionKey;
-import qow.framework.setting.KeyConfigWriter;
+import qow.framework.screen.Canvas;
+import qow.framework.screen.MainFrame;
+import qow.framework.system.MainSystem;
+import qow.framework.system.rule.Rule;
+import qow.framework.util.ActionKey;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,12 +14,7 @@ import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("qowframework-1.4.2.jar TestModel");
-        try {
-            new KeyConfigWriter("data/config/key.txt");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println("qowframework-1.4.2.jar DemoModel");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkGameRule1 gr = new DemoFrameworkGameRule1();

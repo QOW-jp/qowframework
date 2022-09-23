@@ -1,9 +1,10 @@
-package qow.framework.logic.system.rule;
+package qow.framework.system.rule;
 
-import qow.framework.logic.screen.graphics.Canvas;
-import qow.framework.logic.screen.window.MainFrame;
-import qow.framework.logic.system.ExecuteLoop;
-import qow.framework.logic.system.FrameLoop;
+import qow.framework.screen.MainPanel;
+import qow.framework.screen.Canvas;
+import qow.framework.screen.MainFrame;
+import qow.framework.system.ExecuteLoop;
+import qow.framework.system.FrameLoop;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -22,7 +23,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     private MainFrame mf;
 
     /**
-     * {@link qow.framework.logic.system.ExecuteLoop#setRule(Rule, FrameLoop)}で呼び出されるメソッド<br>
+     * {@link qow.framework.system.ExecuteLoop#setRule(Rule, FrameLoop)}で呼び出されるメソッド<br>
      * インスタンス後に{@link MainFrame}を定義されてから呼び出される<br>
      * {@link Rule#getMainFrame()}はここ以降で使用できる
      */
@@ -77,7 +78,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     public abstract void paintInactive(Graphics g);
 
     /**
-     * {@link qow.framework.logic.screen.window.MainPanel}に投影する{@link Canvas}を返す
+     * {@link MainPanel}に投影する{@link Canvas}を返す
      *
      * @return 設定されたCanvas
      */

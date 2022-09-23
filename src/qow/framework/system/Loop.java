@@ -1,4 +1,4 @@
-package qow.framework.logic.system;
+package qow.framework.system;
 
 import java.util.concurrent.TimeUnit;
 

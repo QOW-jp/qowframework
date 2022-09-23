@@ -1,7 +1,7 @@
-package qow.framework.logic.system;
+package qow.framework.system;
 
-import qow.framework.logic.screen.window.MainFrame;
-import qow.framework.logic.system.rule.Rule;
+import qow.framework.screen.MainFrame;
+import qow.framework.system.rule.Rule;
 
 /**
  * 画面のレートを制御する<br>

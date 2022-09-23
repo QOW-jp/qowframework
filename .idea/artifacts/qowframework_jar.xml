@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="qowframework:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/qowframework_jar</output-path>
+    <root id="archive" name="qowframework.jar">
+      <element id="module-output" name="qowframework" />
+    </root>
+  </artifact>
+</component>

@@ -1,6 +1,4 @@
-package qow.framework.logic.screen.window;
-
-import qow.framework.logic.screen.graphics.Canvas;
+package qow.framework.screen;
 
 import javax.swing.*;
 import java.awt.*;
