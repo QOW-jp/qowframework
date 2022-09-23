@@ -46,7 +46,7 @@ class DemoFrameworkGameRule1 extends Rule {
         //qf.setUndecorated(true);
         setMainFrame(qf);
 
-        setCanvas(new QCanvas(530, 300));
+        setCanvas(new QCanvas(800, 500));
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
@@ -137,6 +137,8 @@ class DemoFrameworkGameRule1 extends Rule {
                 }
             }
         }
+
+        getMainFrame().setTitle("DemoFrameworkGameRule1 予定処理レート:" + (int) getExecuteLoop().getRate() + " 予定フレームレート:" + (int) getFrameLoop().getRate() + " | 処理レート:" + (int) getExecuteLoop().getCurrentRate() + " フレームレート:" + (int) getFrameLoop().getCurrentRate());
     }
 
     public void loopInactive() {
@@ -224,7 +226,7 @@ class DemoFrameworkGameRule2 extends Rule {
     boolean changeRule;
 
     DemoFrameworkGameRule2() {
-        QCanvas canvas = new QCanvas(530, 300);
+        QCanvas canvas = new QCanvas(800, 500);
         //図形や線のアンチエイリアシングの有効化
         canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //文字描画のアンチエイリアシングの有効化
@@ -321,6 +323,8 @@ class DemoFrameworkGameRule2 extends Rule {
                 }
             }
         }
+
+        getMainFrame().setTitle("DemoFrameworkGameRule2 予定処理レート:" + (int) getExecuteLoop().getRate() + " 予定フレームレート:" + (int) getFrameLoop().getRate() + " | 処理レート:" + (int) getExecuteLoop().getCurrentRate() + " フレームレート:" + (int) getFrameLoop().getCurrentRate());
     }
 
     public void loopInactive() {

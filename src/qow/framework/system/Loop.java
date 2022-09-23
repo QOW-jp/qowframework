@@ -7,13 +7,14 @@ import java.util.concurrent.TimeUnit;
  * 可能な限り一秒間に設定されたレートの回数{@link Loop#loop()}を実行する
  *
  * @author QOW
- * @version 2022/09/09
+ * @version 2022/09/23
  * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
     private final int oneSec = (int) Math.pow(10, 9);    //1,000,000,000ns
     private boolean loop, looping;
-    private double rate;
+    private double rate, currentRate;
+    private long currentTime;
 
     /**
      * レートの初期値を設定し、インスタンス化する
@@ -44,12 +45,37 @@ public abstract class Loop implements Runnable {
     }
 
     /**
+     * 現在の設定されたレートを取得する
+     *
+     * @return 一秒間に実行される回数
+     */
+    public double getRate() {
+        return rate;
+    }
+
+    /**
      * 新しくレートを設定する
      *
      * @param rate 一秒間に実行される回数
      */
     public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    private void updateRate() {
+        currentRate = (double) oneSec / (System.nanoTime() - currentTime);
+        if (0 < rate && rate < currentRate) {
+            currentRate = rate;
+        }
+    }
+
+    /**
+     * 現在のレートを取得する
+     *
+     * @return 一秒間に実行された回数
+     */
+    public double getCurrentRate() {
+        return currentRate;
     }
 
     /**
@@ -70,26 +96,33 @@ public abstract class Loop implements Runnable {
      * @deprecated マルチスレッド用のメソッドなので使用しない
      */
     public void run() {
+        looping = true;
         try {
-            looping = true;
+            currentTime = System.nanoTime();
             while (loop) {
-                long start = System.nanoTime();
-
                 loop();
 
-                if (0 < rate) {
-                    long loopTime = System.nanoTime() - start;
-                    long sleepTime = (long) (oneSec / rate - loopTime);
-                    if (0 > sleepTime) {
-                        overTime(sleepTime);
-                    } else {
-                        TimeUnit.NANOSECONDS.sleep(sleepTime);
-                    }
-                }
+                delay();
             }
-            looping = false;
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        looping = false;
+    }
+
+    private void delay() {
+        try {
+            if (0 < rate) {
+                long sleepTime = (long) (oneSec / rate - (System.nanoTime() - currentTime));
+                if (0 > sleepTime) {
+                    overTime(sleepTime);
+                } else {
+                    TimeUnit.NANOSECONDS.sleep(sleepTime);
+                }
+            }
+            updateRate();
+            currentTime = System.nanoTime();
+        } catch (Exception ignored) {
         }
     }
 }
