@@ -10,7 +10,7 @@ import javax.swing.*;
  * @since 1.4.2
  */
 public class QFrame extends JFrame {
-    private final QPanel mp;
+    private final QPanel qp;
 
     /**
      * タイトルを設定せずインスタンス化する
@@ -20,8 +20,8 @@ public class QFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        mp = new QPanel();
-        add(mp);
+        qp = new QPanel();
+        add(qp);
     }
 
     /**
@@ -41,7 +41,7 @@ public class QFrame extends JFrame {
      * @param canvas 新しい{@link QCanvas}
      */
     public void setResolution(QCanvas canvas) {
-        mp.setCanvas(canvas);
+        qp.setQCanvas(canvas);
         pack();
     }
 
@@ -50,7 +50,7 @@ public class QFrame extends JFrame {
      *
      * @return このフレームのパネル
      */
-    public QPanel getMainPanel() {
-        return mp;
+    public QPanel getQPanel() {
+        return qp;
     }
 }

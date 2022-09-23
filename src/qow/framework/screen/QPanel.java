@@ -20,7 +20,7 @@ public class QPanel extends JPanel {
      *
      * @param canvas 新しい{@link QCanvas}
      */
-    public void setCanvas(QCanvas canvas) {
+    public void setQCanvas(QCanvas canvas) {
         this.canvas = canvas;
         setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
     }

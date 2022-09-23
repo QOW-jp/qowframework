@@ -20,12 +20,12 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     private ExecuteLoop el;
     private FrameLoop fl;
     private QCanvas canvas;
-    private QFrame mf;
+    private QFrame qf;
 
     /**
      * {@link qow.framework.system.ExecuteLoop#setRule(Rule, FrameLoop)}で呼び出されるメソッド<br>
      * インスタンス後に{@link QFrame}を定義されてから呼び出される<br>
-     * {@link Rule#getMainFrame()}はここ以降で使用できる
+     * {@link Rule#getQFrame()}はここ以降で使用できる
      */
     public void init() {
     }
@@ -34,7 +34,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * {@link ExecuteLoop#loop()}によって一秒間にレートの回数実行されるメソッド
      */
     public void loop() {
-        if (mf.isActive()) {
+        if (qf.isActive()) {
             loopActive();
         } else {
             loopInactive();
@@ -55,12 +55,12 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * {@link FrameLoop#loop()}によって一秒間にレートの回数実行されるメソッド
      */
     public void draw() {
-        if (mf.isActive()) {
+        if (qf.isActive()) {
             paintActive(canvas.getGraphicsImage());
         } else {
             paintInactive(canvas.getGraphicsImage());
         }
-        mf.getMainPanel().repaint();
+        qf.getQPanel().repaint();
     }
 
     /**
@@ -80,9 +80,9 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * {@link QPanel}に投影する{@link QCanvas}を返す
      *
-     * @return 設定されたCanvas
+     * @return 設定された画像キャンパス
      */
-    public QCanvas getCanvas() {
+    public QCanvas getQCanvas() {
         return canvas;
     }
 
@@ -91,7 +91,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param canvas 新しい{@link QCanvas}
      */
-    public void setCanvas(QCanvas canvas) {
+    public void setQCanvas(QCanvas canvas) {
         this.canvas = canvas;
     }
 
@@ -100,18 +100,18 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @return 設定されたフレーム
      */
-    public QFrame getMainFrame() {
-        return mf;
+    public QFrame getQFrame() {
+        return qf;
     }
 
     /**
      * {@link QFrame}を設定する
      *
-     * @param mf 新しいフレーム
+     * @param qf 新しいフレーム
      */
-    public void setMainFrame(QFrame mf) {
-        this.mf = mf;
-        addListener(getMainFrame());
+    public void setQFrame(QFrame qf) {
+        this.qf = qf;
+        addListener(getQFrame());
     }
 
     /**
@@ -119,8 +119,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @return 設定されている場合はtrue
      */
-    public boolean hasMainFrame() {
-        return mf != null;
+    public boolean hasQFrame() {
+        return qf != null;
     }
 
     /**
@@ -324,17 +324,17 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * インターフェイスを追加する
      *
-     * @param mf 設定するフレーム
+     * @param qf 設定するフレーム
      */
-    public void addListener(QFrame mf) {
+    public void addListener(QFrame qf) {
     }
 
     /**
      * インターフェイスを破棄する
      *
-     * @param mf 設定されたフレーム
+     * @param qf 設定されたフレーム
      */
-    public void removeListener(QFrame mf) {
+    public void removeListener(QFrame qf) {
     }
 
     /**

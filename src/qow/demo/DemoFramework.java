@@ -14,13 +14,13 @@ import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("qowframework-1.4.2.jar DemoModel");
+        System.out.println("qowframework-1.4.1.jar DemoModel");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkGameRule1 gr = new DemoFrameworkGameRule1();
             ms.setRule(gr);
 
-            gr.getMainFrame().setVisible(true);
+            gr.getQFrame().setVisible(true);
             ms.start(true);
             System.out.println("start");
         } catch (Exception e) {
@@ -44,9 +44,9 @@ class DemoFrameworkGameRule1 extends Rule {
     DemoFrameworkGameRule1() {
         QFrame qf = new QFrame("DemoFrameworkGameRule1");
         //qf.setUndecorated(true);
-        setMainFrame(qf);
+        setQFrame(qf);
 
-        setCanvas(new QCanvas(800, 500));
+        setQCanvas(new QCanvas(800, 500));
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
@@ -64,7 +64,7 @@ class DemoFrameworkGameRule1 extends Rule {
         getExecuteLoop().setRate(100);
         getFrameLoop().setRate(50);
 
-        getMainFrame().setVisible(true);
+        getQFrame().setVisible(true);
     }
 
     public void pressKey(KeyEvent e) {
@@ -138,7 +138,7 @@ class DemoFrameworkGameRule1 extends Rule {
             }
         }
 
-        getMainFrame().setTitle("DemoFrameworkGameRule1 予定処理レート:" + (int) getExecuteLoop().getRate() + " 予定フレームレート:" + (int) getFrameLoop().getRate() + " | 処理レート:" + (int) getExecuteLoop().getCurrentRate() + " フレームレート:" + (int) getFrameLoop().getCurrentRate());
+        getQFrame().setTitle("DemoFrameworkGameRule1 予定処理レート:" + (int) getExecuteLoop().getRate() + " 予定フレームレート:" + (int) getFrameLoop().getRate() + " | 処理レート:" + (int) getExecuteLoop().getCurrentRate() + " フレームレート:" + (int) getFrameLoop().getCurrentRate());
     }
 
     public void loopInactive() {
@@ -151,7 +151,7 @@ class DemoFrameworkGameRule1 extends Rule {
 
     public void paintActive(Graphics g) {
         g.setColor(Color.black);
-        g.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+        g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
 
         g.setColor(Color.white);
         g.fillOval(ballX - timer / 2, ballY - timer / 2, timer, timer);
@@ -163,7 +163,7 @@ class DemoFrameworkGameRule1 extends Rule {
             g.drawOval(x, y, range, range);
         }
 
-        g.drawString("アンチエイリアシング無効化", 0, getCanvas().getHeight());
+        g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {
@@ -175,13 +175,13 @@ class DemoFrameworkGameRule1 extends Rule {
 
     public void paintPause(Graphics g) {
         g.setColor(new Color(0, 0, 0, 100));
-        g.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+        g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
 
         FontMetrics fm = g.getFontMetrics();
         String text = "FRAME MODE PAUSE";
         Rectangle rectText = fm.getStringBounds(text, g).getBounds();
-        int startX = getCanvas().getWidth() / 2 - rectText.width / 2;
-        int startY = getCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
+        int startX = getQCanvas().getWidth() / 2 - rectText.width / 2;
+        int startY = getQCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
         g.setColor(Color.white);
         g.drawString(text, startX, startY);
     }
@@ -204,12 +204,12 @@ class DemoFrameworkGameRule1 extends Rule {
 
     public void addListener(QFrame qf) {
         qf.addKeyListener(this);
-        qf.getMainPanel().addMouseMotionListener(this);
+        qf.getQPanel().addMouseMotionListener(this);
     }
 
     public void removeListener(QFrame qf) {
         qf.removeKeyListener(this);
-        qf.getMainPanel().removeMouseMotionListener(this);
+        qf.getQPanel().removeMouseMotionListener(this);
     }
 }
 
@@ -231,7 +231,7 @@ class DemoFrameworkGameRule2 extends Rule {
         canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //文字描画のアンチエイリアシングの有効化
         canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        setCanvas(canvas);
+        setQCanvas(canvas);
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
@@ -247,7 +247,7 @@ class DemoFrameworkGameRule2 extends Rule {
     }
 
     public void init() {
-        getMainFrame().setTitle("DemoFrameworkGameRule2");
+        getQFrame().setTitle("DemoFrameworkGameRule2");
 
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);
@@ -324,7 +324,7 @@ class DemoFrameworkGameRule2 extends Rule {
             }
         }
 
-        getMainFrame().setTitle("DemoFrameworkGameRule2 予定処理レート:" + (int) getExecuteLoop().getRate() + " 予定フレームレート:" + (int) getFrameLoop().getRate() + " | 処理レート:" + (int) getExecuteLoop().getCurrentRate() + " フレームレート:" + (int) getFrameLoop().getCurrentRate());
+        getQFrame().setTitle("DemoFrameworkGameRule2 予定処理レート:" + (int) getExecuteLoop().getRate() + " 予定フレームレート:" + (int) getFrameLoop().getRate() + " | 処理レート:" + (int) getExecuteLoop().getCurrentRate() + " フレームレート:" + (int) getFrameLoop().getCurrentRate());
     }
 
     public void loopInactive() {
@@ -337,7 +337,7 @@ class DemoFrameworkGameRule2 extends Rule {
 
     public void paintActive(Graphics g) {
         g.setColor(Color.black);
-        g.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+        g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
 
         g.setColor(Color.white);
         g.fillOval(ballX - timer / 2, ballY - timer / 2, timer, timer);
@@ -349,7 +349,7 @@ class DemoFrameworkGameRule2 extends Rule {
             g.drawOval(x, y, range, range);
         }
 
-        g.drawString("アンチエイリアシング有効化", 0, getCanvas().getHeight());
+        g.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {
@@ -361,13 +361,13 @@ class DemoFrameworkGameRule2 extends Rule {
 
     public void paintPause(Graphics g) {
         g.setColor(new Color(0, 0, 0, 100));
-        g.fillRect(0, 0, getCanvas().getWidth(), getCanvas().getHeight());
+        g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
 
         FontMetrics fm = g.getFontMetrics();
         String text = "FRAME MODE PAUSE";
         Rectangle rectText = fm.getStringBounds(text, g).getBounds();
-        int startX = getCanvas().getWidth() / 2 - rectText.width / 2;
-        int startY = getCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
+        int startX = getQCanvas().getWidth() / 2 - rectText.width / 2;
+        int startY = getQCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
         g.setColor(Color.white);
         g.drawString(text, startX, startY);
     }
@@ -390,11 +390,11 @@ class DemoFrameworkGameRule2 extends Rule {
 
     public void addListener(QFrame qf) {
         qf.addKeyListener(this);
-        qf.getMainPanel().addMouseListener(this);
+        qf.getQPanel().addMouseListener(this);
     }
 
     public void removeListener(QFrame qf) {
         qf.removeKeyListener(this);
-        qf.getMainPanel().removeMouseListener(this);
+        qf.getQPanel().removeMouseListener(this);
     }
 }

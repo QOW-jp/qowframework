@@ -55,7 +55,7 @@ public class FrameLoop extends Loop {
      * @see QFrame
      * @see javax.swing.JFrame
      */
-    public QFrame getMainFrame() {
+    public QFrame getQFrame() {
         return qf;
     }
 
@@ -67,12 +67,12 @@ public class FrameLoop extends Loop {
     public void setRule(Rule rule) {
         this.rule = rule;
 
-        if (rule.hasMainFrame()) {
+        if (rule.hasQFrame()) {
             qf.dispose();
-            qf = rule.getMainFrame();
+            qf = rule.getQFrame();
         } else {
-            rule.setMainFrame(qf);
+            rule.setQFrame(qf);
         }
-        qf.setResolution(rule.getCanvas());
+        qf.setResolution(rule.getQCanvas());
     }
 }
