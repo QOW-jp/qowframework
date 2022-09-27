@@ -43,7 +43,6 @@ class DemoFrameworkGameRule1 extends Rule {
 
     DemoFrameworkGameRule1() {
         QFrame qf = new QFrame("DemoFrameworkGameRule1");
-        //qf.setUndecorated(true);
         setQFrame(qf);
 
         setQCanvas(new QCanvas(800, 500));
@@ -137,8 +136,6 @@ class DemoFrameworkGameRule1 extends Rule {
                 }
             }
         }
-
-        getQFrame().setTitle("DemoFrameworkGameRule1 予定処理レート:" + (int) getExecuteLoop().getRate() + " 予定フレームレート:" + (int) getFrameLoop().getRate() + " | 処理レート:" + (int) getExecuteLoop().getCurrentRate() + " フレームレート:" + (int) getFrameLoop().getCurrentRate());
     }
 
     public void loopInactive() {
@@ -163,31 +160,31 @@ class DemoFrameworkGameRule1 extends Rule {
             g.drawOval(x, y, range, range);
         }
 
+        FontMetrics fm = g.getFontMetrics();
+        String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + (int) getExecuteLoop().getCurrentRate() + " fps:" + (int) getFrameLoop().getCurrentRate();
+        g.drawString(text, 0, fm.getMaxAscent());
+
         g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {
         if (inactive) {
             inactive = false;
-            paintPause(g);
+            g.setColor(new Color(0, 0, 0, 100));
+            g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
+
+            FontMetrics fm = g.getFontMetrics();
+            String text = "FRAME MODE PAUSE";
+            Rectangle rectText = fm.getStringBounds(text, g).getBounds();
+            int startX = getQCanvas().getWidth() / 2 - rectText.width / 2;
+            int startY = getQCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
+            g.setColor(Color.white);
+            g.drawString(text, startX, startY);
         }
     }
 
-    public void paintPause(Graphics g) {
-        g.setColor(new Color(0, 0, 0, 100));
-        g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
-
-        FontMetrics fm = g.getFontMetrics();
-        String text = "FRAME MODE PAUSE";
-        Rectangle rectText = fm.getStringBounds(text, g).getBounds();
-        int startX = getQCanvas().getWidth() / 2 - rectText.width / 2;
-        int startY = getQCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
-        g.setColor(Color.white);
-        g.drawString(text, startX, startY);
-    }
-
     public void overTimeExecute(double overTime) {
-        System.out.println(-overTime / 1000000 + "ms超過s");
+        System.out.println(-overTime / 1000000 + "ms超過e");
     }
 
     public void overTimeFrame(double overTime) {
@@ -323,8 +320,6 @@ class DemoFrameworkGameRule2 extends Rule {
                 }
             }
         }
-
-        getQFrame().setTitle("DemoFrameworkGameRule2 予定処理レート:" + (int) getExecuteLoop().getRate() + " 予定フレームレート:" + (int) getFrameLoop().getRate() + " | 処理レート:" + (int) getExecuteLoop().getCurrentRate() + " フレームレート:" + (int) getFrameLoop().getCurrentRate());
     }
 
     public void loopInactive() {
@@ -349,31 +344,31 @@ class DemoFrameworkGameRule2 extends Rule {
             g.drawOval(x, y, range, range);
         }
 
+        FontMetrics fm = g.getFontMetrics();
+        String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + (int) getExecuteLoop().getCurrentRate() + " fps:" + (int) getFrameLoop().getCurrentRate();
+        g.drawString(text, 0, fm.getMaxAscent());
+
         g.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {
         if (inactive) {
             inactive = false;
-            paintPause(g);
+            g.setColor(new Color(0, 0, 0, 100));
+            g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
+
+            FontMetrics fm = g.getFontMetrics();
+            String text = "FRAME MODE PAUSE";
+            Rectangle rectText = fm.getStringBounds(text, g).getBounds();
+            int startX = getQCanvas().getWidth() / 2 - rectText.width / 2;
+            int startY = getQCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
+            g.setColor(Color.white);
+            g.drawString(text, startX, startY);
         }
     }
 
-    public void paintPause(Graphics g) {
-        g.setColor(new Color(0, 0, 0, 100));
-        g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
-
-        FontMetrics fm = g.getFontMetrics();
-        String text = "FRAME MODE PAUSE";
-        Rectangle rectText = fm.getStringBounds(text, g).getBounds();
-        int startX = getQCanvas().getWidth() / 2 - rectText.width / 2;
-        int startY = getQCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
-        g.setColor(Color.white);
-        g.drawString(text, startX, startY);
-    }
-
     public void overTimeExecute(double overTime) {
-        System.out.println(-overTime / 1000000 + "ms超過s");
+        System.out.println(-overTime / 1000000 + "ms超過e");
     }
 
     public void overTimeFrame(double overTime) {

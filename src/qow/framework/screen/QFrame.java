@@ -1,12 +1,13 @@
 package qow.framework.screen;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * {@link qow.framework.system.FrameLoop}で再描写されるフレーム
  *
  * @author QOW
- * @version 2022/09/23
+ * @version 2022/09/28
  * @since 1.4.2
  */
 public class QFrame extends JFrame {
@@ -42,6 +43,18 @@ public class QFrame extends JFrame {
      */
     public void setResolution(QCanvas canvas) {
         qp.setQCanvas(canvas);
+        pack();
+    }
+
+    /**
+     * 解像度は変えずにフレームの大きさを変更する
+     *
+     * @param width  フレームの横幅
+     * @param height フレームの縦幅
+     * @deprecated マウスリスナー系統の座標取得がずれる
+     */
+    public void setSize(int width, int height) {
+        qp.setPreferredSize(new Dimension(width, height));
         pack();
     }
 
