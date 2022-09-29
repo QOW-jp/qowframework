@@ -55,9 +55,9 @@ public class QFrame extends JFrame {
      */
     public void setFrameSize(int width, int height) {
         remove(qp);
-        add(qp);
-
         qp.setPreferredSize(new Dimension(width, height));
+
+        add(qp);
 
         pack();
     }
