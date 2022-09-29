@@ -223,13 +223,6 @@ class DemoFrameworkGameRule2 extends Rule {
     boolean changeRule;
 
     DemoFrameworkGameRule2() {
-        QCanvas canvas = new QCanvas(800, 500);
-        //図形や線のアンチエイリアシングの有効化
-        canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        //文字描画のアンチエイリアシングの有効化
-        canvas.getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        setQCanvas(canvas);
-
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
         for (int i = 0; i < actionKey.length; i++) {
@@ -246,6 +239,11 @@ class DemoFrameworkGameRule2 extends Rule {
     public void init() {
         getQFrame().setTitle("DemoFrameworkGameRule2");
 
+        //図形や線のアンチエイリアシングの有効化
+        getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //文字描画のアンチエイリアシングの有効化
+        getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);
     }

@@ -7,7 +7,7 @@ import java.awt.*;
  * {@link qow.framework.system.FrameLoop}で再描写されるフレーム
  *
  * @author QOW
- * @version 2022/09/28
+ * @version 2022/09/29
  * @since 1.4.2
  */
 public class QFrame extends JFrame {
@@ -53,8 +53,12 @@ public class QFrame extends JFrame {
      * @param height フレームの縦幅
      * @deprecated マウスリスナー系統の座標取得がずれる
      */
-    public void setSize(int width, int height) {
+    public void setFrameSize(int width, int height) {
+        remove(qp);
+        add(qp);
+
         qp.setPreferredSize(new Dimension(width, height));
+
         pack();
     }
 

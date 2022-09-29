@@ -8,7 +8,7 @@ import qow.framework.system.rule.Rule;
  * 可能な限り一秒間に設定されたレートの回数の画面の再描写をする
  *
  * @author QOW
- * @version 2022/09/23
+ * @version 2022/09/29
  * @since 1.0.0
  */
 public class FrameLoop extends Loop {
@@ -30,7 +30,7 @@ public class FrameLoop extends Loop {
      */
     public FrameLoop() {
         super();
-        qf = new QFrame("QFrame");
+        qf = new QFrame();
     }
 
     /**
@@ -72,6 +72,10 @@ public class FrameLoop extends Loop {
             qf = rule.getQFrame();
         } else {
             rule.setQFrame(qf);
+            if (!rule.hasQCanvas()) {
+                rule.setQCanvas(qf.getQPanel().getQCanvas());
+                return;
+            }
         }
         qf.setResolution(rule.getQCanvas());
     }

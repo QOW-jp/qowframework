@@ -13,7 +13,7 @@ import java.awt.event.*;
  * {@link ExecuteLoop}と{@link FrameLoop}内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022/09/23
+ * @version 2022/09/29
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
@@ -25,7 +25,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     /**
      * {@link qow.framework.system.ExecuteLoop#setRule(Rule, FrameLoop)}で呼び出されるメソッド<br>
      * インスタンス後に{@link QFrame}を定義されてから呼び出される<br>
-     * {@link Rule#getQFrame()}はここ以降で使用できる
+     * 新しく{@link Rule#getQFrame()}が定義されていない場合{@link Rule#getQFrame()}はここ以降で使用できる
      */
     public void init() {
     }
@@ -121,6 +121,15 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      */
     public boolean hasQFrame() {
         return qf != null;
+    }
+
+    /**
+     * このクラスに{@link QCanvas}が設定されているかを返す
+     *
+     * @return 設定されている場合はtrue
+     */
+    public boolean hasQCanvas() {
+        return canvas != null;
     }
 
     /**

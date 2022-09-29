@@ -8,11 +8,20 @@ import java.awt.*;
  * {@link QCanvas}から得た画像データをペイントする
  *
  * @author QOW
- * @version 2022/09/23
+ * @version 2022/09/29
  * @since 1.4.2
  */
 public class QPanel extends JPanel {
     private QCanvas canvas;
+
+    /**
+     * {@link QPanel}に投影する{@link QCanvas}を返す
+     *
+     * @return 設定された画像キャンパス
+     */
+    public QCanvas getQCanvas() {
+        return canvas;
+    }
 
     /**
      * {@link QCanvas}を更新する<br>
