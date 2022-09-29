@@ -97,34 +97,31 @@ public abstract class Loop implements Runnable {
      */
     public void run() {
         looping = true;
-        try {
-            currentTime = System.nanoTime();
-            while (loop) {
-                loop();
+        currentTime = System.nanoTime();
+        while (loop) {
+            loop();
 
-                delay();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            delay();
         }
         looping = false;
     }
 
     private void delay() {
-        try {
-            if (0 < rate) {
-                long sleepTime = (long) (oneSec / rate - (System.nanoTime() - currentTime));
-                updateRate();
-                if (0 < sleepTime) {
+        if (0 < rate) {
+            long sleepTime = (long) (oneSec / rate - (System.nanoTime() - currentTime));
+            updateRate();
+            if (0 < sleepTime) {
+                try {
                     TimeUnit.NANOSECONDS.sleep(sleepTime);
-                } else {
-                    overTime(sleepTime);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             } else {
-                updateRate();
+                overTime(sleepTime);
             }
-            currentTime = System.nanoTime();
-        } catch (Exception ignored) {
+        } else {
+            updateRate();
         }
+        currentTime = System.nanoTime();
     }
 }

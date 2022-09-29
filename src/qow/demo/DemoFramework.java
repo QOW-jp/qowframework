@@ -17,19 +17,18 @@ public class DemoFramework {
         System.out.println("qowframework-1.4.2.jar DemoModel");
         try {
             MainSystem ms = new MainSystem();
-            DemoFrameworkGameRule1 gr = new DemoFrameworkGameRule1();
+            DemoFrameworkRule1 gr = new DemoFrameworkRule1();
             ms.setRule(gr);
 
             gr.getQFrame().setVisible(true);
             ms.start(true);
-            System.out.println("start");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
 
-class DemoFrameworkGameRule1 extends Rule {
+class DemoFrameworkRule1 extends Rule {
     final int DRAG_MAX_RANGE = 100;
     int timer;
     ActionKey[][] actionKey;
@@ -41,8 +40,8 @@ class DemoFrameworkGameRule1 extends Rule {
     boolean inactive = true;
     boolean changeRule;
 
-    DemoFrameworkGameRule1() {
-        QFrame qf = new QFrame("DemoFrameworkGameRule1");
+    DemoFrameworkRule1() {
+        QFrame qf = new QFrame("DemoFrameworkRule1");
         setQFrame(qf);
 
         setQCanvas(new QCanvas(800, 500));
@@ -196,7 +195,7 @@ class DemoFrameworkGameRule1 extends Rule {
     }
 
     public Rule getNewRule() {
-        return new DemoFrameworkGameRule2();
+        return new DemoFrameworkRule2();
     }
 
     public void addListener(QFrame qf) {
@@ -210,7 +209,7 @@ class DemoFrameworkGameRule1 extends Rule {
     }
 }
 
-class DemoFrameworkGameRule2 extends Rule {
+class DemoFrameworkRule2 extends Rule {
     final int CLICK_MAX_RANGE = 1200;
     int timer;
     int ballX, ballY;
@@ -222,7 +221,7 @@ class DemoFrameworkGameRule2 extends Rule {
     boolean inactive = true;
     boolean changeRule;
 
-    DemoFrameworkGameRule2() {
+    DemoFrameworkRule2() {
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
         for (int i = 0; i < actionKey.length; i++) {
@@ -237,13 +236,13 @@ class DemoFrameworkGameRule2 extends Rule {
     }
 
     public void init() {
-        getQFrame().setTitle("DemoFrameworkGameRule2");
+        getQFrame().setTitle("DemoFrameworkRule2");
 
         //図形や線のアンチエイリアシングの有効化
         getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //文字描画のアンチエイリアシングの有効化
         getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        
+
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);
     }
@@ -378,7 +377,7 @@ class DemoFrameworkGameRule2 extends Rule {
     }
 
     public Rule getNewRule() {
-        return new DemoFrameworkGameRule1();
+        return new DemoFrameworkRule1();
     }
 
     public void addListener(QFrame qf) {
