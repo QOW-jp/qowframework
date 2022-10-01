@@ -5,7 +5,7 @@ package qow.framework.system;
  * 可能な限り一秒間に設定されたレートの回数の処理を実行する
  *
  * @author QOW
- * @version 2022/09/23
+ * @version 2022/10/02
  * @since 1.0.0
  */
 public class ExecuteLoop extends Loop {

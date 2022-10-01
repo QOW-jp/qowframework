@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * {@link QPanel}に投影する画像を保持する
  *
  * @author QOW
- * @version 2022/09/23
+ * @version 2022/10/02
  * @since 1.4.2
  */
 public class QCanvas {
@@ -34,7 +34,7 @@ public class QCanvas {
      *
      * @param g ペイント対象の{@link Graphics}コンテキスト
      */
-    public void draw(Graphics g, int width, int height) {
+    protected void draw(Graphics g, int width, int height) {
         g.drawImage(img, 0, 0, width, height, null);
     }
 

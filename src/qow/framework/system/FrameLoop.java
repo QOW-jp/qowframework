@@ -7,7 +7,7 @@ import qow.framework.screen.QFrame;
  * 可能な限り一秒間に設定されたレートの回数の画面の再描写をする
  *
  * @author QOW
- * @version 2022/09/29
+ * @version 2022/10/02
  * @since 1.0.0
  */
 public class FrameLoop extends Loop {
