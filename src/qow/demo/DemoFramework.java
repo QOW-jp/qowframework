@@ -5,6 +5,7 @@ import qow.framework.screen.QFrame;
 import qow.framework.system.MainSystem;
 import qow.framework.system.rule.Rule;
 import qow.framework.util.ActionKey;
+import qow.framework.util.ActionMouse;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -32,9 +33,8 @@ class DemoFrameworkRule1 extends Rule {
     final int DRAG_MAX_RANGE = 100;
     int timer;
     ActionKey[][] actionKey;
+    ActionMouse actionMouse;
     int ballX, ballY;
-    boolean dragged;
-    int dragX, dragY;
     List<Point> dragPoint;
     List<Integer> dragPointRange;
     boolean inactive = true;
@@ -53,6 +53,8 @@ class DemoFrameworkRule1 extends Rule {
                 actionKey[i][j] = new ActionKey(keyCode[i][j]);
             }
         }
+
+        actionMouse = new ActionMouse();
 
         dragPoint = new ArrayList<>();
         dragPointRange = new ArrayList<>();
@@ -88,9 +90,8 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     public void dragMouse(MouseEvent e) {
-        dragged = true;
-        dragX = e.getX();
-        dragY = e.getY();
+        actionMouse.press();
+        actionMouse.setPoint(e.getPoint());
     }
 
     public void loopActive() {
@@ -118,9 +119,9 @@ class DemoFrameworkRule1 extends Rule {
             changeRule = true;
         }
 
-        if (dragged) {
-            dragged = false;
-            dragPoint.add(new Point(dragX, dragY));
+        if (actionMouse.isPress()) {
+            actionMouse.release();
+            dragPoint.add(new Point(actionMouse.getPoint()));
             dragPointRange.add(0);
         }
 
@@ -214,10 +215,9 @@ class DemoFrameworkRule2 extends Rule {
     int timer;
     int ballX, ballY;
     ActionKey[][] actionKey;
+    ActionMouse actionMouse;
     List<Point> clickPoint;
     List<Integer> clickPointRange;
-    int clickX, clickY;
-    boolean clicked;
     boolean inactive = true;
     boolean changeRule;
 
@@ -230,9 +230,10 @@ class DemoFrameworkRule2 extends Rule {
             }
         }
 
+        actionMouse = new ActionMouse();
+
         clickPoint = new ArrayList<>();
         clickPointRange = new ArrayList<>();
-
     }
 
     public void init() {
@@ -270,9 +271,8 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     public void clickMouse(MouseEvent e) {
-        clickX = e.getX();
-        clickY = e.getY();
-        clicked = true;
+        actionMouse.press();
+        actionMouse.setPoint(e.getPoint());
     }
 
     public void loopActive() {
@@ -300,9 +300,9 @@ class DemoFrameworkRule2 extends Rule {
             changeRule = true;
         }
 
-        if (clicked) {
-            clicked = false;
-            clickPoint.add(new Point(clickX, clickY));
+        if (actionMouse.isPress()) {
+            actionMouse.release();
+            clickPoint.add(new Point(actionMouse.getPoint()));
             clickPointRange.add(0);
         }
 

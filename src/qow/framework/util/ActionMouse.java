@@ -1,6 +1,7 @@
 package qow.framework.util;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * {@link java.awt.event.MouseEvent}の状態を記録する
@@ -10,11 +11,35 @@ import java.awt.*;
  * @since 1.4.4
  */
 public class ActionMouse {
-    private boolean press, justRelease, justPress, justPressDelay;
+    private final int button;
     private final Point mouse;
+    private boolean press, justRelease, justPress, justPressDelay;
 
-    public ActionMouse() {
+    /**
+     * {@link MouseEvent#getButton()}を設定し、インスタンス化する
+     *
+     * @param button {@link MouseEvent#getButton()}で呼び出された
+     */
+    public ActionMouse(int button) {
         mouse = new Point(0, 0);
+        this.button = button;
+    }
+
+    /**
+     * {@link MouseEvent#getButton()}を設定せず、インスタンス化する
+     * この場合{@link ActionMouse#getButton()}で呼び出される定数は-1となる
+     */
+    public ActionMouse() {
+        this(-1);
+    }
+
+    /**
+     * 設定された{@link MouseEvent#getButton()}を返す
+     *
+     * @return 設定された値
+     */
+    public int getButton() {
+        return button;
     }
 
     /**
@@ -25,7 +50,7 @@ public class ActionMouse {
         justRelease = false;
         justPress = false;
         justPressDelay = false;
-        mouse.setLocation(0,0);
+        mouse.setLocation(0, 0);
     }
 
     /**
@@ -49,10 +74,20 @@ public class ActionMouse {
     }
 
     /**
+     * {@link ActionMouse#setPoint(Point)}により保存された座標を返す
+     *
+     * @return マウスの座標
+     */
+    public Point getPoint() {
+        return mouse;
+    }
+
+    /**
      * マウスの座標を記録する
+     *
      * @param mouse {@link java.awt.event.MouseEvent}により呼び出された{@link Point}
      */
-    public void move(Point mouse){
+    public void setPoint(Point mouse) {
         this.mouse.setLocation(mouse);
     }
 
