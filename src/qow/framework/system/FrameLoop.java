@@ -19,7 +19,7 @@ public class FrameLoop extends Loop {
      *
      * @param rate レートの初期値
      */
-    public FrameLoop(double rate) {
+    protected FrameLoop(double rate) {
         this();
         setRate(rate);
     }
@@ -27,7 +27,7 @@ public class FrameLoop extends Loop {
     /**
      * レートの初期値を設定せずインスタンス化する
      */
-    public FrameLoop() {
+    protected FrameLoop() {
         super();
         qf = new QFrame();
     }
@@ -47,15 +47,6 @@ public class FrameLoop extends Loop {
      */
     public void overTime(double overTime) {
         rule.overTimeFrame(overTime);
-    }
-
-    /**
-     * @return 設定されているフレーム
-     * @see QFrame
-     * @see javax.swing.JFrame
-     */
-    public QFrame getQFrame() {
-        return qf;
     }
 
     /**

@@ -17,14 +17,14 @@ public class ExecuteLoop extends Loop {
      *
      * @param rate レートの初期値
      */
-    public ExecuteLoop(double rate) {
+    protected ExecuteLoop(double rate) {
         super(rate);
     }
 
     /**
      * レートの初期値を設定せずインスタンス化する
      */
-    public ExecuteLoop() {
+    protected ExecuteLoop() {
         super();
     }
 
