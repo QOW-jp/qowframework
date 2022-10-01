@@ -3,7 +3,7 @@ package qow.demo;
 import qow.framework.screen.QCanvas;
 import qow.framework.screen.QFrame;
 import qow.framework.system.MainSystem;
-import qow.framework.system.rule.Rule;
+import qow.framework.system.Rule;
 import qow.framework.util.ActionKey;
 import qow.framework.util.ActionMouse;
 

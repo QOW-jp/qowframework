@@ -1,7 +1,5 @@
 package qow.framework.system;
 
-import qow.framework.system.rule.Rule;
-
 /**
  * 処理レートとフレームレートを制御する
  *

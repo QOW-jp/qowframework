@@ -1,10 +1,8 @@
-package qow.framework.system.rule;
+package qow.framework.system;
 
 import qow.framework.screen.QCanvas;
 import qow.framework.screen.QFrame;
 import qow.framework.screen.QPanel;
-import qow.framework.system.ExecuteLoop;
-import qow.framework.system.FrameLoop;
 
 import java.awt.*;
 import java.awt.event.*;

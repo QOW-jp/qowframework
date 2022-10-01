@@ -1,7 +1,5 @@
 package qow.framework.system;
 
-import qow.framework.system.rule.Rule;
-
 /**
  * 処理のレートを制御する<br>
  * 可能な限り一秒間に設定されたレートの回数の処理を実行する

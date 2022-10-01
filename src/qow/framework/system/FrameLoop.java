@@ -1,7 +1,6 @@
 package qow.framework.system;
 
 import qow.framework.screen.QFrame;
-import qow.framework.system.rule.Rule;
 
 /**
  * 画面のレートを制御する<br>
