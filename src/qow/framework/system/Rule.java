@@ -3,6 +3,7 @@ package qow.framework.system;
 import qow.framework.screen.QCanvas;
 import qow.framework.screen.QFrame;
 import qow.framework.screen.QPanel;
+import qow.framework.util.ActionKeyManager;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,7 +12,7 @@ import java.awt.event.*;
  * {@link ExecuteLoop}と{@link FrameLoop}内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022/09/29
+ * @version 2022/10/04
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
@@ -19,6 +20,11 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     private FrameLoop fl;
     private QCanvas canvas;
     private QFrame qf;
+    private final ActionKeyManager akm;
+
+    public Rule() {
+        akm = new ActionKeyManager();
+    }
 
     /**
      * {@link qow.framework.system.ExecuteLoop#setRule(Rule, FrameLoop)}で呼び出されるメソッド<br>
@@ -182,6 +188,12 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
     public void pressKey(KeyEvent e) {
+        int code = e.getKeyCode();
+        for (int i = 0; i < akm.size(); i++) {
+            if (akm.get(i).getKeyCode() == code) {
+                akm.get(i).press();
+            }
+        }
     }
 
     /**
@@ -190,6 +202,12 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
     public void releaseKey(KeyEvent e) {
+        int code = e.getKeyCode();
+        for (int i = 0; i < akm.size(); i++) {
+            if (akm.get(i).getKeyCode() == code) {
+                akm.get(i).release();
+            }
+        }
     }
 
     /**
