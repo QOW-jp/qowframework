@@ -16,14 +16,23 @@ import java.awt.event.*;
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
+    private final ActionKeyManager akm;
     private ExecuteLoop el;
     private FrameLoop fl;
     private QCanvas canvas;
     private QFrame qf;
-    private final ActionKeyManager akm;
 
     public Rule() {
         akm = new ActionKeyManager();
+    }
+
+    /**
+     * 対応した{@link ActionKeyManager}を返す
+     *
+     * @return キー状態を保存したクラスをまとめるクラス
+     */
+    public ActionKeyManager getActionKeyManager() {
+        return akm;
     }
 
     /**
@@ -183,7 +192,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * キーが押されたときの処理
+     * キーが押されたときの処理<br>
+     * 初期状態として{@link ActionKeyManager}による受付がされている
      *
      * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
@@ -198,6 +208,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
 
     /**
      * キーが離されたときの処理
+     * 初期状態として{@link ActionKeyManager}による受付がされている
      *
      * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */

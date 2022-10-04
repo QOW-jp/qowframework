@@ -8,7 +8,6 @@ import qow.framework.util.ActionKey;
 import qow.framework.util.ActionMouse;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +50,7 @@ class DemoFrameworkRule1 extends Rule {
         for (int i = 0; i < actionKey.length; i++) {
             for (int j = 0; j < actionKey[i].length; j++) {
                 actionKey[i][j] = new ActionKey(keyCode[i][j]);
+                getActionKeyManager().add(actionKey[i][j]);
             }
         }
 
@@ -65,28 +65,6 @@ class DemoFrameworkRule1 extends Rule {
         getFrameLoop().setRate(50);
 
         getQFrame().setVisible(true);
-    }
-
-    public void pressKey(KeyEvent e) {
-        int code = e.getKeyCode();
-        for (ActionKey[] keys : actionKey) {
-            for (ActionKey key : keys) {
-                if (code == key.getKeyCode()) {
-                    key.press();
-                }
-            }
-        }
-    }
-
-    public void releaseKey(KeyEvent e) {
-        int code = e.getKeyCode();
-        for (ActionKey[] keys : actionKey) {
-            for (ActionKey key : keys) {
-                if (code == key.getKeyCode()) {
-                    key.release();
-                }
-            }
-        }
     }
 
     public void dragMouse(MouseEvent e) {
@@ -227,6 +205,7 @@ class DemoFrameworkRule2 extends Rule {
         for (int i = 0; i < actionKey.length; i++) {
             for (int j = 0; j < actionKey[i].length; j++) {
                 actionKey[i][j] = new ActionKey(keyCode[i][j]);
+                getActionKeyManager().add(actionKey[i][j]);
             }
         }
 
@@ -246,28 +225,6 @@ class DemoFrameworkRule2 extends Rule {
 
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);
-    }
-
-    public void pressKey(KeyEvent e) {
-        int code = e.getKeyCode();
-        for (ActionKey[] keys : actionKey) {
-            for (ActionKey key : keys) {
-                if (code == key.getKeyCode()) {
-                    key.press();
-                }
-            }
-        }
-    }
-
-    public void releaseKey(KeyEvent e) {
-        int code = e.getKeyCode();
-        for (ActionKey[] keys : actionKey) {
-            for (ActionKey key : keys) {
-                if (code == key.getKeyCode()) {
-                    key.release();
-                }
-            }
-        }
     }
 
     public void clickMouse(MouseEvent e) {
