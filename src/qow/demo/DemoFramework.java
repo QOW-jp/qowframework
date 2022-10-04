@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("qowframework-1.4.5.jar DemoModel");
+        System.out.println("qowframework-1.4.6 DemoModel");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkRule1 gr = new DemoFrameworkRule1();
@@ -319,14 +319,6 @@ class DemoFrameworkRule2 extends Rule {
             g.setColor(Color.white);
             g.drawString(text, startX, startY);
         }
-    }
-
-    public void overTimeExecute(double overTime) {
-        System.out.println(-overTime / 1000000 + "ms超過e");
-    }
-
-    public void overTimeFrame(double overTime) {
-        System.out.println(-overTime / 1000000 + "ms超過f");
     }
 
     public boolean isChangeRule() {
