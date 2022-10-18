@@ -4,6 +4,7 @@ import qow.framework.screen.QCanvas;
 import qow.framework.screen.QFrame;
 import qow.framework.screen.QPanel;
 import qow.framework.util.ActionKeyManager;
+import qow.framework.util.ActionMouseManager;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,11 +13,12 @@ import java.awt.event.*;
  * {@link ExecuteLoop}と{@link FrameLoop}内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022/10/04
+ * @version 2022/10/18
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
     private final ActionKeyManager akm;
+    private final ActionMouseManager amm;
     private ExecuteLoop el;
     private FrameLoop fl;
     private QCanvas canvas;
@@ -24,6 +26,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
 
     public Rule() {
         akm = new ActionKeyManager();
+        amm = new ActionMouseManager();
     }
 
     /**
@@ -33,6 +36,15 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      */
     public ActionKeyManager getActionKeyManager() {
         return akm;
+    }
+
+    /**
+     * 対応した{@link ActionMouseManager}を返す
+     *
+     * @return マウス状態を保存したクラスをまとめるクラス
+     */
+    public ActionMouseManager getActionMouseManager() {
+        return amm;
     }
 
     /**
@@ -207,7 +219,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * キーが離されたときの処理
+     * キーが離されたときの処理<br>
      * 初期状態として{@link ActionKeyManager}による受付がされている
      *
      * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
@@ -270,19 +282,33 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * マウスが押されたときの処理
+     * マウスが押されたときの処理<br>
+     * 初期状態として{@link ActionMouseManager}による受付がされている
      *
      * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
     public void pressMouse(MouseEvent e) {
+        int button = e.getButton();
+        for (int i = 0; i < amm.size(); i++) {
+            if (amm.get(i).getButton() == button || amm.get(i).getButton() == -1) {
+                amm.get(i).press();
+            }
+        }
     }
 
     /**
-     * マウスが離されたときの処理
+     * マウスが離されたときの処理<br>
+     * 初期状態として{@link ActionMouseManager}による受付がされている
      *
      * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
     public void releaseMouse(MouseEvent e) {
+        int button = e.getButton();
+        for (int i = 0; i < amm.size(); i++) {
+            if (amm.get(i).getButton() == button || amm.get(i).getButton() == -1) {
+                amm.get(i).release();
+            }
+        }
     }
 
     /**
@@ -326,19 +352,23 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * マウスがドラッグされたときの処理
+     * マウスがドラッグされたときの処理<br>
+     * 初期状態として{@link ActionMouseManager}による受付がされている
      *
      * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
      */
     public void dragMouse(MouseEvent e) {
+        amm.setMousePoint(e.getPoint());
     }
 
     /**
-     * マウスが動いたときの処理
+     * マウスが動いたときの処理<br>
+     * 初期状態として{@link ActionMouseManager}による受付がされている
      *
      * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
      */
     public void moveMouse(MouseEvent e) {
+        amm.setMousePoint(e.getPoint());
     }
 
     /**

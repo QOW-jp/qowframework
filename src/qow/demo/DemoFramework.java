@@ -8,7 +8,6 @@ import qow.framework.util.ActionKey;
 import qow.framework.util.ActionMouse;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +54,8 @@ class DemoFrameworkRule1 extends Rule {
         }
 
         actionMouse = new ActionMouse();
+        getActionMouseManager().add(actionMouse);
+
 
         dragPoint = new ArrayList<>();
         dragPointRange = new ArrayList<>();
@@ -65,11 +66,6 @@ class DemoFrameworkRule1 extends Rule {
         getFrameLoop().setRate(50);
 
         getQFrame().setVisible(true);
-    }
-
-    public void dragMouse(MouseEvent e) {
-        actionMouse.press();
-        actionMouse.setPoint(e.getPoint());
     }
 
     public void loopActive() {
@@ -98,9 +94,11 @@ class DemoFrameworkRule1 extends Rule {
         }
 
         if (actionMouse.isPress()) {
-            actionMouse.release();
-            dragPoint.add(new Point(actionMouse.getPoint()));
-            dragPointRange.add(0);
+            Point point = new Point(getActionMouseManager().getMousePoint());
+            if (dragPoint.size() == 0 || dragPoint.get(dragPoint.size() - 1).getX() != point.getX() || dragPoint.get(dragPoint.size() - 1).getY() != point.getY()) {
+                dragPoint.add(point);
+                dragPointRange.add(0);
+            }
         }
 
         if (0 < dragPoint.size()) {
@@ -179,11 +177,13 @@ class DemoFrameworkRule1 extends Rule {
 
     public void addListener(QFrame qf) {
         qf.addKeyListener(this);
+        qf.getQPanel().addMouseListener(this);
         qf.getQPanel().addMouseMotionListener(this);
     }
 
     public void removeListener(QFrame qf) {
         qf.removeKeyListener(this);
+        qf.getQPanel().removeMouseListener(this);
         qf.getQPanel().removeMouseMotionListener(this);
     }
 }
@@ -210,6 +210,7 @@ class DemoFrameworkRule2 extends Rule {
         }
 
         actionMouse = new ActionMouse();
+        getActionMouseManager().add(actionMouse);
 
         clickPoint = new ArrayList<>();
         clickPointRange = new ArrayList<>();
@@ -225,11 +226,6 @@ class DemoFrameworkRule2 extends Rule {
 
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);
-    }
-
-    public void clickMouse(MouseEvent e) {
-        actionMouse.press();
-        actionMouse.setPoint(e.getPoint());
     }
 
     public void loopActive() {
@@ -259,7 +255,7 @@ class DemoFrameworkRule2 extends Rule {
 
         if (actionMouse.isPress()) {
             actionMouse.release();
-            clickPoint.add(new Point(actionMouse.getPoint()));
+            clickPoint.add(new Point(getActionMouseManager().getMousePoint()));
             clickPointRange.add(0);
         }
 
@@ -332,10 +328,12 @@ class DemoFrameworkRule2 extends Rule {
     public void addListener(QFrame qf) {
         qf.addKeyListener(this);
         qf.getQPanel().addMouseListener(this);
+        qf.getQPanel().addMouseMotionListener(this);
     }
 
     public void removeListener(QFrame qf) {
         qf.removeKeyListener(this);
         qf.getQPanel().removeMouseListener(this);
+        qf.getQPanel().removeMouseMotionListener(this);
     }
 }

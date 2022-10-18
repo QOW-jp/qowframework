@@ -6,12 +6,12 @@ import java.awt.event.KeyEvent;
  * {@link KeyEvent}の{@link KeyEvent#getKeyCode()}を保持しキーの状態を記録する
  *
  * @author QOW
- * @version 2022/08/29
+ * @version 2022/10/18
  * @since 1.0.0
  */
 public class ActionKey {
     private final int keyCode;
-    private boolean press, justRelease, justPress, justPressDelay;
+    private boolean press, justRelease, justPress, justPressDelay, justType;
 
     /**
      * {@link KeyEvent#getKeyCode()}を設定し、インスタンス化する
@@ -39,6 +39,7 @@ public class ActionKey {
         justRelease = false;
         justPress = false;
         justPressDelay = false;
+        justType = false;
     }
 
     /**
@@ -46,6 +47,7 @@ public class ActionKey {
      */
     public void press() {
         press = true;
+        justType = true;
         if (!justPressDelay) {
             justPressDelay = true;
             justPress = true;
@@ -82,6 +84,19 @@ public class ActionKey {
     public boolean isJustRelease() {
         if (justRelease) {
             justRelease = false;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * キーが直前にタイプされたかを返す
+     *
+     * @return キーが直前にタイプされている場合はtrue
+     */
+    public boolean isJustType() {
+        if (justType) {
+            justType = false;
             return true;
         }
         return false;

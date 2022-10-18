@@ -7,8 +7,8 @@ import java.util.List;
  * {@link qow.framework.screen.QFrame}によって発生した{@link java.awt.event.KeyEvent}の状態を保存する{@link ActionKey}をまとめるクラス
  *
  * @author QOW
- * @version 2022/10/04
- * @since 1.4.6
+ * @version 2022/10/18
+ * @since 1.5.0
  */
 public class ActionKeyManager {
     private final List<ActionKey> keyList;
@@ -20,7 +20,7 @@ public class ActionKeyManager {
     /**
      * 受け付ける{@link ActionKey}を追加する
      *
-     * @param actionKey 追加するキー情報
+     * @param actionKey 追加する情報
      */
     public void add(ActionKey actionKey) {
         keyList.add(actionKey);
