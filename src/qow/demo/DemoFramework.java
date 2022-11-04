@@ -42,7 +42,18 @@ class DemoFrameworkRule1 extends Rule {
         QFrame qf = new QFrame("DemoFrameworkRule1");
         setQFrame(qf);
 
-        setQCanvas(new QCanvas(800, 500));
+//        デスクトップのサイズの取得方法
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        変数desktopBoundsにデスクトップ領域を表すRectangleが代入される
+        Rectangle desktopBounds = env.getMaximumWindowBounds();
+        setQCanvas(new QCanvas(desktopBounds.width, desktopBounds.height));
+
+//        setQCanvas(new QCanvas(qf.getWidth(), qf.getHeight()));
+        System.out.println(qf.getWidth() + " " + qf.getHeight());
+        System.out.println(getQCanvas().getWidth() + " " + getQCanvas().getHeight());
+//        setQCanvas(new QCanvas(800,500));
+
+        qf.setUndecorated(true);
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
@@ -218,6 +229,8 @@ class DemoFrameworkRule2 extends Rule {
 
     public void init() {
         getQFrame().setTitle("DemoFrameworkRule2");
+        getQFrame().setSize(800, 500);
+        getQFrame().setLocationRelativeTo(null);
 
         //図形や線のアンチエイリアシングの有効化
         getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
