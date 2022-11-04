@@ -42,17 +42,9 @@ class DemoFrameworkRule1 extends Rule {
         QFrame qf = new QFrame("DemoFrameworkRule1");
         setQFrame(qf);
 
-//        デスクトップのサイズの取得方法
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//        変数desktopBoundsにデスクトップ領域を表すRectangleが代入される
-        Rectangle desktopBounds = env.getMaximumWindowBounds();
-        setQCanvas(new QCanvas(desktopBounds.width, desktopBounds.height));
-
-//        setQCanvas(new QCanvas(qf.getWidth(), qf.getHeight()));
-        System.out.println(qf.getWidth() + " " + qf.getHeight());
-        System.out.println(getQCanvas().getWidth() + " " + getQCanvas().getHeight());
-//        setQCanvas(new QCanvas(800,500));
-
+        DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
+        setQCanvas(new QCanvas(displayMode.getWidth(), displayMode.getHeight()));
         qf.setUndecorated(true);
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
