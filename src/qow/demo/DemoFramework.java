@@ -45,6 +45,7 @@ class DemoFrameworkRule1 extends Rule {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
         setQCanvas(new QCanvas(displayMode.getWidth(), displayMode.getHeight()));
+
         qf.setUndecorated(true);
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
@@ -221,8 +222,10 @@ class DemoFrameworkRule2 extends Rule {
 
     public void init() {
         getQFrame().setTitle("DemoFrameworkRule2");
-        getQFrame().setSize(800, 500);
+        setQCanvas(new QCanvas(800,500));
+        getQFrame().setResolution(getQCanvas());
         getQFrame().setLocationRelativeTo(null);
+        getQFrame().setVisible(true);
 
         //図形や線のアンチエイリアシングの有効化
         getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
