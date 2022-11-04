@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("qowframework-1.5.0 DemoModel");
+        System.out.println("qowframework-1.5.1 DemoModel");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkRule1 gr = new DemoFrameworkRule1();

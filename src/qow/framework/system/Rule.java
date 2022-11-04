@@ -200,7 +200,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
-    public void typeKey(KeyEvent e) {
+    @Override
+    public void keyTyped(KeyEvent e) {
     }
 
     /**
@@ -209,7 +210,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
-    public void pressKey(KeyEvent e) {
+    @Override
+    public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         for (int i = 0; i < akm.size(); i++) {
             if (akm.get(i).getKeyCode() == code) {
@@ -224,7 +226,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
      */
-    public void releaseKey(KeyEvent e) {
+    @Override
+    public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
         for (int i = 0; i < akm.size(); i++) {
             if (akm.get(i).getKeyCode() == code) {
@@ -234,35 +237,12 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
-     */
-    @Override
-    public void keyTyped(KeyEvent e) {
-        typeKey(e);
-    }
-
-    /**
-     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
-     */
-    @Override
-    public void keyPressed(KeyEvent e) {
-        pressKey(e);
-    }
-
-    /**
-     * @param e {@link KeyListener}で呼び出された{@link KeyEvent}
-     */
-    @Override
-    public void keyReleased(KeyEvent e) {
-        releaseKey(e);
-    }
-
-    /**
      * マウスがクリックされたときの処理
      *
      * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
-    public void clickMouse(MouseEvent e) {
+    @Override
+    public void mouseClicked(MouseEvent e) {
     }
 
     /**
@@ -270,7 +250,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
-    public void enterMouse(MouseEvent e) {
+    @Override
+    public void mouseEntered(MouseEvent e) {
     }
 
     /**
@@ -278,7 +259,9 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
-    public void exitMouse(MouseEvent e) {
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
     /**
@@ -287,7 +270,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
-    public void pressMouse(MouseEvent e) {
+    @Override
+    public void mousePressed(MouseEvent e) {
         int button = e.getButton();
         for (int i = 0; i < amm.size(); i++) {
             if (amm.get(i).getButton() == button || amm.get(i).getButton() == -1) {
@@ -302,7 +286,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
      */
-    public void releaseMouse(MouseEvent e) {
+    @Override
+    public void mouseReleased(MouseEvent e) {
         int button = e.getButton();
         for (int i = 0; i < amm.size(); i++) {
             if (amm.get(i).getButton() == button || amm.get(i).getButton() == -1) {
@@ -312,52 +297,13 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        clickMouse(e);
-    }
-
-    /**
-     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
-     */
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        enterMouse(e);
-    }
-
-    /**
-     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
-     */
-    @Override
-    public void mouseExited(MouseEvent e) {
-        exitMouse(e);
-    }
-
-    /**
-     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
-     */
-    @Override
-    public void mousePressed(MouseEvent e) {
-        pressMouse(e);
-    }
-
-    /**
-     * @param e {@link MouseListener}で呼び出された{@link MouseEvent}
-     */
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        releaseMouse(e);
-    }
-
-    /**
      * マウスがドラッグされたときの処理<br>
      * 初期状態として{@link ActionMouseManager}による受付がされている
      *
      * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
      */
-    public void dragMouse(MouseEvent e) {
+    @Override
+    public void mouseDragged(MouseEvent e) {
         amm.setMousePoint(e.getPoint());
     }
 
@@ -367,24 +313,9 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
      */
-    public void moveMouse(MouseEvent e) {
-        amm.setMousePoint(e.getPoint());
-    }
-
-    /**
-     * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
-     */
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        dragMouse(e);
-    }
-
-    /**
-     * @param e {@link MouseMotionListener}で呼び出された{@link MouseEvent}
-     */
     @Override
     public void mouseMoved(MouseEvent e) {
-        moveMouse(e);
+        amm.setMousePoint(e.getPoint());
     }
 
     /**
