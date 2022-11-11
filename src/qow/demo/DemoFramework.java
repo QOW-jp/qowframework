@@ -14,7 +14,8 @@ import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("qowframework-1.5.1 DemoModel");
+        System.out.println("build by JDK-17.0.4");
+        System.out.println("qowframework-1.5.1 DemoModel\n");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkRule1 gr = new DemoFrameworkRule1();
@@ -223,7 +224,7 @@ class DemoFrameworkRule2 extends Rule {
 
     public void init() {
         getQFrame().setTitle("DemoFrameworkRule2");
-        setQCanvas(new QCanvas(800,500));
+        setQCanvas(new QCanvas(800, 500));
         getQFrame().setResolution(getQCanvas());
 
         getQFrame().dispose();
