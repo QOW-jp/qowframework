@@ -8,6 +8,7 @@ import qow.framework.util.ActionKey;
 import qow.framework.util.ActionMouse;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ class DemoFrameworkRule1 extends Rule {
             }
         }
 
-        actionMouse = new ActionMouse();
+        actionMouse = new ActionMouse(MouseEvent.BUTTON1);
         getActionMouseManager().add(actionMouse);
 
 
@@ -213,7 +214,7 @@ class DemoFrameworkRule2 extends Rule {
             }
         }
 
-        actionMouse = new ActionMouse();
+        actionMouse = new ActionMouse(MouseEvent.BUTTON1);
         getActionMouseManager().add(actionMouse);
 
         clickPoint = new ArrayList<>();
