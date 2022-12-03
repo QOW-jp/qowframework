@@ -39,6 +39,7 @@ class DemoFrameworkRule1 extends Rule {
     List<Integer> dragPointRange;
     boolean inactive = true;
     boolean changeRule;
+    Point mouseCursor;
 
     DemoFrameworkRule1() {
         QFrame qf = new QFrame("DemoFrameworkRule1");
@@ -65,6 +66,8 @@ class DemoFrameworkRule1 extends Rule {
 
         dragPoint = new ArrayList<>();
         dragPointRange = new ArrayList<>();
+
+        mouseCursor = getActionMouseManager().getMousePoint();
     }
 
     public void init() {
@@ -100,7 +103,7 @@ class DemoFrameworkRule1 extends Rule {
         }
 
         if (actionMouse.isPress()) {
-            Point point = new Point(getActionMouseManager().getMousePoint());
+            Point point = new Point(mouseCursor);
             if (dragPoint.size() == 0 || dragPoint.get(dragPoint.size() - 1).getX() != point.getX() || dragPoint.get(dragPoint.size() - 1).getY() != point.getY()) {
                 dragPoint.add(point);
                 dragPointRange.add(0);
@@ -204,6 +207,7 @@ class DemoFrameworkRule2 extends Rule {
     List<Integer> clickPointRange;
     boolean inactive = true;
     boolean changeRule;
+    Point mouseCursor;
 
     DemoFrameworkRule2() {
         int[][] keyCode = {{65, 68, 87, 83, 10}};
@@ -220,6 +224,8 @@ class DemoFrameworkRule2 extends Rule {
 
         clickPoint = new ArrayList<>();
         clickPointRange = new ArrayList<>();
+
+        mouseCursor = getActionMouseManager().getMousePoint();
     }
 
     public void init() {
@@ -268,7 +274,7 @@ class DemoFrameworkRule2 extends Rule {
 
         if (actionMouse.isPress()) {
             actionMouse.release();
-            clickPoint.add(new Point(getActionMouseManager().getMousePoint()));
+            clickPoint.add(new Point(mouseCursor));
             clickPointRange.add(0);
         }
 

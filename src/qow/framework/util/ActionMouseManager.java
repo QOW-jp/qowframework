@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ActionMouseManager {
     private final List<ActionMouse> mouseList;
-    private Point mouse;
+    private final Point mouse;
 
     public ActionMouseManager() {
         mouseList = new ArrayList<>();
@@ -35,7 +35,7 @@ public class ActionMouseManager {
      * @param mouse マウスの座標を{@link Point}で返す
      */
     public void setMousePoint(Point mouse) {
-        this.mouse = mouse;
+        this.mouse.setLocation(mouse);
     }
 
     /**
