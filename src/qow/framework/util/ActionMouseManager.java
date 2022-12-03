@@ -8,7 +8,7 @@ import java.util.List;
  * {@link qow.framework.screen.QFrame}によって発生した{@link java.awt.event.MouseEvent}の状態を保存する{@link ActionMouse}をまとめるクラス
  *
  * @author QOW
- * @version 2022/10/18
+ * @version 2022/12/03
  * @since 1.5.0
  */
 public class ActionMouseManager {
