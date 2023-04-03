@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class Loop implements Runnable {
     private final int oneSec = (int) Math.pow(10, 9);    //1,000,000,000ns
     private boolean loop, looping;
-    private double rate, currentRate;
+    private long rate, currentRate;
     private long currentTime;
 
     /**
@@ -21,7 +21,7 @@ public abstract class Loop implements Runnable {
      *
      * @param rate レートの初期値
      */
-    public Loop(double rate) {
+    public Loop(long rate) {
         this.rate = rate;
     }
 
@@ -58,12 +58,12 @@ public abstract class Loop implements Runnable {
      *
      * @param rate 一秒間に実行される回数
      */
-    public void setRate(double rate) {
+    public void setRate(long rate) {
         this.rate = rate;
     }
 
     private void updateRate() {
-        currentRate = (double) oneSec / (System.nanoTime() - currentTime);
+        currentRate = oneSec / (System.nanoTime() - currentTime);
         if (0 < rate && rate < currentRate) {
             currentRate = rate;
         }
@@ -104,6 +104,26 @@ public abstract class Loop implements Runnable {
             delay();
         }
         looping = false;
+
+        long error = 0;
+        long idealSleep = (1000 << 16) / rate;
+        long oldTime;
+        long newTime = System.currentTimeMillis() << 16;
+
+        while (true) {
+            oldTime = newTime;
+
+            loop();
+
+            newTime = System.currentTimeMillis() << 16;
+            long sleepTime = idealSleep - (newTime - oldTime) - error; // 休止できる時間
+            if (sleepTime < 0x20000) sleepTime = 0x20000; // 最低でも2msは休止
+            oldTime = newTime;
+            Thread.sleep(sleepTime >> 16); // 休止
+            newTime = System.currentTimeMillis() << 16;
+            error = newTime - oldTime - sleepTime; // 休止時間の誤差
+        }
+
     }
 
     private void delay() {

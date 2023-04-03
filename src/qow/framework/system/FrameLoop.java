@@ -19,7 +19,7 @@ public class FrameLoop extends Loop {
      *
      * @param rate レートの初期値
      */
-    protected FrameLoop(double rate) {
+    protected FrameLoop(long rate) {
         this();
         setRate(rate);
     }
