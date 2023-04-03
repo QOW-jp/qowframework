@@ -78,7 +78,7 @@ class DemoFrameworkRule1 extends Rule {
 
     public void init() {
         getExecuteLoop().setRate(100);
-        getFrameLoop().setRate(50);
+        getFrameLoop().setRate(100);
 
         getQFrame().setVisible(true);
     }
@@ -272,6 +272,9 @@ class DemoFrameworkRule2 extends Rule {
     public void loopActive() {
         timer++;
 
+        getExecuteLoop().setRate(200);
+        getFrameLoop().setRate(100);
+
         inactive = true;
 
         if (timer > 200) {
@@ -351,7 +354,7 @@ class DemoFrameworkRule2 extends Rule {
         String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
         g.drawString(text, 0, fm.getMaxAscent());
 
-        g.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight()-40);
+        g.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {

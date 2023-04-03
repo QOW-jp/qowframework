@@ -62,7 +62,7 @@ public abstract class Loop implements Runnable {
     private void updateRate(long currentTime) {
         long delay = currentTime - this.currentTime;
         if (delay <= 0) delay++;
-        currentRate = 1000 / delay;
+        currentRate = (1000 << 16) / delay;
         this.currentTime = currentTime;
     }
 
@@ -98,22 +98,22 @@ public abstract class Loop implements Runnable {
 
             long error = 0;
             long idealSleep = (1000 << 16) / rate;
-            long oldTime;
             long newTime = System.currentTimeMillis() << 16;
+            long oldTime = newTime;
 
             while (loop) {
                 oldTime = newTime;
 
                 loop();
 
-                updateRate(System.currentTimeMillis());
+                updateRate(System.currentTimeMillis() << 16);
 
                 newTime = System.currentTimeMillis() << 16;
                 long sleepTime = idealSleep - (newTime - oldTime) - error; // 休止できる時間
                 if (sleepTime < 0) {
                     overTime(-sleepTime >> 16);
                 } else {
-                    Thread.sleep(sleepTime >> 16); // 休止
+                    Thread.sleep(sleepTime >> 16);
                 }
                 oldTime = newTime;
                 newTime = System.currentTimeMillis() << 16;
