@@ -10,13 +10,13 @@ import qow.framework.util.ActionMouse;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
         System.out.println("build by JDK-17.0.4");
-        System.out.println("qowframework-1.6.0 DemoModel\n");
-        System.out.println("謎の文字化け");
+        System.out.println("qow_framework-1.6.0 DemoModel\n");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkRule1 gr = new DemoFrameworkRule1();
@@ -32,6 +32,7 @@ public class DemoFramework {
 
 class DemoFrameworkRule1 extends Rule {
     final int DRAG_MAX_RANGE = 100;
+    final int RATE_CHECK_LENGTH = 100;
     int timer;
     ActionKey[][] actionKey;
     ActionMouse actionMouse;
@@ -41,6 +42,10 @@ class DemoFrameworkRule1 extends Rule {
     boolean inactive = true;
     boolean changeRule;
     Point mouseCursor;
+    int rateCheckerCountByFrame, rateCheckerCountByExecute;
+    int[] rateCheckerByFrame = new int[RATE_CHECK_LENGTH];
+    int[] rateCheckerByExecute = new int[RATE_CHECK_LENGTH];
+
 
     DemoFrameworkRule1() {
         QFrame qf = new QFrame("DemoFrameworkRule1");
@@ -122,6 +127,18 @@ class DemoFrameworkRule1 extends Rule {
                 }
             }
         }
+
+        if (RATE_CHECK_LENGTH <= rateCheckerCountByExecute) {
+            rateCheckerCountByExecute = 0;
+        }
+        rateCheckerByExecute[rateCheckerCountByExecute] = (int) getExecuteLoop().getCurrentRate();
+        rateCheckerCountByExecute++;
+
+        if (RATE_CHECK_LENGTH <= rateCheckerCountByFrame) {
+            rateCheckerCountByFrame = 0;
+        }
+        rateCheckerByFrame[rateCheckerCountByFrame] = (int) getFrameLoop().getCurrentRate();
+        rateCheckerCountByFrame++;
     }
 
     public void loopInactive() {
@@ -147,7 +164,7 @@ class DemoFrameworkRule1 extends Rule {
         }
 
         FontMetrics fm = g.getFontMetrics();
-        String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + (int) getExecuteLoop().getCurrentRate() + " fps:" + (int) getFrameLoop().getCurrentRate();
+        String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
         g.drawString(text, 0, fm.getMaxAscent());
 
         g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight());
@@ -169,12 +186,12 @@ class DemoFrameworkRule1 extends Rule {
         }
     }
 
-    public void overTimeExecute(double overTime) {
-        System.out.println(-overTime / 1000000 + "ms超過e");
+    public void overTimeExecute(long overTime) {
+        System.out.println(overTime + "ms超過e");
     }
 
-    public void overTimeFrame(double overTime) {
-        System.out.println(-overTime / 1000000 + "ms超過f");
+    public void overTimeFrame(long overTime) {
+        System.out.println(overTime + "ms超過f");
     }
 
     public boolean isChangeRule() {
@@ -200,6 +217,7 @@ class DemoFrameworkRule1 extends Rule {
 
 class DemoFrameworkRule2 extends Rule {
     final int CLICK_MAX_RANGE = 1200;
+    final int RATE_CHECK_LENGTH = 100;
     int timer;
     int ballX, ballY;
     ActionKey[][] actionKey;
@@ -209,6 +227,9 @@ class DemoFrameworkRule2 extends Rule {
     boolean inactive = true;
     boolean changeRule;
     Point mouseCursor;
+    int rateCheckerCountByFrame, rateCheckerCountByExecute;
+    int[] rateCheckerByFrame = new int[RATE_CHECK_LENGTH];
+    int[] rateCheckerByExecute = new int[RATE_CHECK_LENGTH];
 
     DemoFrameworkRule2() {
         int[][] keyCode = {{65, 68, 87, 83, 10}};
@@ -290,6 +311,18 @@ class DemoFrameworkRule2 extends Rule {
                 }
             }
         }
+
+        if (RATE_CHECK_LENGTH <= rateCheckerCountByExecute) {
+            rateCheckerCountByExecute = 0;
+        }
+        rateCheckerByExecute[rateCheckerCountByExecute] = (int) getExecuteLoop().getCurrentRate();
+        rateCheckerCountByExecute++;
+
+        if (RATE_CHECK_LENGTH <= rateCheckerCountByFrame) {
+            rateCheckerCountByFrame = 0;
+        }
+        rateCheckerByFrame[rateCheckerCountByFrame] = (int) getFrameLoop().getCurrentRate();
+        rateCheckerCountByFrame++;
     }
 
     public void loopInactive() {
@@ -315,10 +348,10 @@ class DemoFrameworkRule2 extends Rule {
         }
 
         FontMetrics fm = g.getFontMetrics();
-        String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + (int) getExecuteLoop().getCurrentRate() + " fps:" + (int) getFrameLoop().getCurrentRate();
+        String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
         g.drawString(text, 0, fm.getMaxAscent());
 
-        g.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight());
+        g.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight()-40);
     }
 
     public void paintInactive(Graphics g) {

@@ -5,7 +5,7 @@ package qow.framework.system;
  * 可能な限り一秒間に設定されたレートの回数の処理を実行する
  *
  * @author QOW
- * @version 2022/10/02
+ * @version 2023/04/04
  * @since 1.0.0
  */
 public class ExecuteLoop extends Loop {
@@ -30,7 +30,7 @@ public class ExecuteLoop extends Loop {
 
     /**
      * 可能な限り一秒間に設定されたレートの回数このメソッドを実行する<br>
-     * 指定時間内に処理が終わらない場合は{@link ExecuteLoop#overTime(double)}が呼び出される
+     * 指定時間内に処理が終わらない場合は{@link ExecuteLoop#overTime(long)}が呼び出される
      */
     public void loop() {
         rule.loop();
@@ -43,10 +43,11 @@ public class ExecuteLoop extends Loop {
 
     /**
      * 設定されたレートより時間がかかってしまった場合の処理
+     * 正の数値で返される
      *
-     * @param overTime 過ぎた時間のナノ秒
+     * @param overTime 過ぎた時間のミリ秒
      */
-    public void overTime(double overTime) {
+    public void overTime(long overTime) {
         rule.overTimeExecute(overTime);
     }
 

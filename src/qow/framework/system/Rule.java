@@ -13,7 +13,7 @@ import java.awt.event.*;
  * {@link ExecuteLoop}と{@link FrameLoop}内での処理を設定するクラス
  *
  * @author QOW
- * @version 2022/10/18
+ * @version 2023/04/04
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
@@ -336,18 +336,20 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
 
     /**
      * 処理に設定されたレートより時間がかかってしまった場合の処理
+     * 正の数値で返される
      *
-     * @param overTime 過ぎた時間のナノ秒
+     * @param overTime 過ぎた時間のミリ秒
      */
-    public void overTimeExecute(double overTime) {
+    public void overTimeExecute(long overTime) {
     }
 
     /**
      * 描写に設定されたレートより時間がかかってしまった場合の処理
+     * 正の数値で返される
      *
-     * @param overTime 過ぎた時間のナノ秒
+     * @param overTime 過ぎた時間のミリ秒
      */
-    public void overTimeFrame(double overTime) {
+    public void overTimeFrame(long overTime) {
     }
 
     /**
