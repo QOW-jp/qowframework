@@ -17,7 +17,7 @@ public class ExecuteLoop extends Loop {
      *
      * @param rate レートの初期値
      */
-    protected ExecuteLoop(double rate) {
+    protected ExecuteLoop(long rate) {
         super(rate);
     }
 
