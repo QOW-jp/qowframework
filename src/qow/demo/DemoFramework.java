@@ -16,6 +16,7 @@ public class DemoFramework {
     public static void main(String[] args) {
         System.out.println("build by JDK-17.0.4");
         System.out.println("qowframework-1.6.0 DemoModel\n");
+        System.out.println("謎の文字化け");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkRule1 gr = new DemoFrameworkRule1();
