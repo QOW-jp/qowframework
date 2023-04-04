@@ -272,9 +272,6 @@ class DemoFrameworkRule2 extends Rule {
     public void loopActive() {
         timer++;
 
-        getExecuteLoop().setRate(200);
-        getFrameLoop().setRate(100);
-
         inactive = true;
 
         if (timer > 200) {
@@ -371,6 +368,14 @@ class DemoFrameworkRule2 extends Rule {
             g.setColor(Color.white);
             g.drawString(text, startX, startY);
         }
+    }
+
+    public void overTimeExecute(long overTime) {
+        System.out.println(overTime + "ms超過e");
+    }
+
+    public void overTimeFrame(long overTime) {
+        System.out.println(overTime + "ms超過f");
     }
 
     public boolean isChangeRule() {

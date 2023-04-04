@@ -58,13 +58,13 @@ public abstract class Loop implements Runnable {
      */
     public void setRate(long rate) {
         this.rate = rate;
-        sleep = 1000000000L /rate;
+        sleep = 1000000000L / rate;
     }
 
     private void updateRate(long fpsCheck) {
         long delay = fpsCheck - this.fpsCheck;
         if (delay <= 0) delay++;
-        currentRate = 1000000000 / delay;
+        currentRate = 1000 / delay;
         this.fpsCheck = fpsCheck;
     }
 
@@ -85,7 +85,7 @@ public abstract class Loop implements Runnable {
     /**
      * 設定されたレートより時間がかかってしまった場合の処理
      *
-     * @param overTime 過ぎた時間のナノ秒
+     * @param overTime 過ぎた時間のミリ秒
      */
     public abstract void overTime(long overTime);
 
@@ -98,34 +98,32 @@ public abstract class Loop implements Runnable {
         try {
             looping = true;
 
-            long beforeTime, afterTime, timeDiff, sleepTime;
+            long timeDiff;
             long overSleepTime = 0L;
 
-            beforeTime = System.nanoTime();
-
             while (loop) {
+                long beforeTime = System.nanoTime();
+
                 loop();
 
-                updateRate(System.nanoTime());
+                updateRate(System.currentTimeMillis());
 
-                afterTime = System.nanoTime();
+                long afterTime = System.nanoTime();
                 timeDiff = afterTime - beforeTime;
                 // 前回のフレームの休止時間誤差も引いておく
-                sleepTime = (sleep - timeDiff) - overSleepTime;
+                long sleepTime = (sleep - timeDiff) - overSleepTime;
 
-                if (0 < sleepTime) {
+                if (0 < sleepTime / 1000000) {
                     // 休止時間がとれる場合
-                    Thread.sleep(sleepTime / 1000000L); // nano->ms
+                    Thread.sleep(sleepTime / 1000000); // nano->ms
                     // sleep()の誤差
                     overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
-                } else {
+                } else if (sleepTime / 1000000 < 0) {
+                    overTime(-sleepTime / 1000000);
                     // 休止時間がとれない場合
                     overSleepTime = 0L;
                 }
-
-                beforeTime = System.nanoTime();
             }
-
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
