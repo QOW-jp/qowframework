@@ -254,12 +254,13 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     public void init() {
+        getQFrame().dispose();
+        getQFrame().setUndecorated(false);
+
         getQFrame().setTitle("DemoFrameworkRule2");
         setQCanvas(new QCanvas(800, 500));
         getQFrame().setResolution(getQCanvas());
 
-        getQFrame().dispose();
-        getQFrame().setUndecorated(false);
         getQFrame().setLocationRelativeTo(null);
         getQFrame().setVisible(true);
 
