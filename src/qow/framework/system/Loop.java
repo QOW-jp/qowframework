@@ -98,7 +98,6 @@ public abstract class Loop implements Runnable {
         try {
             looping = true;
 
-            long timeDiff;
             long overSleepTime = 0L;
 
             while (loop) {
@@ -109,20 +108,20 @@ public abstract class Loop implements Runnable {
                 updateRate(System.currentTimeMillis());
 
                 long afterTime = System.nanoTime();
-                timeDiff = afterTime - beforeTime;
                 // 前回のフレームの休止時間誤差も引いておく
-                long sleepTime = (sleep - timeDiff) - overSleepTime;
+                long sleepTime = sleep - (afterTime - beforeTime) - overSleepTime;
 
                 if (0 < sleepTime / 1000000) {
                     // 休止時間がとれる場合
                     Thread.sleep(sleepTime / 1000000); // nano->ms
                     // sleep()の誤差
                     overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
+                    continue;
                 } else if (sleepTime / 1000000 < 0) {
                     overTime(-sleepTime / 1000000);
-                    // 休止時間がとれない場合
-                    overSleepTime = 0L;
                 }
+                // 休止時間がとれない場合
+                overSleepTime = 0L;
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

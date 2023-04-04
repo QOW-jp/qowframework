@@ -156,11 +156,14 @@ class DemoFrameworkRule1 extends Rule {
         g.setColor(Color.white);
         g.fillOval(ballX - timer / 2, ballY - timer / 2, timer, timer);
 
-        for (int i = 0; i < dragPoint.size(); i++) {
-            int range = dragPointRange.get(i);
-            int x = (int) dragPoint.get(i).getX() - range / 2;
-            int y = (int) dragPoint.get(i).getY() - range / 2;
-            g.drawOval(x, y, range, range);
+        try {
+            for (int i = 0; i < dragPoint.size(); i++) {
+                int range = dragPointRange.get(i);
+                int x = (int) dragPoint.get(i).getX() - range / 2;
+                int y = (int) dragPoint.get(i).getY() - range / 2;
+                g.drawOval(x, y, range, range);
+            }
+        } catch (IndexOutOfBoundsException ignored) {
         }
 
         FontMetrics fm = g.getFontMetrics();
@@ -340,11 +343,14 @@ class DemoFrameworkRule2 extends Rule {
         g.setColor(Color.white);
         g.fillOval(ballX - timer / 2, ballY - timer / 2, timer, timer);
 
-        for (int i = 0; i < clickPoint.size(); i++) {
-            int range = clickPointRange.get(i);
-            int x = (int) clickPoint.get(i).getX() - range / 2;
-            int y = (int) clickPoint.get(i).getY() - range / 2;
-            g.drawOval(x, y, range, range);
+        try {
+            for (int i = 0; i < clickPoint.size(); i++) {
+                int range = clickPointRange.get(i);
+                int x = (int) clickPoint.get(i).getX() - range / 2;
+                int y = (int) clickPoint.get(i).getY() - range / 2;
+                g.drawOval(x, y, range, range);
+            }
+        } catch (IndexOutOfBoundsException ignored) {
         }
 
         FontMetrics fm = g.getFontMetrics();
