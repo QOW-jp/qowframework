@@ -11,7 +11,8 @@ package qow.framework.system;
 public abstract class Loop implements Runnable {
     private boolean loop, looping;
     private long rate, currentRate;
-    private long currentTime;
+    private long sleep;
+    private long fpsCheck;
 
     /**
      * レートの初期値を設定し、インスタンス化する
@@ -57,13 +58,14 @@ public abstract class Loop implements Runnable {
      */
     public void setRate(long rate) {
         this.rate = rate;
+        sleep = 1000000000L /rate;
     }
 
-    private void updateRate(long currentTime) {
-        long delay = currentTime - this.currentTime;
+    private void updateRate(long fpsCheck) {
+        long delay = fpsCheck - this.fpsCheck;
         if (delay <= 0) delay++;
-        currentRate = 1000/ delay;
-        this.currentTime = currentTime;
+        currentRate = 1000000000 / delay;
+        this.fpsCheck = fpsCheck;
     }
 
     /**
@@ -96,28 +98,32 @@ public abstract class Loop implements Runnable {
         try {
             looping = true;
 
-            long error = 0;
-            long idealSleep = 1000/ rate;
-            long newTime = System.currentTimeMillis();
-            long oldTime = newTime;
+            long beforeTime, afterTime, timeDiff, sleepTime;
+            long overSleepTime = 0L;
+
+            beforeTime = System.nanoTime();
 
             while (loop) {
-                oldTime = newTime;
-
                 loop();
 
-                updateRate(System.currentTimeMillis());
+                updateRate(System.nanoTime());
 
-                newTime = System.currentTimeMillis();
-                long sleepTime = idealSleep - (newTime - oldTime) - error; // 休止できる時間
-                if (sleepTime < 0) {
-                    overTime(-sleepTime);
+                afterTime = System.nanoTime();
+                timeDiff = afterTime - beforeTime;
+                // 前回のフレームの休止時間誤差も引いておく
+                sleepTime = (sleep - timeDiff) - overSleepTime;
+
+                if (0 < sleepTime) {
+                    // 休止時間がとれる場合
+                    Thread.sleep(sleepTime / 1000000L); // nano->ms
+                    // sleep()の誤差
+                    overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
                 } else {
-                    Thread.sleep(sleepTime);
+                    // 休止時間がとれない場合
+                    overSleepTime = 0L;
                 }
-                oldTime = newTime;
-                newTime = System.currentTimeMillis();
-                error = newTime - oldTime - sleepTime; // 休止時間の誤差
+
+                beforeTime = System.nanoTime();
             }
 
         } catch (InterruptedException e) {
