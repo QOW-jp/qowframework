@@ -102,11 +102,9 @@ public abstract class Loop implements Runnable {
     public abstract void overTime(long overTime);
 
     /**
-     * {@link Thread}がループにしようするメソッド
-     *
-     * @deprecated マルチスレッド用のメソッドなので使用しない
+     * {@link Thread}がループに使用するメソッド
      */
-    public void run() {
+    public final void run() {
         try {
             looping = true;
 
