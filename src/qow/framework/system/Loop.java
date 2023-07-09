@@ -129,16 +129,15 @@ public abstract class Loop implements Runnable {
                     TimeUnit.NANOSECONDS.sleep(sleepTime);
                     //スレッドスリープの誤差
                     overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
+                    continue;
                 } else if (sleepTime < 0) {
                     //休止時間が取れない場合
                     //一回のループ時間が元々の一ループあたりにかかる時間を超えた場合
                     overTime(sleepTime);
-                    overSleepTime = sleepTime;
-                } else {
-                    //休止時間がとれない場合
-                    //一回のループ時間が元々の一ループあたりにかかる時間と全く同じ場合(基本的にない)
-                    overSleepTime = 0L;
                 }
+                //休止時間がとれない場合
+                //一回のループ時間が元々の一ループあたりにかかる時間と全く同じ場合(基本的にない)
+                overSleepTime = 0L;
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

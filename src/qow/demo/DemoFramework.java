@@ -9,6 +9,7 @@ import qow.framework.util.ActionMouse;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -194,11 +195,11 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     public void overTimeExecute(long overTime) {
-        System.out.println("EL誤差 : " + overTime + "ns");
+        System.out.println("EL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
     }
 
     public void overTimeFrame(long overTime) {
-        System.out.println("FL誤差 : " + overTime + "ns");
+        System.out.println("FL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
     }
 
     public boolean isChangeRule() {
@@ -385,11 +386,11 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     public void overTimeExecute(long overTime) {
-        System.out.println("EL誤差 : " + overTime + "ns");
+        System.out.println("EL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
     }
 
     public void overTimeFrame(long overTime) {
-        System.out.println("FL誤差 : " + overTime + "ns");
+        System.out.println("FL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
     }
 
     public boolean isChangeRule() {
