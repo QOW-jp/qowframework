@@ -71,8 +71,11 @@ public abstract class Loop implements Runnable {
 
     private void updateRate(long fpsCheck) {
         long delay = fpsCheck - this.checkPoint;
-        if (delay <= 0) delay++;
-        currentRate = 1000 / delay;
+        if (delay == 0) {
+            currentRate = Long.MAX_VALUE;
+        } else {
+            currentRate = 1000000000L / delay;
+        }
         this.checkPoint = fpsCheck;
     }
 
@@ -114,24 +117,28 @@ public abstract class Loop implements Runnable {
 
                 loop();
 
-                updateRate(System.currentTimeMillis());
+                updateRate(System.nanoTime());
 
                 long afterTime = System.nanoTime();
-                // 前回のフレームの休止時間誤差も引いておく
+                //前回のフレームの休止時間誤差も引いておく
                 long sleepTime = this.interval - (afterTime - beforeTime) - overSleepTime;
 
                 if (0 < sleepTime) {
-                    // 休止時間がとれる場合
-//                    Thread.sleep(sleepTime / 1000000); // nano->ms
+                    //休止時間がとれる場合
+                    //一回のループ時間が元々の一ループあたりにかかる時間よりかからなかった場合
                     TimeUnit.NANOSECONDS.sleep(sleepTime);
-                    // sleep()の誤差
+                    //スレッドスリープの誤差
                     overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
-                    continue;
                 } else if (sleepTime < 0) {
+                    //休止時間が取れない場合
+                    //一回のループ時間が元々の一ループあたりにかかる時間を超えた場合
                     overTime(sleepTime);
+                    overSleepTime = sleepTime;
+                } else {
+                    //休止時間がとれない場合
+                    //一回のループ時間が元々の一ループあたりにかかる時間と全く同じ場合(基本的にない)
+                    overSleepTime = 0L;
                 }
-                // 休止時間がとれない場合
-                overSleepTime = 0L;
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
