@@ -9,10 +9,12 @@ package qow.framework.system;
  * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
-    private boolean loop, looping;
-    private long rate, currentRate;
-    private long sleep;
-    private long fpsCheck;
+    private boolean loop;   //ループを実行したか
+    private boolean looping;    //ループしている最中か
+    private long rate;  //理想的なフレームレート
+    private long currentRate;   //現在のフレームレート
+    private long interval;  //一ループあたりにかかる時間
+    private long checkPoint;  //前回実行した時間
 
     /**
      * レートの初期値を設定し、インスタンス化する
@@ -20,7 +22,7 @@ public abstract class Loop implements Runnable {
      * @param rate レートの初期値
      */
     public Loop(long rate) {
-        this.rate = rate;
+        setRate(rate);
     }
 
     /**
@@ -58,14 +60,14 @@ public abstract class Loop implements Runnable {
      */
     public void setRate(long rate) {
         this.rate = rate;
-        sleep = 1000000000L / rate;
+        interval = 1000000000L / rate;
     }
 
     private void updateRate(long fpsCheck) {
-        long delay = fpsCheck - this.fpsCheck;
+        long delay = fpsCheck - this.checkPoint;
         if (delay <= 0) delay++;
         currentRate = 1000 / delay;
-        this.fpsCheck = fpsCheck;
+        this.checkPoint = fpsCheck;
     }
 
     /**
@@ -109,7 +111,7 @@ public abstract class Loop implements Runnable {
 
                 long afterTime = System.nanoTime();
                 // 前回のフレームの休止時間誤差も引いておく
-                long sleepTime = sleep - (afterTime - beforeTime) - overSleepTime;
+                long sleepTime = this.interval - (afterTime - beforeTime) - overSleepTime;
 
                 if (0 < sleepTime / 1000000) {
                     // 休止時間がとれる場合
