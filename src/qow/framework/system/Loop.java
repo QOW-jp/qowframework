@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * 可能な限り一秒間に設定されたレートの回数{@link Loop#loop()}を実行する
  *
  * @author QOW
- * @version 2023/04/04
+ * @version 2023/07/09
  * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
