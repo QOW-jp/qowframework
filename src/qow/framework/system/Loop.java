@@ -1,5 +1,7 @@
 package qow.framework.system;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * レートを制御するクラス<br>
  * 可能な限り一秒間に設定されたレートの回数{@link Loop#loop()}を実行する
@@ -60,7 +62,11 @@ public abstract class Loop implements Runnable {
      */
     public void setRate(long rate) {
         this.rate = rate;
-        interval = 1000000000L / rate;
+        if (rate <= 0) {
+            interval = 0;
+        } else {
+            interval = 1000000000L / rate;
+        }
     }
 
     private void updateRate(long fpsCheck) {
@@ -86,8 +92,9 @@ public abstract class Loop implements Runnable {
 
     /**
      * 設定されたレートより時間がかかってしまった場合の処理
+     * 元々の一ループあたりにかかる時間との差異をナノ秒で返す
      *
-     * @param overTime 過ぎた時間のミリ秒
+     * @param overTime 過ぎた時間のナノ秒
      */
     public abstract void overTime(long overTime);
 
@@ -113,14 +120,15 @@ public abstract class Loop implements Runnable {
                 // 前回のフレームの休止時間誤差も引いておく
                 long sleepTime = this.interval - (afterTime - beforeTime) - overSleepTime;
 
-                if (0 < sleepTime / 1000000) {
+                if (0 < sleepTime) {
                     // 休止時間がとれる場合
-                    Thread.sleep(sleepTime / 1000000); // nano->ms
+//                    Thread.sleep(sleepTime / 1000000); // nano->ms
+                    TimeUnit.NANOSECONDS.sleep(sleepTime);
                     // sleep()の誤差
                     overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
                     continue;
-                } else if (sleepTime / 1000000 < 0) {
-                    overTime(-sleepTime / 1000000);
+                } else if (sleepTime < 0) {
+                    overTime(sleepTime);
                 }
                 // 休止時間がとれない場合
                 overSleepTime = 0L;

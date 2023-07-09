@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class DemoFramework {
     public static void main(String[] args) {
@@ -166,9 +167,12 @@ class DemoFrameworkRule1 extends Rule {
         } catch (IndexOutOfBoundsException ignored) {
         }
 
-        FontMetrics fm = g.getFontMetrics();
-        String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
-        g.drawString(text, 0, fm.getMaxAscent());
+        try {
+            FontMetrics fm = g.getFontMetrics();
+            String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
+            g.drawString(text, 0, fm.getMaxAscent());
+        } catch (NoSuchElementException ignored) {
+        }
 
         g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight());
     }
@@ -190,11 +194,11 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     public void overTimeExecute(long overTime) {
-        System.out.println(overTime + "ms超過e");
+        System.out.println("EL誤差 : " + overTime + "ns");
     }
 
     public void overTimeFrame(long overTime) {
-        System.out.println(overTime + "ms超過f");
+        System.out.println("FL誤差 : " + overTime + "ns");
     }
 
     public boolean isChangeRule() {
@@ -354,9 +358,12 @@ class DemoFrameworkRule2 extends Rule {
         } catch (IndexOutOfBoundsException ignored) {
         }
 
-        FontMetrics fm = g.getFontMetrics();
-        String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
-        g.drawString(text, 0, fm.getMaxAscent());
+        try {
+            FontMetrics fm = g.getFontMetrics();
+            String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
+            g.drawString(text, 0, fm.getMaxAscent());
+        } catch (NoSuchElementException ignored) {
+        }
 
         g.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight());
     }
@@ -378,11 +385,11 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     public void overTimeExecute(long overTime) {
-        System.out.println(overTime + "ms超過e");
+        System.out.println("EL誤差 : " + overTime + "ns");
     }
 
     public void overTimeFrame(long overTime) {
-        System.out.println(overTime + "ms超過f");
+        System.out.println("FL誤差 : " + overTime + "ns");
     }
 
     public boolean isChangeRule() {
