@@ -112,13 +112,13 @@ class DemoFrameworkRule1 extends Rule {
 
         if (actionMouse.isPress()) {
             Point point = new Point(mouseCursor);
-            if (dragPoint.size() == 0 || dragPoint.get(dragPoint.size() - 1).getX() != point.getX() || dragPoint.get(dragPoint.size() - 1).getY() != point.getY()) {
+            if (dragPoint.isEmpty() || dragPoint.get(dragPoint.size() - 1).getX() != point.getX() || dragPoint.get(dragPoint.size() - 1).getY() != point.getY()) {
                 dragPoint.add(point);
                 dragPointRange.add(0);
             }
         }
 
-        if (0 < dragPoint.size()) {
+        if (!dragPoint.isEmpty()) {
             for (int i = 0; i < dragPoint.size(); i++) {
                 if (dragPointRange.get(i) < DRAG_MAX_RANGE) {
                     dragPointRange.set(i, dragPointRange.get(i) + 1);
@@ -309,7 +309,7 @@ class DemoFrameworkRule2 extends Rule {
             clickPointRange.add(0);
         }
 
-        if (0 < clickPoint.size()) {
+        if (!clickPoint.isEmpty()) {
             for (int i = 0; i < clickPoint.size(); i++) {
                 if (clickPointRange.get(i) < CLICK_MAX_RANGE) {
                     clickPointRange.set(i, clickPointRange.get(i) + 1);
