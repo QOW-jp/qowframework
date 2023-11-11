@@ -7,7 +7,9 @@ import qow.framework.system.Rule;
 import qow.framework.util.ActionKey;
 import qow.framework.util.ActionMouse;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -273,6 +275,28 @@ class DemoFrameworkRule2 extends Rule {
         getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //文字描画のアンチエイリアシングの有効化
         getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        JPanel menuPanel = new JPanel();
+        menuPanel.setBackground(Color.CYAN);
+        menuPanel.setPreferredSize(new Dimension(getQCanvas().getWidth(), 26));
+        menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        getQFrame().add(menuPanel, BorderLayout.PAGE_START);
+
+        JButton[] menuButton = new JButton[2];
+        String[] buttonTitle = {"EXIT", "ChangeRule"};
+        for (int i = 0; i < menuButton.length; i++) {
+            menuButton[i] = new JButton(buttonTitle[i]);
+            menuButton[i].setFocusable(false);
+            menuPanel.add(menuButton[i]);
+        }
+        menuButton[0].addActionListener((ActionEvent e) -> {
+            System.out.println("EXITボタンが押されました");
+            System.exit(0);
+        });
+        menuButton[1].addActionListener((ActionEvent e) -> {
+            System.out.println("ChangeRuleボタンが押されました");
+            changeRule = true;
+        });
 
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);

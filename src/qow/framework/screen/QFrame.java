@@ -7,7 +7,7 @@ import java.awt.*;
  * {@link qow.framework.system.FrameLoop}で再描写されるフレーム
  *
  * @author QOW
- * @version 2022/09/29
+ * @version 2023/11/11
  * @since 1.4.2
  */
 public class QFrame extends JFrame {
@@ -22,7 +22,7 @@ public class QFrame extends JFrame {
         setResizable(false);
 
         qp = new QPanel();
-        add(qp);
+        getContentPane().add(qp, BorderLayout.CENTER);
     }
 
     /**
