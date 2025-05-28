@@ -29,7 +29,7 @@ public class DemoFramework {
             gr.getQFrame().setVisible(true);
             ms.start(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }
