@@ -1,6 +1,5 @@
 package qow.framework.screen;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -11,7 +10,7 @@ import java.awt.*;
  * @version 2022/09/29
  * @since 1.4.2
  */
-public class QPanel extends JPanel {
+public class QPanel extends Panel {
     private QCanvas canvas;
 
     /**
@@ -40,17 +39,7 @@ public class QPanel extends JPanel {
      * @param g ペイント対象の{@link Graphics}コンテキスト
      */
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        super.paintComponents(g);
         canvas.draw(g, (int) getPreferredSize().getWidth(), (int) getPreferredSize().getHeight());
-    }
-
-    /**
-     * 再描画時の画面のチラツキを抑えるために画面の暗転を無効化する
-     *
-     * @param g ペイント対象の{@link Graphics}コンテキスト
-     */
-    @Override
-    public void update(Graphics g) {
-        paintComponent(g);  //次の画面のイメージを描写する
     }
 }

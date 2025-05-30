@@ -53,6 +53,8 @@ class DemoFrameworkRule1 extends Rule {
 
     DemoFrameworkRule1() {
         QFrame qf = new QFrame("DemoFrameworkRule1");
+        qf.pack();
+        qf.setVisible(true);
         setQFrame(qf);
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();

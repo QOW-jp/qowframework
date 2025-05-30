@@ -44,6 +44,8 @@ public class QFrame extends JFrame {
     public void setResolution(QCanvas canvas) {
         qp.setQCanvas(canvas);
         pack();
+        qp.getQCanvas().setGraphics(getGraphics());
+        qp.getQCanvas().render(createImage(WIDTH,HEIGHT));
     }
 
     /**
