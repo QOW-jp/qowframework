@@ -43,4 +43,14 @@ public class QPanel extends JPanel {
         super.paintComponent(g);
         canvas.draw(g, (int) getPreferredSize().getWidth(), (int) getPreferredSize().getHeight());
     }
+
+    /**
+     * 再描画時の画面のチラツキを抑えるために画面の暗転を無効化する
+     *
+     * @param g ペイント対象の{@link Graphics}コンテキスト
+     */
+    @Override
+    public void update(Graphics g) {
+        paintComponent(g);  //次の画面のイメージを描写する
+    }
 }

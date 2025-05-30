@@ -85,7 +85,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         } else {
             paintInactive(canvas.getGraphicsImage());
         }
-        qf.getQPanel().repaint();
+        qf.getQPanel().repaint(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     /**
