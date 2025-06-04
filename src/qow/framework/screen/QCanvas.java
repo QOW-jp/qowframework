@@ -1,6 +1,7 @@
 package qow.framework.screen;
 
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 /**
  * {@link QPanel}に投影する画像を保持する
@@ -10,6 +11,7 @@ import java.awt.*;
  * @since 1.4.2
  */
 public class QCanvas extends Canvas {
+    private BufferStrategy bufferStrategy;
     private Graphics qfg;
     // ダブルバッファリング（db）用
     private Graphics dbg;
@@ -33,6 +35,9 @@ public class QCanvas extends Canvas {
             // バッファイメージの描画オブジェクト
             dbg = dbImage.getGraphics();
         }
+    }
+    public QCanvas(){
+        this(800,450);
     }
 
     /**
@@ -81,8 +86,75 @@ public class QCanvas extends Canvas {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
     }
 
+    public void draw(Color color) {
+        /*
+         * 一応ぬるぽ対応することでエラーでとまることはなくなるが、
+         * 可視化されなければ、ずっとnullかも
+         */
+        if (bufferStrategy == null) {
+            System.err.println("bufferStrategyがぬるぽ");
+            try {
+                createBufferStrategy(3);
+                bufferStrategy = getBufferStrategy();
+            } catch (Exception e) {
+                System.err.println("エラーポイント②");
+                System.err.println("	[frame.pack();]忘れの可能性");
+                System.err.println("	[frame.add(canvas);]忘れの可能性");
+                System.err.println("	[frame.setVisible(true);]忘れの可能性");
+            }
+            return;
+        }
+
+        /*
+         * 謎エラーポイント
+         * サイズ設定、レイアウト設定、可視化タイミングを疑う
+         */
+        Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics(); // Graphicsをゲット！
+        if (!bufferStrategy.contentsLost()) { // フルスクリーン化したときになにかをロストするらしいのでその対策
+            /*
+             * g を使って描画処理
+             */
+            paint(g);
+            bufferStrategy.show();
+            g.dispose();
+        }
+    }
+
+    public Graphics getBufferStrategyGraphics() {
+        /*
+         * 一応ぬるぽ対応することでエラーでとまることはなくなるが、
+         * 可視化されなければ、ずっとnullかも
+         */
+        if (bufferStrategy == null) {
+            System.err.println("bufferStrategyがぬるぽ");
+            try {
+                createBufferStrategy(3);
+                bufferStrategy = getBufferStrategy();
+            } catch (Exception e) {
+                System.err.println("エラーポイント②");
+                System.err.println("	[frame.pack();]忘れの可能性");
+                System.err.println("	[frame.add(canvas);]忘れの可能性");
+                System.err.println("	[frame.setVisible(true);]忘れの可能性");
+            }
+        }
+
+        /*
+         * 謎エラーポイント
+         * サイズ設定、レイアウト設定、可視化タイミングを疑う
+         */
+        Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics(); // Graphicsをゲット！
+        if (!bufferStrategy.contentsLost()) { // フルスクリーン化したときになにかをロストするらしいのでその対策
+            /*
+             * g を使って描画処理
+             */
+            paint(g);
+            bufferStrategy.show();
+            g.dispose();
+        }
+    }
     private void clearBuffer() {
         // バッファをクリアする
         dbg.setColor(Color.WHITE);
@@ -128,5 +200,25 @@ public class QCanvas extends Canvas {
     }
     public void setGraphics(Graphics g){
         qfg = g;
+    }
+
+    /**
+     * peer確定後、バッファストラテジー生成と参照コピーを実行するようにオーバーライド
+     * bufferStrategyがぬるぽエラーを回避できる！
+     */
+    @Override
+    public void addNotify() {
+        super.addNotify();  //ここでpeer確定
+        System.out.println(this.getName() + "のpeer確定");
+        //キャンバスのバッファストラテジーを生成
+
+        try {
+            createBufferStrategy(3);
+            bufferStrategy = getBufferStrategy(); // ループで使用するために参照を保持しておく
+            System.out.println(this.getName() + "のバッファストラテジー生成に成功");
+        } catch (Exception e) {
+            System.err.println("エラーポイント③"); // もしここでエラーがでるというのであれば、わたしはお手あげですｗ
+            System.err.println(this.getName() + "のバッファストラテジー生成に失敗");
+        }
     }
 }

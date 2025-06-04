@@ -21,8 +21,9 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     private final ActionMouseManager amm;
     private ExecuteLoop el;
     private FrameLoop fl;
-    private QCanvas canvas;
     private QFrame qf;
+    private QCanvas canvas;
+    private Graphics bsGraphics;
 
     public Rule() {
         akm = new ActionKeyManager();
@@ -52,7 +53,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * インスタンス後に{@link QFrame}を定義されてから呼び出される<br>
      * 新しく{@link Rule#getQFrame()}が定義されていない場合{@link Rule#getQFrame()}はここ以降で使用できる
      */
-    public void init() {
+    protected void init() {
     }
 
     /**
@@ -85,9 +86,9 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
 //        canvas.render();
 
         if (qf.isActive()) {
-            paintActive(canvas.getGraphicsImage());
+            paintActive(canvas.getBufferStrategyGraphics());
         } else {
-            paintInactive(canvas.getGraphicsImage());
+            paintInactive(canvas.getBufferStrategyGraphics());
         }
 //        qf.getQPanel().repaint(0, 0, canvas.getWidth(), canvas.getHeight());
         canvas.update();
@@ -123,6 +124,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      */
     public void setQCanvas(QCanvas canvas) {
         this.canvas = canvas;
+        //bsGraphics = canvas.getBufferStrategyGraphics();
     }
 
     /**

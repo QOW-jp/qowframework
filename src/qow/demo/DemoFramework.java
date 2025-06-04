@@ -83,7 +83,7 @@ class DemoFrameworkRule1 extends Rule {
         qf.setVisible(true);
     }
 
-    public void init() {
+    protected void init() {
         getExecuteLoop().setRate(100);
         getFrameLoop().setRate(100);
 
@@ -263,7 +263,7 @@ class DemoFrameworkRule2 extends Rule {
         mouseCursor = getActionMouseManager().getMousePoint();
     }
 
-    public void init() {
+    protected void init() {
         getQFrame().dispose();
         getQFrame().setUndecorated(false);
 

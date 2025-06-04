@@ -11,7 +11,8 @@ import java.awt.*;
  * @since 1.4.2
  */
 public class QFrame extends JFrame {
-    private final QPanel qp;
+    //private final QPanel qp;
+    private QCanvas canvas;
 
     /**
      * タイトルを設定せずインスタンス化する
@@ -21,8 +22,10 @@ public class QFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        qp = new QPanel();
-        getContentPane().add(qp, BorderLayout.CENTER);
+//        qp = new QPanel();
+//        getContentPane().add(qp, BorderLayout.CENTER);
+        canvas = new QCanvas();
+        getContentPane().add(canvas,BorderLayout.CENTER);
     }
 
     /**
@@ -42,10 +45,10 @@ public class QFrame extends JFrame {
      * @param canvas 新しい{@link QCanvas}
      */
     public void setResolution(QCanvas canvas) {
-        qp.setQCanvas(canvas);
+        this.canvas = canvas;
         pack();
-        qp.getQCanvas().setGraphics(getGraphics());
-        qp.getQCanvas().render(createImage(WIDTH,HEIGHT));
+        canvas.setGraphics(getGraphics());
+        canvas.render(createImage(WIDTH,HEIGHT));
     }
 
     /**
@@ -64,12 +67,4 @@ public class QFrame extends JFrame {
         pack();
     }
 
-    /**
-     * 設定されている{@link QPanel}を返す
-     *
-     * @return このフレームのパネル
-     */
-    public QPanel getQPanel() {
-        return qp;
-    }
 }
