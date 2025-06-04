@@ -53,8 +53,6 @@ class DemoFrameworkRule1 extends Rule {
 
     DemoFrameworkRule1() {
         QFrame qf = new QFrame("DemoFrameworkRule1");
-        qf.pack();
-        qf.setVisible(true);
         setQFrame(qf);
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -80,6 +78,9 @@ class DemoFrameworkRule1 extends Rule {
         dragPointRange = new ArrayList<>();
 
         mouseCursor = getActionMouseManager().getMousePoint();
+
+        qf.pack();
+        qf.setVisible(true);
     }
 
     public void init() {
