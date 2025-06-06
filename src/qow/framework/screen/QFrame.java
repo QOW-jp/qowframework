@@ -25,7 +25,8 @@ public class QFrame extends JFrame {
 //        qp = new QPanel();
 //        getContentPane().add(qp, BorderLayout.CENTER);
         canvas = new QCanvas();
-        getContentPane().add(canvas,BorderLayout.CENTER);
+        getContentPane().add(canvas, BorderLayout.CENTER);
+        pack();
     }
 
     /**
@@ -48,7 +49,7 @@ public class QFrame extends JFrame {
         this.canvas = canvas;
         pack();
         canvas.setGraphics(getGraphics());
-        canvas.render(createImage(WIDTH,HEIGHT));
+        canvas.render(createImage(WIDTH, HEIGHT));
     }
 
     /**
@@ -59,12 +60,15 @@ public class QFrame extends JFrame {
      * @deprecated マウスリスナー系統の座標取得がずれる
      */
     public void setFrameSize(int width, int height) {
-        remove(qp);
-        qp.setPreferredSize(new Dimension(width, height));
-
-        add(qp);
+        remove(canvas);
+        canvas.setPreferredSize(new Dimension(width, height));
+        add(canvas);
 
         pack();
+    }
+
+    public QCanvas getQCanvas(){
+        return canvas;
     }
 
 }

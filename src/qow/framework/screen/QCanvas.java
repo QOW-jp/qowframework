@@ -89,41 +89,7 @@ public class QCanvas extends Canvas {
 
     }
 
-    public void draw(Color color) {
-        /*
-         * 一応ぬるぽ対応することでエラーでとまることはなくなるが、
-         * 可視化されなければ、ずっとnullかも
-         */
-        if (bufferStrategy == null) {
-            System.err.println("bufferStrategyがぬるぽ");
-            try {
-                createBufferStrategy(3);
-                bufferStrategy = getBufferStrategy();
-            } catch (Exception e) {
-                System.err.println("エラーポイント②");
-                System.err.println("	[frame.pack();]忘れの可能性");
-                System.err.println("	[frame.add(canvas);]忘れの可能性");
-                System.err.println("	[frame.setVisible(true);]忘れの可能性");
-            }
-            return;
-        }
-
-        /*
-         * 謎エラーポイント
-         * サイズ設定、レイアウト設定、可視化タイミングを疑う
-         */
-        Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics(); // Graphicsをゲット！
-        if (!bufferStrategy.contentsLost()) { // フルスクリーン化したときになにかをロストするらしいのでその対策
-            /*
-             * g を使って描画処理
-             */
-            paint(g);
-            bufferStrategy.show();
-            g.dispose();
-        }
-    }
-
-    public Graphics getBufferStrategyGraphics() {
+    public Graphics2D getBufferStrategyGraphics2D() {
         /*
          * 一応ぬるぽ対応することでエラーでとまることはなくなるが、
          * 可視化されなければ、ずっとnullかも
@@ -150,33 +116,10 @@ public class QCanvas extends Canvas {
             /*
              * g を使って描画処理
              */
-            paint(g);
-            bufferStrategy.show();
-            g.dispose();
+            return g;
+
         }
-    }
-    private void clearBuffer() {
-        // バッファをクリアする
-        dbg.setColor(Color.WHITE);
-        dbg.fillRect(0, 0, WIDTH, HEIGHT);
-    }
-
-    /**
-     * 描写された画像を返す
-     *
-     * @return 描写された画像
-     */
-    public Graphics getGraphicsImage() {
-        return dbg;
-    }
-
-    /**
-     * {@link Graphics2D}にキャストされた{@link Graphics}を返す
-     *
-     * @return ペイント対象
-     */
-    public Graphics2D getGraphics2D() {
-        return (Graphics2D) dbg;
+        return null;
     }
 
     /**
@@ -187,7 +130,7 @@ public class QCanvas extends Canvas {
     public void update() {
 //        render();
         paint();
-        clearBuffer();
+        bufferStrategy.show();
     }
 
 

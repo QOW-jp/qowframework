@@ -81,16 +81,19 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * {@link FrameLoop#loop()}によって一秒間にレートの回数実行されるメソッド
      */
     public void draw() {
-        qf.pack();
         // 初回の呼び出し時にダブルバッファリング用オブジェクトを作成
 //        canvas.render();
 
+        Graphics2D g = canvas.getBufferStrategyGraphics2D();
+        if (g == null) return;
+
         if (qf.isActive()) {
-            paintActive(canvas.getBufferStrategyGraphics());
+            paintActive(g);
         } else {
-            paintInactive(canvas.getBufferStrategyGraphics());
+            paintInactive(g);
         }
 //        qf.getQPanel().repaint(0, 0, canvas.getWidth(), canvas.getHeight());
+        g.dispose();
         canvas.update();
     }
 

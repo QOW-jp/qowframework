@@ -64,7 +64,7 @@ public class FrameLoop extends Loop {
         } else {
             rule.setQFrame(qf);
             if (!rule.hasQCanvas()) {
-                rule.setQCanvas(qf.getQPanel().getQCanvas());
+                rule.setQCanvas(qf.getQCanvas());
                 return;
             }
         }

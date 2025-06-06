@@ -217,14 +217,14 @@ class DemoFrameworkRule1 extends Rule {
 
     public void addListener(QFrame qf) {
         qf.addKeyListener(this);
-        qf.getQPanel().addMouseListener(this);
-        qf.getQPanel().addMouseMotionListener(this);
+        qf.addMouseListener(this);
+        qf.addMouseMotionListener(this);
     }
 
     public void removeListener(QFrame qf) {
         qf.removeKeyListener(this);
-        qf.getQPanel().removeMouseListener(this);
-        qf.getQPanel().removeMouseMotionListener(this);
+        qf.removeMouseListener(this);
+        qf.removeMouseMotionListener(this);
     }
 }
 
@@ -430,13 +430,13 @@ class DemoFrameworkRule2 extends Rule {
 
     public void addListener(QFrame qf) {
         qf.addKeyListener(this);
-        qf.getQPanel().addMouseListener(this);
-        qf.getQPanel().addMouseMotionListener(this);
+        qf.addMouseListener(this);
+        qf.addMouseMotionListener(this);
     }
 
     public void removeListener(QFrame qf) {
         qf.removeKeyListener(this);
-        qf.getQPanel().removeMouseListener(this);
-        qf.getQPanel().removeMouseMotionListener(this);
+        qf.removeMouseListener(this);
+        qf.removeMouseMotionListener(this);
     }
 }
