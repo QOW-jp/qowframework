@@ -40,6 +40,6 @@ public class QPanel extends Panel {
      */
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
-        canvas.draw(g, (int) getPreferredSize().getWidth(), (int) getPreferredSize().getHeight());
+        //canvas.draw(g, (int) getPreferredSize().getWidth(), (int) getPreferredSize().getHeight());
     }
 }

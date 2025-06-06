@@ -12,11 +12,7 @@ import java.awt.image.BufferStrategy;
  */
 public class QCanvas extends Canvas {
     private BufferStrategy bufferStrategy;
-    private Graphics qfg;
-    // ダブルバッファリング（db）用
-    private Graphics dbg;
-    private Image dbImage = null;
-    private int width, height;
+    private final int width,height;
 
     /**
      * サイズを設定してインスタンス化する
@@ -25,69 +21,16 @@ public class QCanvas extends Canvas {
      * @param height 縦のサイズ
      */
     public QCanvas(int width, int height) {
+        super();
         this.width = width;
         this.height = height;
-
-        dbImage = createImage(width, height);
-        if (dbImage == null) {
-            System.out.println("dbImage is null");
-        } else {
-            // バッファイメージの描画オブジェクト
-            dbg = dbImage.getGraphics();
-        }
-    }
-    public QCanvas(){
-        this(800,450);
+        setPreferredSize(new Dimension(width, height));
     }
 
-    /**
-     * {@link QPanel}に保持している画像を描写する
-     *
-     * @param g ペイント対象の{@link Graphics}コンテキスト
-     */
-    protected void draw(Graphics g, int width, int height) {
-        g.drawImage(dbImage, 0, 0, width, height, null);
+    public QCanvas() {
+        this(800, 450);
     }
 
-    /**
-     * 初回の呼び出し時にバッファを作成
-     */
-    public void render(Image image) {
-        // 初回の呼び出し時にダブルバッファリング用オブジェクトを作成
-        if (dbImage == null) {
-            // バッファイメージ
-            dbImage = image;
-            if (dbImage == null) {
-                System.out.println("dbImage is null5");
-            } else {
-                // バッファイメージの描画オブジェクト
-                dbg = dbImage.getGraphics();
-                System.out.println("dgb"+dbg);
-            }
-        }
-    }
-
-    /**
-     * バッファを画面に描画
-     */
-    private void paint() {
-        try {
-            // グラフィックオブジェクトを取得
-            Graphics g = qfg;
-            if ((g != null) && (dbImage != null)) {
-                // バッファイメージを画面に描画
-                g.drawImage(dbImage, 0, 0, null);
-            }
-            Toolkit.getDefaultToolkit().sync();
-            if (g != null) {
-                // グラフィックオブジェクトを破棄
-                g.dispose();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
 
     public Graphics2D getBufferStrategyGraphics2D() {
         /*
@@ -97,13 +40,16 @@ public class QCanvas extends Canvas {
         if (bufferStrategy == null) {
             System.err.println("bufferStrategyがぬるぽ");
             try {
-                createBufferStrategy(3);
+                System.out.println("createBufferStrategy");
+                createBufferStrategy(2);
+                System.out.println("getBufferStrategy");
                 bufferStrategy = getBufferStrategy();
             } catch (Exception e) {
                 System.err.println("エラーポイント②");
                 System.err.println("	[frame.pack();]忘れの可能性");
                 System.err.println("	[frame.add(canvas);]忘れの可能性");
                 System.err.println("	[frame.setVisible(true);]忘れの可能性");
+                e.printStackTrace();
             }
         }
 
@@ -129,7 +75,6 @@ public class QCanvas extends Canvas {
      */
     public void update() {
 //        render();
-        paint();
         bufferStrategy.show();
     }
 
@@ -141,9 +86,7 @@ public class QCanvas extends Canvas {
     public int getHeight() {
         return height;
     }
-    public void setGraphics(Graphics g){
-        qfg = g;
-    }
+
 
     /**
      * peer確定後、バッファストラテジー生成と参照コピーを実行するようにオーバーライド

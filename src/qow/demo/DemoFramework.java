@@ -52,14 +52,14 @@ class DemoFrameworkRule1 extends Rule {
 
 
     DemoFrameworkRule1() {
-        QFrame qf = new QFrame("DemoFrameworkRule1");
-        setQFrame(qf);
+        super();
 
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
-        setQCanvas(new QCanvas(displayMode.getWidth(), displayMode.getHeight()));
+        getQFrame().setTitle("DemoFrameworkRule1");
 
-        qf.setUndecorated(true);
+
+        System.out.println("1undecorated前");
+        //qf.setUndecorated(true);
+        System.out.println("1undecorated後");
 
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
@@ -79,15 +79,20 @@ class DemoFrameworkRule1 extends Rule {
 
         mouseCursor = getActionMouseManager().getMousePoint();
 
-        qf.pack();
-        qf.setVisible(true);
+        System.out.println("DFR1:a");
     }
 
     protected void init() {
-        getExecuteLoop().setRate(100);
-        getFrameLoop().setRate(100);
+        getExecuteLoop().setRate(165);
+        getFrameLoop().setRate(165);
 
-        getQFrame().setVisible(true);
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
+
+        setQCanvas(new QCanvas(displayMode.getWidth(), displayMode.getHeight()));
+
+//        getQFrame().setUndecorated(true);
+        getQFrame().setLocationRelativeTo(null);
     }
 
     public void loopActive() {
@@ -245,6 +250,8 @@ class DemoFrameworkRule2 extends Rule {
     int[] rateCheckerByExecute = new int[RATE_CHECK_LENGTH];
 
     DemoFrameworkRule2() {
+        super();
+
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
         for (int i = 0; i < actionKey.length; i++) {
@@ -267,17 +274,20 @@ class DemoFrameworkRule2 extends Rule {
         getQFrame().dispose();
         getQFrame().setUndecorated(false);
 
-        getQFrame().setTitle("DemoFrameworkRule2");
-        setQCanvas(new QCanvas(800, 500));
-        getQFrame().setResolution(getQCanvas());
+//        getQFrame().setTitle("DemoFrameworkRule2");
+//        setQCanvas(new QCanvas(800, 500));
+//        getQFrame().setResolution(getQCanvas());
+
+        setQFrame(new QFrame("DemoFrameworkRule2"));
+
 
         getQFrame().setLocationRelativeTo(null);
         getQFrame().setVisible(true);
 
         //図形や線のアンチエイリアシングの有効化
-        getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //文字描画のアンチエイリアシングの有効化
-        getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        //getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         JPanel menuPanel = new JPanel();
         menuPanel.setBackground(Color.CYAN);
