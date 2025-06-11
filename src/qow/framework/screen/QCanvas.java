@@ -14,6 +14,7 @@ public class QCanvas extends Canvas {
     public static final int DEFAULT_WIDTH = 800;
     public static final int DEFAULT_HEIGHT = 450;
     private final int width, height;
+    private final int numBuffers = 3;
     private BufferStrategy bufferStrategy;
 
     /**
@@ -43,7 +44,7 @@ public class QCanvas extends Canvas {
             System.err.println("bufferStrategyがぬるぽ");
             try {
                 System.out.println("createBufferStrategy");
-                createBufferStrategy(3);
+                createBufferStrategy(numBuffers);
                 System.out.println("getBufferStrategy");
                 bufferStrategy = getBufferStrategy();
             } catch (Exception e) {
@@ -66,7 +67,7 @@ public class QCanvas extends Canvas {
              */
             return g;
 
-        }else{
+        } else {
             System.out.println("buffer Lost");
         }
         return null;
@@ -77,7 +78,7 @@ public class QCanvas extends Canvas {
      * レンダリングをした後描画する
      * 描画が終わればバッファをクリアする
      */
-    public void updated() {
+    public void update() {
 //        render();
         bufferStrategy.show();
     }
@@ -103,7 +104,7 @@ public class QCanvas extends Canvas {
         //キャンバスのバッファストラテジーを生成
 
         try {
-            createBufferStrategy(3);
+            createBufferStrategy(numBuffers);
             bufferStrategy = getBufferStrategy(); // ループで使用するために参照を保持しておく
             System.out.println(this.getName() + "のバッファストラテジー生成に成功");
         } catch (Exception e) {

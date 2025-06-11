@@ -84,10 +84,10 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     protected void init() {
-//        getExecuteLoop().setRate(165);
-//        getFrameLoop().setRate(165);
-        getExecuteLoop().setRate(10);
-        getFrameLoop().setRate(10);
+        getExecuteLoop().setRate(165);
+        getFrameLoop().setRate(165);
+//        getExecuteLoop().setRate(10);
+//        getFrameLoop().setRate(10);
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();

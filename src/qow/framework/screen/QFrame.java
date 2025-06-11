@@ -49,9 +49,8 @@ public class QFrame extends JFrame {
      * @param canvas 新しい{@link QCanvas}
      */
     public void setResolution(QCanvas canvas) {
-        panel.remove(this.canvas);
         this.canvas = canvas;
-        panel.add(canvas, BorderLayout.CENTER);
+        panel.setQCanvas(canvas);
 
         //panel.setPreferredSize(canvas.getPreferredSize());
 
