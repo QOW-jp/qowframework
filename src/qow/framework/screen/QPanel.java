@@ -18,11 +18,6 @@ public class QPanel extends Panel {
         //this(QCanvas.DEFAULT_WIDTH, QCanvas.DEFAULT_HEIGHT);
     }
 
-    public QPanel(int width, int height) {
-        super();
-        setPreferredSize(new Dimension(width, height));
-    }
-
     /**
      * {@link QPanel}に投影する{@link QCanvas}を返す
      *
