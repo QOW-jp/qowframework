@@ -92,14 +92,14 @@ class DemoFrameworkRule1 extends Rule {
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
 
         System.out.println("new canvas");
-//        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
-        getQFrame().setCanvasSize(displayMode.getWidth() / 2, displayMode.getHeight() / 2);
+        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
+//        getQFrame().setCanvasSize(displayMode.getWidth() / 2, displayMode.getHeight() / 2);
         System.out.println("last canvas");
 
 
-//        getQFrame().dispose();
-//        getQFrame().setUndecorated(true);
-//        getQFrame().pack();
+        getQFrame().dispose();
+        getQFrame().setUndecorated(true);
+        getQFrame().pack();
 
         getQFrame().setLocationRelativeTo(null);
     }
@@ -194,7 +194,7 @@ class DemoFrameworkRule1 extends Rule {
         } catch (NoSuchElementException ignored) {
         }
 
-        g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight());
+        g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight() - 3);
     }
 
     public void paintInactive(Graphics g) {

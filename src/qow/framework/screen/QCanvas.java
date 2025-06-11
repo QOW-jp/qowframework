@@ -13,7 +13,6 @@ import java.awt.image.BufferStrategy;
 public class QCanvas extends Canvas {
     public static final int DEFAULT_WIDTH = 800;
     public static final int DEFAULT_HEIGHT = 450;
-    private final int width, height;
     private final int numBuffers = 3;
     private BufferStrategy bufferStrategy;
 
@@ -25,8 +24,7 @@ public class QCanvas extends Canvas {
      */
     public QCanvas(int width, int height) {
         super();
-        this.width = width;
-        this.height = height;
+        setSize(width, height);
         setPreferredSize(new Dimension(width, height));
     }
 
@@ -82,16 +80,6 @@ public class QCanvas extends Canvas {
 //        render();
         bufferStrategy.show();
     }
-
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
 
     /**
      * peer確定後、バッファストラテジー生成と参照コピーを実行するようにオーバーライド

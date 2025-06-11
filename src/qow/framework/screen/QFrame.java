@@ -26,7 +26,7 @@ public class QFrame extends JFrame {
         canvas = new QCanvas();
 
         System.out.println("create panel");
-        panel = new Panel();
+        panel = new Panel(new BorderLayout(0, 0));
         System.out.println("created panel");
         panel.add(canvas, BorderLayout.CENTER);
         System.out.println("panel.add(canvas);");
@@ -74,6 +74,7 @@ public class QFrame extends JFrame {
 
     public void setCanvasSize(int width, int height) {
         canvas.setPreferredSize(new Dimension(width, height));
+        canvas.setSize(width,height);
         pack();
     }
 }
