@@ -97,9 +97,9 @@ class DemoFrameworkRule1 extends Rule {
         System.out.println("last canvas");
 
 
-//        getQFrame().dispose();
-//        getQFrame().setUndecorated(true);
-//        getQFrame().pack();
+        getQFrame().dispose();
+        getQFrame().setUndecorated(true);
+        getQFrame().pack();
 
         getQFrame().setLocationRelativeTo(null);
     }

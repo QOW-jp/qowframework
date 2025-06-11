@@ -29,6 +29,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         amm = new ActionMouseManager();
 
         qf = new QFrame();
+        canvas = qf.getQCanvas();
     }
 
     /**

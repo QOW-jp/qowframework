@@ -11,8 +11,8 @@ import java.awt.*;
  * @since 1.4.2
  */
 public class QFrame extends JFrame {
-    private QCanvas canvas;
-    private QPanel panel;
+    private final QCanvas canvas;
+    private final QPanel panel;
 
     /**
      * タイトルを設定せずインスタンス化する

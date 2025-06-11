@@ -29,7 +29,6 @@ public class FrameLoop extends Loop {
      */
     protected FrameLoop() {
         super();
-        qf = new QFrame();
     }
 
     /**
@@ -58,16 +57,22 @@ public class FrameLoop extends Loop {
     public void setRule(Rule rule) {
         this.rule = rule;
 
-        if (rule.hasQFrame()) {
+        if (qf != null) {
             qf.dispose();
-            qf = rule.getQFrame();
-        } else {
-            rule.setQFrame(qf);
-//            if (!rule.hasQCanvas()) {
-//                rule.setQCanvas(qf.getQCanvas());
-//                return;
-//            }
+            qf = null;
         }
+        qf = rule.getQFrame();
+
+//        if (rule.hasQFrame()) {
+//            qf.dispose();
+//            qf = rule.getQFrame();
+//        } else {
+//            rule.setQFrame(qf);
+////            if (!rule.hasQCanvas()) {
+////                rule.setQCanvas(qf.getQCanvas());
+////                return;
+////            }
+//        }
 //        rule.setQCanvas(rule.getQCanvas());
     }
 }
