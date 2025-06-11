@@ -19,10 +19,10 @@ import java.awt.event.*;
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
     private final ActionKeyManager akm;
     private final ActionMouseManager amm;
+    private final QFrame qf;
+    private final QCanvas canvas;
     private ExecuteLoop el;
     private FrameLoop fl;
-    private QFrame qf;
-    private QCanvas canvas;
 
     public Rule() {
         akm = new ActionKeyManager();
@@ -147,16 +147,17 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         return qf;
     }
 
-    /**
-     * {@link QFrame}を設定する
-     *
-     * @param qf 新しいフレーム
-     */
-    public void setQFrame(QFrame qf) {
-        //removeListener(this.qf);
-        this.qf = qf;
-        addListener(getQFrame());
-    }
+//    /**
+//     * {@link QFrame}を設定する
+//     *
+//     * @param qf 新しいフレーム
+//     */
+//    public void setQFrame(QFrame qf) {
+//        //removeListener(this.qf);
+//        this.qf = qf;
+//        canvas = qf.getQCanvas();
+//        addListener(getQFrame());
+//    }
 
     /**
      * このクラスに{@link QFrame}が設定されているかを返す
