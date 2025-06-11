@@ -28,6 +28,7 @@ public class DemoFramework {
 
             gr.getQFrame().setVisible(true);
             ms.start(true);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -83,8 +84,10 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     protected void init() {
-        getExecuteLoop().setRate(165);
-        getFrameLoop().setRate(165);
+//        getExecuteLoop().setRate(165);
+//        getFrameLoop().setRate(165);
+        getExecuteLoop().setRate(10);
+        getFrameLoop().setRate(10);
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
@@ -100,7 +103,7 @@ class DemoFrameworkRule1 extends Rule {
 
         inactive = true;
 
-        if (timer > 200) {
+        if (200 < timer) {
             timer = 0;
         }
 

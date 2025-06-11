@@ -11,8 +11,10 @@ import java.awt.image.BufferStrategy;
  * @since 1.4.2
  */
 public class QCanvas extends Canvas {
+    public static final int DEFAULT_WIDTH = 800;
+    public static final int DEFAULT_HEIGHT = 450;
+    private final int width, height;
     private BufferStrategy bufferStrategy;
-    private final int width,height;
 
     /**
      * サイズを設定してインスタンス化する
@@ -28,11 +30,11 @@ public class QCanvas extends Canvas {
     }
 
     public QCanvas() {
-        this(800, 450);
+        this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
 
-    public Graphics2D getBufferStrategyGraphics2D() {
+    public Graphics getBufferStrategyGraphics() {
         /*
          * 一応ぬるぽ対応することでエラーでとまることはなくなるが、
          * 可視化されなければ、ずっとnullかも
@@ -41,7 +43,7 @@ public class QCanvas extends Canvas {
             System.err.println("bufferStrategyがぬるぽ");
             try {
                 System.out.println("createBufferStrategy");
-                createBufferStrategy(2);
+                createBufferStrategy(3);
                 System.out.println("getBufferStrategy");
                 bufferStrategy = getBufferStrategy();
             } catch (Exception e) {
@@ -57,13 +59,15 @@ public class QCanvas extends Canvas {
          * 謎エラーポイント
          * サイズ設定、レイアウト設定、可視化タイミングを疑う
          */
-        Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics(); // Graphicsをゲット！
+        Graphics g = bufferStrategy.getDrawGraphics(); // Graphicsをゲット！
         if (!bufferStrategy.contentsLost()) { // フルスクリーン化したときになにかをロストするらしいのでその対策
             /*
              * g を使って描画処理
              */
             return g;
 
+        }else{
+            System.out.println("buffer Lost");
         }
         return null;
     }
@@ -73,7 +77,7 @@ public class QCanvas extends Canvas {
      * レンダリングをした後描画する
      * 描画が終わればバッファをクリアする
      */
-    public void update() {
+    public void updated() {
 //        render();
         bufferStrategy.show();
     }

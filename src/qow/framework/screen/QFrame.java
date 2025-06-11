@@ -12,6 +12,7 @@ import java.awt.*;
  */
 public class QFrame extends JFrame {
     private QCanvas canvas;
+    private QPanel panel;
 
     /**
      * タイトルを設定せずインスタンス化する
@@ -22,7 +23,12 @@ public class QFrame extends JFrame {
         setResizable(false);
 
         canvas = new QCanvas();
-        getContentPane().add(canvas, BorderLayout.CENTER);
+
+        panel = new QPanel();
+        panel.add(canvas);
+
+        add(panel);
+
         pack();
     }
 
@@ -43,16 +49,18 @@ public class QFrame extends JFrame {
      * @param canvas 新しい{@link QCanvas}
      */
     public void setResolution(QCanvas canvas) {
-        remove(this.canvas);
+        panel.remove(this.canvas);
         this.canvas = canvas;
-        getContentPane().add(canvas,BorderLayout.CENTER);
+        panel.add(canvas, BorderLayout.CENTER);
+
+        //panel.setPreferredSize(canvas.getPreferredSize());
 
         System.out.println("1pack前");
         pack();
         System.out.println("1pack後");
     }
 
-    public QCanvas getQCanvas(){
+    public QCanvas getQCanvas() {
         return canvas;
     }
 

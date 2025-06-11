@@ -86,8 +86,11 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         // 初回の呼び出し時にダブルバッファリング用オブジェクトを作成
 //        canvas.render();
 
-        Graphics2D g = canvas.getBufferStrategyGraphics2D();
-        if (g == null) return;
+        Graphics g = canvas.getBufferStrategyGraphics();
+        if (g == null) {
+            System.out.println("g = null");
+            return;
+        }
 
         if (qf.isActive()) {
             paintActive(g);
@@ -95,8 +98,9 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
             paintInactive(g);
         }
 //        qf.getQPanel().repaint(0, 0, canvas.getWidth(), canvas.getHeight());
+        canvas.updated();
+        Toolkit.getDefaultToolkit().sync();
         g.dispose();
-        canvas.update();
     }
 
     /**

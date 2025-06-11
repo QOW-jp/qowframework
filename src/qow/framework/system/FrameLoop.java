@@ -63,11 +63,11 @@ public class FrameLoop extends Loop {
             qf = rule.getQFrame();
         } else {
             rule.setQFrame(qf);
-            if (!rule.hasQCanvas()) {
-                rule.setQCanvas(qf.getQCanvas());
-                return;
-            }
+//            if (!rule.hasQCanvas()) {
+//                rule.setQCanvas(qf.getQCanvas());
+//                return;
+//            }
         }
-        qf.setResolution(rule.getQCanvas());
+//        rule.setQCanvas(rule.getQCanvas());
     }
 }

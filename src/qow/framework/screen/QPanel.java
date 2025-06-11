@@ -13,6 +13,16 @@ import java.awt.*;
 public class QPanel extends Panel {
     private QCanvas canvas;
 
+    public QPanel() {
+        super();
+        //this(QCanvas.DEFAULT_WIDTH, QCanvas.DEFAULT_HEIGHT);
+    }
+
+    public QPanel(int width, int height) {
+        super();
+        setPreferredSize(new Dimension(width, height));
+    }
+
     /**
      * {@link QPanel}に投影する{@link QCanvas}を返す
      *
@@ -29,17 +39,9 @@ public class QPanel extends Panel {
      * @param canvas 新しい{@link QCanvas}
      */
     public void setQCanvas(QCanvas canvas) {
+        remove(this.canvas);
         this.canvas = canvas;
-        setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
+        add(canvas);
     }
 
-    /**
-     * 再描写するときに呼び出される
-     *
-     * @param g ペイント対象の{@link Graphics}コンテキスト
-     */
-    public void paintComponent(Graphics g) {
-        super.paintComponents(g);
-        //canvas.draw(g, (int) getPreferredSize().getWidth(), (int) getPreferredSize().getHeight());
-    }
 }
