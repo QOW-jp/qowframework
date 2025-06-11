@@ -17,31 +17,4 @@ public class QPanel extends Panel {
         super();
         //this(QCanvas.DEFAULT_WIDTH, QCanvas.DEFAULT_HEIGHT);
     }
-
-    /**
-     * {@link QPanel}に投影する{@link QCanvas}を返す
-     *
-     * @return 設定された画像キャンパス
-     */
-    public QCanvas getQCanvas() {
-        return canvas;
-    }
-
-    /**
-     * {@link QCanvas}を更新する<br>
-     * {@link QCanvas}に合ったサイズに変更する
-     *
-     * @param canvas 新しい{@link QCanvas}
-     */
-//    public void setQCanvas(QCanvas canvas) {
-//        System.out.println("remove this.canvas");
-//        if(this.canvas != null) remove(this.canvas);
-//        System.out.println("canvas=canvas");
-//        this.canvas = canvas;
-//        System.out.println("add(canvas)2");
-//        add(canvas);
-//        System.out.println("added(canvas)2");
-//
-//    }
-
 }
