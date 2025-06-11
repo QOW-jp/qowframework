@@ -1,6 +1,5 @@
 package qow.demo;
 
-import qow.framework.screen.QCanvas;
 import qow.framework.screen.QFrame;
 import qow.framework.system.MainSystem;
 import qow.framework.system.Rule;
@@ -93,13 +92,14 @@ class DemoFrameworkRule1 extends Rule {
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
 
         System.out.println("new canvas");
-        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
+//        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
+        getQFrame().setCanvasSize(displayMode.getWidth() / 2, displayMode.getHeight() / 2);
         System.out.println("last canvas");
 
 
-        getQFrame().dispose();
-        getQFrame().setUndecorated(true);
-        getQFrame().pack();
+//        getQFrame().dispose();
+//        getQFrame().setUndecorated(true);
+//        getQFrame().pack();
 
         getQFrame().setLocationRelativeTo(null);
     }
@@ -283,20 +283,10 @@ class DemoFrameworkRule2 extends Rule {
         getQFrame().dispose();
         getQFrame().setUndecorated(false);
 
-//        getQFrame().setTitle("DemoFrameworkRule2");
-//        setQCanvas(new QCanvas(800, 500));
-//        getQFrame().setResolution(getQCanvas());
-
-        setQFrame(new QFrame("DemoFrameworkRule2"));
-
+        getQFrame().setTitle("DemoFrameworkRule2");
 
         getQFrame().setLocationRelativeTo(null);
         getQFrame().setVisible(true);
-
-        //図形や線のアンチエイリアシングの有効化
-        //getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        //文字描画のアンチエイリアシングの有効化
-        //getQCanvas().getGraphics2D().setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         JPanel menuPanel = new JPanel();
         menuPanel.setBackground(Color.CYAN);
@@ -389,45 +379,58 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     public void paintActive(Graphics g) {
-        g.setColor(Color.black);
-        g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
+        Graphics2D g2 = (Graphics2D) g;
+        //図形や線のアンチエイリアシングの有効化
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //文字描画のアンチエイリアシングの有効化
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        g.setColor(Color.white);
-        g.fillOval(ballX - timer / 2, ballY - timer / 2, timer, timer);
+        g2.setColor(Color.black);
+        g2.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
+
+        g2.setColor(Color.white);
+        g2.fillOval(ballX - timer / 2, ballY - timer / 2, timer, timer);
 
         try {
             for (int i = 0; i < clickPoint.size(); i++) {
                 int range = clickPointRange.get(i);
                 int x = (int) clickPoint.get(i).getX() - range / 2;
                 int y = (int) clickPoint.get(i).getY() - range / 2;
-                g.drawOval(x, y, range, range);
+                g2.drawOval(x, y, range, range);
             }
         } catch (IndexOutOfBoundsException ignored) {
         }
 
         try {
-            FontMetrics fm = g.getFontMetrics();
+            FontMetrics fm = g2.getFontMetrics();
             String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
-            g.drawString(text, 0, fm.getMaxAscent());
+            g2.drawString(text, 0, fm.getMaxAscent());
         } catch (NoSuchElementException ignored) {
         }
 
-        g.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight());
+        g2.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {
         if (inactive) {
             inactive = false;
-            g.setColor(new Color(0, 0, 0, 100));
-            g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
 
-            FontMetrics fm = g.getFontMetrics();
+            Graphics2D g2 = (Graphics2D) g;
+            //図形や線のアンチエイリアシングの有効化
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            //文字描画のアンチエイリアシングの有効化
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+            g2.setColor(new Color(0, 0, 0, 100));
+            g2.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
+
+            FontMetrics fm = g2.getFontMetrics();
             String text = "FRAME MODE PAUSE";
-            Rectangle rectText = fm.getStringBounds(text, g).getBounds();
+            Rectangle rectText = fm.getStringBounds(text, g2).getBounds();
             int startX = getQCanvas().getWidth() / 2 - rectText.width / 2;
             int startY = getQCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
-            g.setColor(Color.white);
-            g.drawString(text, startX, startY);
+            g2.setColor(Color.white);
+            g2.drawString(text, startX, startY);
         }
     }
 
