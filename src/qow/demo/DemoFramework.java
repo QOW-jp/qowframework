@@ -92,9 +92,15 @@ class DemoFrameworkRule1 extends Rule {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
 
-        setQCanvas(new QCanvas(displayMode.getWidth(), displayMode.getHeight()));
+        System.out.println("new canvas");
+        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
+        System.out.println("last canvas");
 
+
+//        getQFrame().dispose();
 //        getQFrame().setUndecorated(true);
+//        getQFrame().pack();
+
         getQFrame().setLocationRelativeTo(null);
     }
 

@@ -33,10 +33,15 @@ public class QPanel extends Panel {
      *
      * @param canvas 新しい{@link QCanvas}
      */
-    public void setQCanvas(QCanvas canvas) {
-        remove(this.canvas);
-        this.canvas = canvas;
-        add(canvas);
-    }
+//    public void setQCanvas(QCanvas canvas) {
+//        System.out.println("remove this.canvas");
+//        if(this.canvas != null) remove(this.canvas);
+//        System.out.println("canvas=canvas");
+//        this.canvas = canvas;
+//        System.out.println("add(canvas)2");
+//        add(canvas);
+//        System.out.println("added(canvas)2");
+//
+//    }
 
 }

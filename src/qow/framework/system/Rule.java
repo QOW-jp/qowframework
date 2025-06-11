@@ -28,8 +28,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         akm = new ActionKeyManager();
         amm = new ActionMouseManager();
 
-        setQFrame(new QFrame());
-        setQCanvas(qf.getQCanvas());
+        qf = new QFrame();
     }
 
     /**
@@ -128,15 +127,15 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         return canvas;
     }
 
-    /**
-     * 新しい{@link QCanvas}を設定する
-     *
-     * @param canvas 新しい{@link QCanvas}
-     */
-    public void setQCanvas(QCanvas canvas) {
-        this.canvas = canvas;
-        qf.setResolution(canvas);
-    }
+//    /**
+//     * 新しい{@link QCanvas}を設定する
+//     *
+//     * @param canvas 新しい{@link QCanvas}
+//     */
+//    public void setQCanvas(QCanvas canvas) {
+//        this.canvas = canvas;
+//        qf.setResolution(canvas);
+//    }
 
     /**
      * 設定された{@link QFrame}を返す
