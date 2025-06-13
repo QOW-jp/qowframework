@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class DemoFramework {
     public static void main(String[] args) {
@@ -198,14 +197,14 @@ class DemoFrameworkRule1 extends Rule {
                 int y = (int) dragPoint.get(i).getY() - range / 2;
                 g.drawOval(x, y, range, range);
             }
-        } catch (IndexOutOfBoundsException ignored) {
+        } catch (Exception ignored) {
         }
 
         try {
             FontMetrics fm = g.getFontMetrics();
             String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
             g.drawString(text, 0, fm.getMaxAscent());
-        } catch (NoSuchElementException ignored) {
+        } catch (Exception ignored) {
         }
 
         g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight());
@@ -421,14 +420,14 @@ class DemoFrameworkRule2 extends Rule {
                 int y = (int) clickPoint.get(i).getY() - range / 2;
                 g2.drawOval(x, y, range, range);
             }
-        } catch (IndexOutOfBoundsException ignored) {
+        } catch (Exception ignored) {
         }
 
         try {
             FontMetrics fm = g2.getFontMetrics();
             String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
             g2.drawString(text, 0, fm.getMaxAscent());
-        } catch (NoSuchElementException ignored) {
+        } catch (Exception ignored) {
         }
 
         g2.drawString("アンチエイリアシング有効化", 0, getQCanvas().getHeight());

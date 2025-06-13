@@ -108,34 +108,42 @@ public abstract class Loop implements Runnable {
         try {
             looping = true;
 
+            int noDelays = 0;
             long overSleepTime = 0L;
 
             while (loop) {
                 long beforeTime = System.nanoTime();
 
-                loop();
-
+                //fps計測
                 updateRate(System.nanoTime());
+
+                loop();
 
                 long afterTime = System.nanoTime();
                 //前回のフレームの休止時間誤差も引いておく
                 long sleepTime = this.interval - (afterTime - beforeTime) - overSleepTime;
 
                 if (0 < sleepTime) {
+                    noDelays = 0;
                     //休止時間がとれる場合
                     //一回のループ時間が元々の一ループあたりにかかる時間よりかからなかった場合
                     TimeUnit.NANOSECONDS.sleep(sleepTime);
                     //スレッドスリープの誤差
                     overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
-                    continue;
                 } else if (sleepTime < 0) {
                     //休止時間が取れない場合
                     //一回のループ時間が元々の一ループあたりにかかる時間を超えた場合
                     overTime(sleepTime);
+                    if (16 <= ++noDelays) {
+                        Thread.yield(); //他のスレッドを強制実行
+                        noDelays = 0;
+                    }
+                    overSleepTime = 0L;
+                } else {
+                    //休止時間がとれない場合
+                    //一回のループ時間が元々の一ループあたりにかかる時間と全く同じ場合(基本的にない)
+                    overSleepTime = 0L;
                 }
-                //休止時間がとれない場合
-                //一回のループ時間が元々の一ループあたりにかかる時間と全く同じ場合(基本的にない)
-                overSleepTime = 0L;
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
