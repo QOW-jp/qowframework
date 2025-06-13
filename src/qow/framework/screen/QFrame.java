@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public class QFrame extends JFrame {
     private final QCanvas canvas;
-    private final Panel panel;
+    private final Panel field;
 
     /**
      * タイトルを設定せずインスタンス化する
@@ -26,12 +26,12 @@ public class QFrame extends JFrame {
         canvas = new QCanvas();
 
         System.out.println("create panel");
-        panel = new Panel(new BorderLayout(0, 0));
+        field = new Panel(new BorderLayout(0, 0));
         System.out.println("created panel");
-        panel.add(canvas, BorderLayout.CENTER);
+        field.add(canvas, BorderLayout.CENTER);
         System.out.println("panel.add(canvas);");
 
-        add(panel, BorderLayout.CENTER);
+        add(field, BorderLayout.CENTER);
         System.out.println("add(panel);");
 
         System.out.println("pack前");
@@ -75,5 +75,9 @@ public class QFrame extends JFrame {
     public void setCanvasSize(int width, int height) {
         canvas.setScreenSize(width, height);
         pack();
+    }
+
+    public Panel getField(){
+        return field;
     }
 }

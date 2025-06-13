@@ -54,6 +54,16 @@ class DemoFrameworkRule1 extends Rule {
     DemoFrameworkRule1() {
         super();
 
+        QFrame frame = new QFrame();
+        setQFrame(frame);
+
+        System.out.println("before dispose");
+        getQFrame().dispose();
+        System.out.println("after dispose");
+
+        getQFrame().setUndecorated(true);
+
+
         getQFrame().setTitle("DemoFrameworkRule1");
 
 
@@ -94,11 +104,13 @@ class DemoFrameworkRule1 extends Rule {
 
 //        addListener(getQFrame());
 
-        System.out.println("before dispose");
-        getQFrame().dispose();
-        System.out.println("after dispose");
+//        getQFrame().pack();
 
-        getQFrame().setUndecorated(true);
+//        System.out.println("before dispose");
+//        getQFrame().dispose();
+//        System.out.println("after dispose");
+//
+//        getQFrame().setUndecorated(true);
         getQFrame().pack();
 
         getQFrame().setLocationRelativeTo(null);
@@ -217,11 +229,11 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     public void overTimeExecute(long overTime) {
-        System.out.println("EL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
+//        System.out.println("EL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
     }
 
     public void overTimeFrame(long overTime) {
-        System.out.println("FL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
+//        System.out.println("FL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
     }
 
     public boolean isChangeRule() {
@@ -288,19 +300,16 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     protected void init() {
-        getQFrame().dispose();
-        getQFrame().setUndecorated(false);
+//        getQFrame().dispose();
+//        getQFrame().setUndecorated(false);
 
         getQFrame().setTitle("DemoFrameworkRule2");
-
-        getQFrame().setLocationRelativeTo(null);
-        getQFrame().setVisible(true);
 
         JPanel menuPanel = new JPanel();
         menuPanel.setBackground(Color.CYAN);
         menuPanel.setPreferredSize(new Dimension(getQCanvas().getWidth(), 26));
         menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        getQFrame().add(menuPanel, BorderLayout.PAGE_START);
+        getQFrame().getField().add(menuPanel, BorderLayout.PAGE_START);
 
         JButton[] menuButton = new JButton[2];
         String[] buttonTitle = {"EXIT", "ChangeRule"};
@@ -320,6 +329,11 @@ class DemoFrameworkRule2 extends Rule {
 
         getExecuteLoop().setRate(200);
         getFrameLoop().setRate(100);
+
+        getQFrame().pack();
+
+        getQFrame().setLocationRelativeTo(null);
+        getQFrame().setVisible(true);
     }
 
     public void loopActive() {
@@ -443,11 +457,11 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     public void overTimeExecute(long overTime) {
-        System.out.println("EL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
+//        System.out.println("EL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
     }
 
     public void overTimeFrame(long overTime) {
-        System.out.println("FL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
+//        System.out.println("FL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
     }
 
     public boolean isChangeRule() {
@@ -460,13 +474,13 @@ class DemoFrameworkRule2 extends Rule {
 
     public void addListener(QFrame qf) {
         qf.addKeyListener(this);
-        qf.addMouseListener(this);
-        qf.addMouseMotionListener(this);
+        qf.getQCanvas().addMouseListener(this);
+        qf.getQCanvas().addMouseMotionListener(this);
     }
 
     public void removeListener(QFrame qf) {
         qf.removeKeyListener(this);
-        qf.removeMouseListener(this);
-        qf.removeMouseMotionListener(this);
+        qf.getQCanvas().removeMouseListener(this);
+        qf.getQCanvas().removeMouseMotionListener(this);
     }
 }

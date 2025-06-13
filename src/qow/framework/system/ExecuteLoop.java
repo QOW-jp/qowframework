@@ -38,6 +38,7 @@ public class ExecuteLoop extends Loop {
         if (rule.isChangeRule()) {
             rule.removeListener(rule.getQFrame());
             setRule(rule.getNewRule(), fl);
+            rule.addListener(rule.getQFrame());
         }
     }
 
