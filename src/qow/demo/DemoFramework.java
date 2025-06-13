@@ -232,20 +232,20 @@ class DemoFrameworkRule1 extends Rule {
         return new DemoFrameworkRule2();
     }
 
-    public void addListener(Panel panel) {
+    public void addListener(QFrame qf) {
         System.out.println("qf 1");
-        panel.addKeyListener(this);
+        qf.addKeyListener(this);
         System.out.println("qf 2");
-        panel.addMouseListener(this);
+        qf.getQCanvas().addMouseListener(this);
         System.out.println("qf 3");
-        panel.addMouseMotionListener(this);
+        qf.getQCanvas().addMouseMotionListener(this);
     }
 
-    public void removeListener(Panel panel) {
+    public void removeListener(QFrame qf) {
         System.out.println("qf 4");
-        panel.removeKeyListener(this);
-        panel.removeMouseListener(this);
-        panel.removeMouseMotionListener(this);
+        qf.removeKeyListener(this);
+        qf.getQCanvas().removeMouseListener(this);
+        qf.getQCanvas().removeMouseMotionListener(this);
         System.out.println("qf 7");
     }
 }

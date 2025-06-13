@@ -343,7 +343,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param qf 設定するフレーム
      */
-    public void addListener(Panel panel) {
+    public void addListener(QFrame qf) {
     }
 
     /**
@@ -351,7 +351,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param qf 設定されたフレーム
      */
-    public void removeListener(Panel panel) {
+    public void removeListener(QFrame qf) {
     }
 
     /**
