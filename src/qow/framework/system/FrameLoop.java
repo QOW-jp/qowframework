@@ -36,7 +36,7 @@ public class FrameLoop extends Loop {
      * 指定時間内に処理が終わらない場合は{@link FrameLoop#overTime(long)}が呼び出される
      */
     public void loop() {
-        rule.draw();
+        if (rule.isReady()) rule.draw();
     }
 
     /**

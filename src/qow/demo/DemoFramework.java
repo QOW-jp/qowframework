@@ -114,7 +114,9 @@ class DemoFrameworkRule1 extends Rule {
         getQFrame().pack();
 
         getQFrame().setLocationRelativeTo(null);
+        getQFrame().setVisible(true);
 
+        setReady(true);
     }
 
     public void loopActive() {
@@ -309,7 +311,7 @@ class DemoFrameworkRule2 extends Rule {
         menuPanel.setBackground(Color.CYAN);
         menuPanel.setPreferredSize(new Dimension(getQCanvas().getWidth(), 26));
         menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        getQFrame().getField().add(menuPanel, BorderLayout.PAGE_START);
+        getQFrame().add(menuPanel, BorderLayout.PAGE_START);
 
         JButton[] menuButton = new JButton[2];
         String[] buttonTitle = {"EXIT", "ChangeRule"};
@@ -334,6 +336,8 @@ class DemoFrameworkRule2 extends Rule {
 
         getQFrame().setLocationRelativeTo(null);
         getQFrame().setVisible(true);
+
+        setReady(true);
     }
 
     public void loopActive() {

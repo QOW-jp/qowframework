@@ -33,7 +33,7 @@ public class ExecuteLoop extends Loop {
      * 指定時間内に処理が終わらない場合は{@link ExecuteLoop#overTime(long)}が呼び出される
      */
     public void loop() {
-        rule.loop();
+        if (rule.isReady()) rule.loop();
 
         if (rule.isChangeRule()) {
             rule.removeListener(rule.getQFrame());

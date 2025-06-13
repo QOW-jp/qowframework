@@ -76,8 +76,4 @@ public class QFrame extends JFrame {
         canvas.setScreenSize(width, height);
         pack();
     }
-
-    public Panel getField(){
-        return field;
-    }
 }

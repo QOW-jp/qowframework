@@ -23,8 +23,10 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     private QCanvas canvas;
     private ExecuteLoop el;
     private FrameLoop fl;
+    private boolean ready;
 
     public Rule() {
+        ready = false;
         akm = new ActionKeyManager();
         amm = new ActionMouseManager();
 
@@ -213,6 +215,13 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      */
     public void setFrameLoop(FrameLoop fl) {
         this.fl = fl;
+    }
+
+    public void setReady(boolean ready){
+        this.ready = ready;
+    }
+    public boolean isReady(){
+        return ready;
     }
 
     /**
