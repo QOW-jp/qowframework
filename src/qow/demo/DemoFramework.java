@@ -212,8 +212,8 @@ class DemoFrameworkRule1 extends Rule {
     public void paintInactive(Graphics g) {
         if (inactive) {
             inactive = false;
-//            g.setColor(new Color(0, 0, 0, 100));
-            g.setColor(Color.WHITE);
+            g.setColor(new Color(0, 0, 0, 100));
+//            g.setColor(Color.WHITE);
             g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
 
             FontMetrics fm = g.getFontMetrics();
@@ -222,7 +222,6 @@ class DemoFrameworkRule1 extends Rule {
             int startX = getQCanvas().getWidth() / 2 - rectText.width / 2;
             int startY = getQCanvas().getHeight() / 2 - rectText.height / 2 + fm.getMaxAscent();
             g.setColor(Color.WHITE);
-            g.setColor(Color.BLACK);
             g.drawString(text, startX, startY);
         }
     }

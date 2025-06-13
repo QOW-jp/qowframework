@@ -13,7 +13,7 @@ import java.awt.image.BufferStrategy;
 public class QCanvas extends Canvas {
     public static final int DEFAULT_WIDTH = 800;
     public static final int DEFAULT_HEIGHT = 450;
-    private final int numBuffers = 3;
+    private final int numBuffers = 2;
     private BufferStrategy bufferStrategy;
     private int width, height;
 
