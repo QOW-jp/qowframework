@@ -12,7 +12,6 @@ import java.awt.*;
  */
 public class QFrame extends JFrame {
     private final QCanvas canvas;
-    private final Panel field;
 
     /**
      * タイトルを設定せずインスタンス化する
@@ -26,7 +25,7 @@ public class QFrame extends JFrame {
         canvas = new QCanvas();
 
         System.out.println("create panel");
-        field = new Panel(new BorderLayout(0, 0));
+        Panel field = new Panel(new BorderLayout(0, 0));
         System.out.println("created panel");
         field.add(canvas, BorderLayout.CENTER);
         System.out.println("panel.add(canvas);");
