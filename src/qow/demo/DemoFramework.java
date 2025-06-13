@@ -244,7 +244,7 @@ class DemoFrameworkRule1 extends Rule {
 
     public void addListener(QFrame qf) {
         System.out.println("qf 1");
-        qf.addKeyListener(this);
+        qf.getQCanvas().addKeyListener(this);
         System.out.println("qf 2");
         qf.getQCanvas().addMouseListener(this);
         System.out.println("qf 3");
@@ -253,7 +253,7 @@ class DemoFrameworkRule1 extends Rule {
 
     public void removeListener(QFrame qf) {
         System.out.println("qf 4");
-        qf.removeKeyListener(this);
+        qf.getQCanvas().removeKeyListener(this);
         qf.getQCanvas().removeMouseListener(this);
         qf.getQCanvas().removeMouseMotionListener(this);
         System.out.println("qf 7");
@@ -471,13 +471,13 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     public void addListener(QFrame qf) {
-        qf.addKeyListener(this);
+        qf.getQCanvas().addKeyListener(this);
         qf.getQCanvas().addMouseListener(this);
         qf.getQCanvas().addMouseMotionListener(this);
     }
 
     public void removeListener(QFrame qf) {
-        qf.removeKeyListener(this);
+        qf.getQCanvas().removeKeyListener(this);
         qf.getQCanvas().removeMouseListener(this);
         qf.getQCanvas().removeMouseMotionListener(this);
     }
