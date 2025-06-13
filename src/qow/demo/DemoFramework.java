@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -98,8 +97,8 @@ class DemoFrameworkRule1 extends Rule {
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
 
         System.out.println("new canvas");
-        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
-//        getQFrame().setCanvasSize(displayMode.getWidth() / 2, displayMode.getHeight() / 2);
+//        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
+        getQFrame().setCanvasSize(displayMode.getWidth() / 2, displayMode.getHeight() / 2);
         System.out.println("last canvas");
 
 //        addListener(getQFrame());
@@ -115,8 +114,6 @@ class DemoFrameworkRule1 extends Rule {
 
         getQFrame().setLocationRelativeTo(null);
         getQFrame().setVisible(true);
-
-        setReady(true);
     }
 
     public void loopActive() {
@@ -209,7 +206,7 @@ class DemoFrameworkRule1 extends Rule {
         } catch (NoSuchElementException ignored) {
         }
 
-        g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight() - 15);
+        g.drawString("アンチエイリアシング無効化", 0, getQCanvas().getHeight());
     }
 
     public void paintInactive(Graphics g) {
@@ -336,8 +333,6 @@ class DemoFrameworkRule2 extends Rule {
 
         getQFrame().setLocationRelativeTo(null);
         getQFrame().setVisible(true);
-
-        setReady(true);
     }
 
     public void loopActive() {

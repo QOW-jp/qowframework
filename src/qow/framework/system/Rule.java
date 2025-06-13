@@ -30,7 +30,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         akm = new ActionKeyManager();
         amm = new ActionMouseManager();
 
-        qf = new QFrame();
+        setQFrame(new QFrame());
         canvas = qf.getQCanvas();
     }
 
@@ -102,9 +102,13 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
             paintInactive(g);
         }
 //        qf.getQPanel().repaint(0, 0, canvas.getWidth(), canvas.getHeight());
-        canvas.update();
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
+        try {
+            canvas.update();
+            Toolkit.getDefaultToolkit().sync();
+        } catch (IllegalStateException ignored) {
+        } finally {
+            g.dispose();
+        }
     }
 
     /**
@@ -155,7 +159,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * @param qf 新しいフレーム
      */
     public void setQFrame(QFrame qf) {
-        removeListener(this.qf);
+        if (this.qf != null) removeListener(this.qf);
         this.qf = qf;
         canvas = qf.getQCanvas();
         addListener(getQFrame());
@@ -217,11 +221,12 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         this.fl = fl;
     }
 
-    public void setReady(boolean ready){
-        this.ready = ready;
-    }
-    public boolean isReady(){
+    protected boolean isReady() {
         return ready;
+    }
+
+    protected void setReady(boolean ready) {
+        this.ready = ready;
     }
 
     /**

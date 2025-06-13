@@ -69,5 +69,6 @@ public class ExecuteLoop extends Loop {
         System.out.println("after fl.setRule");
 
         rule.init();
+        rule.setReady(true);
     }
 }
