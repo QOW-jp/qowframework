@@ -30,8 +30,6 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
 
         qf = new QFrame();
         canvas = qf.getQCanvas();
-
-        addListener(qf);
     }
 
     /**
@@ -345,7 +343,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param qf 設定するフレーム
      */
-    public void addListener(QFrame qf) {
+    public void addListener(Panel panel) {
     }
 
     /**
@@ -353,7 +351,7 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      *
      * @param qf 設定されたフレーム
      */
-    public void removeListener(QFrame qf) {
+    public void removeListener(Panel panel) {
     }
 
     /**

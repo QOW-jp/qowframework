@@ -62,7 +62,7 @@ public class FrameLoop extends Loop {
             qf = null;
         }
         qf = rule.getQFrame();
-        rule.addListener(qf);
+        rule.addListener(qf.getPanel());
 
 //        if (rule.hasQFrame()) {
 //            qf.dispose();

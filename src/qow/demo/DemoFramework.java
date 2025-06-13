@@ -57,10 +57,6 @@ class DemoFrameworkRule1 extends Rule {
         getQFrame().setTitle("DemoFrameworkRule1");
 
 
-        System.out.println("1undecorated前");
-        //qf.setUndecorated(true);
-        System.out.println("1undecorated後");
-
         int[][] keyCode = {{65, 68, 87, 83, 10}};
         actionKey = new ActionKey[keyCode.length][keyCode[0].length];
         for (int i = 0; i < actionKey.length; i++) {
@@ -98,7 +94,10 @@ class DemoFrameworkRule1 extends Rule {
 
 //        addListener(getQFrame());
 
+        System.out.println("before dispose");
         getQFrame().dispose();
+        System.out.println("after dispose");
+
         getQFrame().setUndecorated(true);
         getQFrame().pack();
 
@@ -233,16 +232,21 @@ class DemoFrameworkRule1 extends Rule {
         return new DemoFrameworkRule2();
     }
 
-    public void addListener(QFrame qf) {
-        qf.addKeyListener(this);
-        qf.addMouseListener(this);
-        qf.addMouseMotionListener(this);
+    public void addListener(Panel panel) {
+        System.out.println("qf 1");
+        panel.addKeyListener(this);
+        System.out.println("qf 2");
+        panel.addMouseListener(this);
+        System.out.println("qf 3");
+        panel.addMouseMotionListener(this);
     }
 
-    public void removeListener(QFrame qf) {
-        qf.removeKeyListener(this);
-        qf.removeMouseListener(this);
-        qf.removeMouseMotionListener(this);
+    public void removeListener(Panel panel) {
+        System.out.println("qf 4");
+        panel.removeKeyListener(this);
+        panel.removeMouseListener(this);
+        panel.removeMouseMotionListener(this);
+        System.out.println("qf 7");
     }
 }
 

@@ -36,7 +36,7 @@ public class ExecuteLoop extends Loop {
         rule.loop();
 
         if (rule.isChangeRule()) {
-            rule.removeListener(rule.getQFrame());
+            rule.removeListener(rule.getQFrame().getPanel());
             setRule(rule.getNewRule(), fl);
         }
     }
@@ -63,7 +63,9 @@ public class ExecuteLoop extends Loop {
         rule.setExecuteLoop(this);
         rule.setFrameLoop(fl);
 
+        System.out.println("before fl.setRule");
         fl.setRule(rule);
+        System.out.println("after fl.setRule");
 
         rule.init();
     }
