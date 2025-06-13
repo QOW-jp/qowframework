@@ -4,7 +4,8 @@ package qow.framework.system;
  * 処理レートとフレームレートを制御する
  *
  * @author QOW
- * @version 2022/09/23
+ * @version 2025/06/13
+ * @since 1.0.0
  */
 public class MainSystem {
     private final ExecuteLoop el;
