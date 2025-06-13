@@ -112,6 +112,8 @@ class DemoFrameworkRule1 extends Rule {
 //        getQFrame().setUndecorated(true);
         getQFrame().pack();
 
+        getQCanvas().requestFocus();
+
         getQFrame().setLocationRelativeTo(null);
         getQFrame().setVisible(true);
     }
@@ -302,6 +304,7 @@ class DemoFrameworkRule2 extends Rule {
 //        getQFrame().setUndecorated(false);
 
         getQFrame().setTitle("DemoFrameworkRule2");
+        getQCanvas().requestFocus();
 
         JPanel menuPanel = new JPanel();
         menuPanel.setBackground(Color.CYAN);
