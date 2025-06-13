@@ -96,12 +96,14 @@ class DemoFrameworkRule1 extends Rule {
 //        getQFrame().setCanvasSize(displayMode.getWidth() / 2, displayMode.getHeight() / 2);
         System.out.println("last canvas");
 
+//        addListener(getQFrame());
 
         getQFrame().dispose();
         getQFrame().setUndecorated(true);
         getQFrame().pack();
 
         getQFrame().setLocationRelativeTo(null);
+
     }
 
     public void loopActive() {
