@@ -2,7 +2,6 @@ package qow.framework.system;
 
 import qow.framework.screen.QCanvas;
 import qow.framework.screen.QFrame;
-import qow.framework.screen.QPanel;
 import qow.framework.util.ActionKeyManager;
 import qow.framework.util.ActionMouseManager;
 
@@ -13,7 +12,7 @@ import java.awt.event.*;
  * {@link ExecuteLoop}と{@link FrameLoop}内での処理を設定するクラス
  *
  * @author QOW
- * @version 2023/04/04
+ * @version 2025/06/14
  * @since 1.0.0
  */
 public abstract class Rule implements KeyListener, MouseListener, MouseMotionListener {
@@ -25,6 +24,10 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     private FrameLoop fl;
     private boolean ready;
 
+    /**
+     * インスタンス化<br>
+     * {@link ActionKeyManager}{@link ActionMouseManager}{@link QFrame}の初期化
+     */
     public Rule() {
         ready = false;
         akm = new ActionKeyManager();
@@ -53,9 +56,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * {@link qow.framework.system.ExecuteLoop#setRule(Rule, FrameLoop)}で呼び出されるメソッド<br>
-     * インスタンス後に{@link QFrame}を定義されてから呼び出される<br>
-     * 新しく{@link Rule#getQFrame()}が定義されていない場合{@link Rule#getQFrame()}はここ以降で使用できる
+     * {@link qow.framework.system.ExecuteLoop#setRule(Rule, FrameLoop)}の最後に呼び出されるメソッド<br>
+     * ルールの更新の終わる直前に実行される
      */
     protected void init() {
     }
@@ -85,23 +87,17 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
      * {@link FrameLoop#loop()}によって一秒間にレートの回数実行されるメソッド
      */
     public void draw() {
-        // 初回の呼び出し時にダブルバッファリング用オブジェクトを作成
-//        canvas.render();
-
         Graphics g = canvas.getBufferStrategyGraphics();
         if (g == null) {
-            System.out.println("g = null");
             return;
         }
 
         if (qf.isActive()) {
-//            System.out.println("active");
             paintActive(g);
         } else {
-//            System.out.println("inactive");
             paintInactive(g);
         }
-//        qf.getQPanel().repaint(0, 0, canvas.getWidth(), canvas.getHeight());
+
         try {
             canvas.update();
             Toolkit.getDefaultToolkit().sync();
@@ -126,23 +122,13 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     public abstract void paintInactive(Graphics g);
 
     /**
-     * {@link QPanel}に投影する{@link QCanvas}を返す
+     * {@link QFrame}に投影する{@link QCanvas}を返す
      *
-     * @return 設定された画像キャンパス
+     * @return 設定されたキャンパス
      */
     public QCanvas getQCanvas() {
         return canvas;
     }
-
-//    /**
-//     * 新しい{@link QCanvas}を設定する
-//     *
-//     * @param canvas 新しい{@link QCanvas}
-//     */
-//    public void setQCanvas(QCanvas canvas) {
-//        this.canvas = canvas;
-//        qf.setResolution(canvas);
-//    }
 
     /**
      * 設定された{@link QFrame}を返す
@@ -154,7 +140,8 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * {@link QFrame}を設定する
+     * {@link QFrame}を設定する<br>
+     * 過去の{@link QFrame}にListenerが実装されていた場合削除する
      *
      * @param qf 新しいフレーム
      */
@@ -163,24 +150,6 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         this.qf = qf;
         canvas = qf.getQCanvas();
         addListener(getQFrame());
-    }
-
-    /**
-     * このクラスに{@link QFrame}が設定されているかを返す
-     *
-     * @return 設定されている場合はtrue
-     */
-    public boolean hasQFrame() {
-        return qf != null;
-    }
-
-    /**
-     * このクラスに{@link QCanvas}が設定されているかを返す
-     *
-     * @return 設定されている場合はtrue
-     */
-    public boolean hasQCanvas() {
-        return canvas != null;
     }
 
     /**
@@ -221,11 +190,23 @@ public abstract class Rule implements KeyListener, MouseListener, MouseMotionLis
         this.fl = fl;
     }
 
-    protected boolean isReady() {
+
+    /**
+     * {@link MainSystem}{@link ExecuteLoop}により{@link Rule}が更新中に呼び出される<br>
+     *
+     * @return falseのとき一時的にループ処理をしない
+     */
+    public boolean isReady() {
         return ready;
     }
 
-    protected void setReady(boolean ready) {
+    /**
+     * {@link MainSystem}{@link ExecuteLoop}により{@link Rule}の更新後に呼び出される<br>
+     * ループ処理の一時的な中断と再開ができる
+     *
+     * @param ready falseのとき一時的にループ処理をしない
+     */
+    public void setReady(boolean ready) {
         this.ready = ready;
     }
 

@@ -4,7 +4,7 @@ package qow.framework.system;
  * 処理レートとフレームレートを制御する
  *
  * @author QOW
- * @version 2025/06/13
+ * @version 2025/06/14
  * @since 1.0.0
  */
 public class MainSystem {
@@ -12,7 +12,7 @@ public class MainSystem {
     private final FrameLoop fl;
 
     /**
-     * rateの初期値を設定し、インスタンス化する
+     * rateの初期値を設定し、インスタンス化
      *
      * @param rate rateの初期値
      */
@@ -22,6 +22,10 @@ public class MainSystem {
         fl.setRate(rate);
     }
 
+    /**
+     * レートを指定せずにインスタンス化<br>
+     * レートの初期値は{@link Loop#DEFAULT_RATE}となる
+     */
     public MainSystem() {
         el = new ExecuteLoop();
         fl = new FrameLoop();

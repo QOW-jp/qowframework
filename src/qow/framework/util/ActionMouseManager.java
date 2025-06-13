@@ -15,6 +15,10 @@ public class ActionMouseManager {
     private final List<ActionMouse> mouseList;
     private final Point mouse;
 
+
+    /**
+     * マウス座標とマウスの入力を保存する変数の初期化
+     */
     public ActionMouseManager() {
         mouseList = new ArrayList<>();
         mouse = new Point();

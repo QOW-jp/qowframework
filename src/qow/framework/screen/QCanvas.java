@@ -4,21 +4,28 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 /**
- * {@link QPanel}に投影する画像を保持する
+ * {@link QFrame}に投影する画像を保持する
  *
  * @author QOW
- * @version 2022/10/02
+ * @version 2025/06/14
  * @since 1.4.2
  */
 public class QCanvas extends Canvas {
-    public static final int DEFAULT_WIDTH = 800;
-    public static final int DEFAULT_HEIGHT = 450;
-    private final int numBuffers = 2;
+    /**
+     * {@link QFrame}のデフォルトのウィンドウサイズの指定
+     */
+    public static final int DEFAULT_WIDTH = 1280;
+    /**
+     * {@link QFrame}のデフォルトのウィンドウサイズの指定
+     */
+    public static final int DEFAULT_HEIGHT = 720;
+
     private BufferStrategy bufferStrategy;
+    private int numBuffers = 2;
     private int width, height;
 
     /**
-     * サイズを設定してインスタンス化する
+     * サイズを設定してインスタンス化
      *
      * @param width  横のサイズ
      * @param height 縦のサイズ
@@ -28,90 +35,100 @@ public class QCanvas extends Canvas {
         setScreenSize(width, height);
     }
 
+    /**
+     * サイズをデフォルトに指定してインスタンス化
+     */
     public QCanvas() {
         this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
 
+    /**
+     * アクティブレンダリング用のGraphicsを取得
+     *
+     * @return drawGraphics
+     */
     public Graphics getBufferStrategyGraphics() {
-        /*
-         * 一応ぬるぽ対応することでエラーでとまることはなくなるが、
-         * 可視化されなければ、ずっとnullかも
-         */
+
         if (bufferStrategy == null) {
-            System.err.println("bufferStrategyがぬるぽ");
             try {
-                System.out.println("createBufferStrategy");
                 createBufferStrategy(numBuffers);
-                System.out.println("getBufferStrategy");
                 bufferStrategy = getBufferStrategy();
             } catch (Exception e) {
-                System.err.println("エラーポイント②");
-                System.err.println("	[frame.pack();]忘れの可能性");
-                System.err.println("	[frame.add(canvas);]忘れの可能性");
-                System.err.println("	[frame.setVisible(true);]忘れの可能性");
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
 
-        /*
-         * 謎エラーポイント
-         * サイズ設定、レイアウト設定、可視化タイミングを疑う
-         */
-        Graphics g = bufferStrategy.getDrawGraphics(); // Graphicsをゲット！
-        if (!bufferStrategy.contentsLost()) { // フルスクリーン化したときになにかをロストするらしいのでその対策
-            /*
-             * g を使って描画処理
-             */
+        Graphics g = bufferStrategy.getDrawGraphics();
+        if (!bufferStrategy.contentsLost()) {   //フルスクリーン化したときになにかをロストするらしいのでその対策
             return g;
-
-        } else {
-            System.out.println("buffer Lost");
         }
         return null;
     }
 
     /**
      * アクティブレンダリング用の再描画メソッド
-     * レンダリングをした後描画する
-     * 描画が終わればバッファをクリアする
      */
     public void update() {
-//        render();
         bufferStrategy.show();
     }
 
     /**
-     * peer確定後、バッファストラテジー生成と参照コピーを実行するようにオーバーライド
-     * bufferStrategyがぬるぽエラーを回避できる！
+     * peer確定後、バッファストラテジー生成と参照コピーを実行するようにシャローコピー
      */
     @Override
     public void addNotify() {
         super.addNotify();  //ここでpeer確定
-        System.out.println(this.getName() + "のpeer確定");
-        //キャンバスのバッファストラテジーを生成
 
         try {
             createBufferStrategy(numBuffers);
             bufferStrategy = getBufferStrategy(); // ループで使用するために参照を保持しておく
-            System.out.println(this.getName() + "のバッファストラテジー生成に成功");
         } catch (Exception e) {
-            System.err.println("エラーポイント③"); // もしここでエラーがでるというのであれば、わたしはお手あげですｗ
-            System.err.println(this.getName() + "のバッファストラテジー生成に失敗");
+            System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * 描画範囲の指定
+     *
+     * @param width  横幅
+     * @param height 縦幅
+     */
     public void setScreenSize(int width, int height) {
         setPreferredSize(new Dimension(width, height));
         this.width = width;
         this.height = height;
     }
 
+    /**
+     * @return 描画範囲の横幅
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * @return 描画範囲の縦幅
+     */
     public int getHeight() {
         return height;
+    }
+
+    /**
+     * アクティブレンダリング用のバッファ数の指定
+     *
+     * @param numBuffers バッファ数
+     */
+    public void setNumBuffers(int numBuffers) {
+        this.numBuffers = numBuffers;
+    }
+
+    /**
+     * アクティブレンダリング用のバッファ数の取得
+     *
+     * @return バッファ数
+     */
+    public int getNumBuffers() {
+        return numBuffers;
     }
 }

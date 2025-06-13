@@ -13,6 +13,9 @@ import java.util.List;
 public class ActionKeyManager {
     private final List<ActionKey> keyList;
 
+    /**
+     * キー入力を保存する変数の初期化
+     */
     public ActionKeyManager() {
         keyList = new ArrayList<>();
     }

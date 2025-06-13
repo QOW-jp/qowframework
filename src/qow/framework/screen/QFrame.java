@@ -7,7 +7,7 @@ import java.awt.*;
  * {@link qow.framework.system.FrameLoop}で再描写されるフレーム
  *
  * @author QOW
- * @version 2023/11/11
+ * @version 2025/06/14
  * @since 1.4.2
  */
 public class QFrame extends JFrame {
@@ -21,22 +21,13 @@ public class QFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        System.out.println("create canvas");
         canvas = new QCanvas();
 
-        System.out.println("create panel");
         Panel field = new Panel(new BorderLayout(0, 0));
-        System.out.println("created panel");
         field.add(canvas, BorderLayout.CENTER);
-        System.out.println("panel.add(canvas);");
-
         add(field, BorderLayout.CENTER);
-        System.out.println("add(panel);");
 
-        System.out.println("pack前");
         pack();
-        System.out.println("packあと");
-
     }
 
     /**
@@ -49,28 +40,24 @@ public class QFrame extends JFrame {
         setTitle(title);
     }
 
-//    /**
-//     * {@link QPanel}に投影される画像を保持した{@link QCanvas}を設定<br>
-//     * {@link QCanvas}のサイズに合わせて{@link QFrame}と{@link QPanel}のサイズを変更する
-//     *
-//     * @param canvas 新しい{@link QCanvas}
-//     */
-//    public void setResolution(QCanvas canvas) {
-//        this.canvas = canvas;
-//        System.out.println("panel.setQCanvas");
-//        panel.setQCanvas(canvas);
-//
-//        //panel.setPreferredSize(canvas.getPreferredSize());
-//
-//        System.out.println("1pack前");
-//        pack();
-//        System.out.println("1pack後");
-//    }
 
+    /**
+     * 描画する{@link QCanvas}を取得する<br>
+     * {@link QCanvas}は{@link Component#requestFocus()}をしているので
+     * {@link qow.framework.system.Rule#addListener(QFrame)}{@link qow.framework.system.Rule#removeListener(QFrame)}ではこれに実装する
+     *
+     * @return 指定されたキャンパス
+     */
     public QCanvas getQCanvas() {
         return canvas;
     }
 
+    /**
+     * 描画範囲の指定及び{@link JFrame#pack()}
+     *
+     * @param width  描画範囲の横幅
+     * @param height 描画範囲の横幅
+     */
     public void setCanvasSize(int width, int height) {
         canvas.setScreenSize(width, height);
         pack();

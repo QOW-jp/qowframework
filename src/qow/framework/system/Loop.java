@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * 可能な限り一秒間に設定されたレートの回数{@link Loop#loop()}を実行する
  *
  * @author QOW
- * @version 2025/06/13
+ * @version 2025/06/14
  * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
@@ -17,6 +17,10 @@ public abstract class Loop implements Runnable {
     private long currentRate;   //現在のフレームレート
     private long interval;  //一ループあたりにかかる時間
     private long checkPoint;  //前回実行した時間
+    /**
+     * {@link Loop}のデフォルトのレート
+     */
+    public static int DEFAULT_RATE = 60;
 
     /**
      * レートの初期値を設定し、インスタンス化する
@@ -31,7 +35,7 @@ public abstract class Loop implements Runnable {
      * レートの初期値を設定せずインスタンス化する
      */
     public Loop() {
-        this(0);
+        this(DEFAULT_RATE);
     }
 
     /**
@@ -133,7 +137,7 @@ public abstract class Loop implements Runnable {
                 } else if (sleepTime < 0) {
                     //休止時間が取れない場合
                     //一回のループ時間が元々の一ループあたりにかかる時間を超えた場合
-                    overTime(sleepTime);
+                    overTime(-sleepTime);
                     if (16 <= ++noDelays) {
                         Thread.yield(); //他のスレッドを強制実行
                         noDelays = 0;

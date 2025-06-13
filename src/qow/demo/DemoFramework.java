@@ -10,14 +10,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("build by JDK-17.0.4");
-        System.out.println("qow_framework-1.6.3 DemoModel\n");
+        System.out.println("build by JDK-17.0.15");
+        System.out.println("qow_framework-2.0.0 DemoModel\n");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkRule1 gr = new DemoFrameworkRule1();
@@ -52,16 +53,8 @@ class DemoFrameworkRule1 extends Rule {
     DemoFrameworkRule1() {
         super();
 
-        QFrame frame = new QFrame();
-        setQFrame(frame);
-
-        System.out.println("before dispose");
         getQFrame().dispose();
-        System.out.println("after dispose");
-
         getQFrame().setUndecorated(true);
-
-
         getQFrame().setTitle("DemoFrameworkRule1");
 
 
@@ -82,36 +75,18 @@ class DemoFrameworkRule1 extends Rule {
         dragPointRange = new ArrayList<>();
 
         mouseCursor = getActionMouseManager().getMousePoint();
-
-        System.out.println("DFR1:a");
     }
 
     protected void init() {
         getExecuteLoop().setRate(165);
         getFrameLoop().setRate(165);
-//        getExecuteLoop().setRate(10);
-//        getFrameLoop().setRate(10);
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
 
-        System.out.println("new canvas");
-//        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
-        getQFrame().setCanvasSize(displayMode.getWidth() / 2, displayMode.getHeight() / 2);
-        System.out.println("last canvas");
+        getQFrame().setCanvasSize(displayMode.getWidth(), displayMode.getHeight());
 
-//        addListener(getQFrame());
-
-//        getQFrame().pack();
-
-//        System.out.println("before dispose");
-//        getQFrame().dispose();
-//        System.out.println("after dispose");
-//
-//        getQFrame().setUndecorated(true);
         getQFrame().pack();
-
-        getQCanvas().requestFocus();
 
         getQFrame().setLocationRelativeTo(null);
         getQFrame().setVisible(true);
@@ -213,8 +188,7 @@ class DemoFrameworkRule1 extends Rule {
     public void paintInactive(Graphics g) {
         if (inactive) {
             inactive = false;
-            g.setColor(new Color(0, 0, 0, 100));
-//            g.setColor(Color.WHITE);
+            g.setColor(new Color(0, 0, 0, 128));
             g.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
 
             FontMetrics fm = g.getFontMetrics();
@@ -228,11 +202,11 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     public void overTimeExecute(long overTime) {
-//        System.out.println("EL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
+        System.out.println("EL誤差:" + overTime / 1000000 + "ms" + "  @" + LocalDateTime.now());
     }
 
     public void overTimeFrame(long overTime) {
-//        System.out.println("FL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
+        System.out.println("FL誤差:" + overTime / 1000000 + "ms" + "  @" + LocalDateTime.now());
     }
 
     public boolean isChangeRule() {
@@ -244,20 +218,15 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     public void addListener(QFrame qf) {
-        System.out.println("qf 1");
         qf.getQCanvas().addKeyListener(this);
-        System.out.println("qf 2");
         qf.getQCanvas().addMouseListener(this);
-        System.out.println("qf 3");
         qf.getQCanvas().addMouseMotionListener(this);
     }
 
     public void removeListener(QFrame qf) {
-        System.out.println("qf 4");
         qf.getQCanvas().removeKeyListener(this);
         qf.getQCanvas().removeMouseListener(this);
         qf.getQCanvas().removeMouseMotionListener(this);
-        System.out.println("qf 7");
     }
 }
 
@@ -299,11 +268,7 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     protected void init() {
-//        getQFrame().dispose();
-//        getQFrame().setUndecorated(false);
-
         getQFrame().setTitle("DemoFrameworkRule2");
-        getQCanvas().requestFocus();
 
         JPanel menuPanel = new JPanel();
         menuPanel.setBackground(Color.CYAN);
@@ -443,7 +408,7 @@ class DemoFrameworkRule2 extends Rule {
             //文字描画のアンチエイリアシングの有効化
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-            g2.setColor(new Color(0, 0, 0, 100));
+            g2.setColor(new Color(0, 0, 0, 128));
             g2.fillRect(0, 0, getQCanvas().getWidth(), getQCanvas().getHeight());
 
             FontMetrics fm = g2.getFontMetrics();
@@ -457,11 +422,11 @@ class DemoFrameworkRule2 extends Rule {
     }
 
     public void overTimeExecute(long overTime) {
-//        System.out.println("EL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
+        System.out.println("EL誤差:" + overTime / 1000000 + "ms" + "  @" + LocalDateTime.now());
     }
 
     public void overTimeFrame(long overTime) {
-//        System.out.println("FL誤差:" + overTime + "ns" + "  @" + LocalDateTime.now());
+        System.out.println("FL誤差:" + overTime / 1000000 + "ms" + "  @" + LocalDateTime.now());
     }
 
     public boolean isChangeRule() {
