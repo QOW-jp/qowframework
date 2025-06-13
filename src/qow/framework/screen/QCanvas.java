@@ -15,6 +15,7 @@ public class QCanvas extends Canvas {
     public static final int DEFAULT_HEIGHT = 450;
     private final int numBuffers = 3;
     private BufferStrategy bufferStrategy;
+    private int width, height;
 
     /**
      * サイズを設定してインスタンス化する
@@ -24,8 +25,7 @@ public class QCanvas extends Canvas {
      */
     public QCanvas(int width, int height) {
         super();
-        setSize(width, height);
-        setPreferredSize(new Dimension(width, height));
+        setScreenSize(width, height);
     }
 
     public QCanvas() {
@@ -99,5 +99,19 @@ public class QCanvas extends Canvas {
             System.err.println("エラーポイント③"); // もしここでエラーがでるというのであれば、わたしはお手あげですｗ
             System.err.println(this.getName() + "のバッファストラテジー生成に失敗");
         }
+    }
+
+    public void setScreenSize(int width, int height) {
+        setPreferredSize(new Dimension(width, height));
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

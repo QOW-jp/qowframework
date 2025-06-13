@@ -73,8 +73,7 @@ public class QFrame extends JFrame {
     }
 
     public void setCanvasSize(int width, int height) {
-        canvas.setPreferredSize(new Dimension(width, height));
-        canvas.setSize(width,height);
+        canvas.setScreenSize(width, height);
         pack();
     }
 }
