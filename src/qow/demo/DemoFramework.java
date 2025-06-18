@@ -46,8 +46,8 @@ class DemoFrameworkRule1 extends Rule {
     boolean changeRule;
     Point mouseCursor;
     int rateCheckerCountByFrame, rateCheckerCountByExecute;
-    int[] rateCheckerByFrame = new int[RATE_CHECK_LENGTH];
-    int[] rateCheckerByExecute = new int[RATE_CHECK_LENGTH];
+    double[] rateCheckerByFrame = new double[RATE_CHECK_LENGTH];
+    double[] rateCheckerByExecute = new double[RATE_CHECK_LENGTH];
 
 
     DemoFrameworkRule1() {
@@ -78,8 +78,8 @@ class DemoFrameworkRule1 extends Rule {
     }
 
     protected void init() {
-        getExecuteLoop().setRate(165);
-        getFrameLoop().setRate(165);
+        getExecuteLoop().setRate(120);
+        getFrameLoop().setRate(60);
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
@@ -140,13 +140,13 @@ class DemoFrameworkRule1 extends Rule {
         if (RATE_CHECK_LENGTH <= rateCheckerCountByExecute) {
             rateCheckerCountByExecute = 0;
         }
-        rateCheckerByExecute[rateCheckerCountByExecute] = (int) getExecuteLoop().getCurrentRate();
+        rateCheckerByExecute[rateCheckerCountByExecute] = getExecuteLoop().getCurrentRate();
         rateCheckerCountByExecute++;
 
         if (RATE_CHECK_LENGTH <= rateCheckerCountByFrame) {
             rateCheckerCountByFrame = 0;
         }
-        rateCheckerByFrame[rateCheckerCountByFrame] = (int) getFrameLoop().getCurrentRate();
+        rateCheckerByFrame[rateCheckerCountByFrame] = getFrameLoop().getCurrentRate();
         rateCheckerCountByFrame++;
     }
 
@@ -293,7 +293,7 @@ class DemoFrameworkRule2 extends Rule {
         });
 
         getExecuteLoop().setRate(200);
-        getFrameLoop().setRate(100);
+        getFrameLoop().setRate(120);
 
         getQFrame().pack();
 

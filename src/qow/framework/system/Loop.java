@@ -11,16 +11,16 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
-    private boolean loop;   //ループを実行したか
-    private boolean looping;    //ループしている最中か
-    private long rate;  //理想的なフレームレート
-    private long currentRate;   //現在のフレームレート
-    private long interval;  //一ループあたりにかかる時間
-    private long checkPoint;  //前回実行した時間
     /**
      * {@link Loop}のデフォルトのレート
      */
     public static int DEFAULT_RATE = 60;
+    private boolean loop;   //ループを実行したか
+    private boolean looping;    //ループしている最中か
+    private long rate;  //理想的なフレームレート
+    private double currentRate;   //現在のフレームレート
+    private long interval;  //一ループあたりにかかる時間
+    private long checkPoint;  //前回実行した時間
 
     /**
      * レートの初期値を設定し、インスタンス化する
@@ -74,13 +74,13 @@ public abstract class Loop implements Runnable {
     }
 
     private void updateRate(long fpsCheck) {
-        long delay = fpsCheck - this.checkPoint;
+        long delay = fpsCheck - checkPoint;
+        checkPoint = fpsCheck;
         if (delay == 0) {
             currentRate = Long.MAX_VALUE;
         } else {
             currentRate = 1000000000L / delay;
         }
-        this.checkPoint = fpsCheck;
     }
 
     /**
@@ -88,7 +88,7 @@ public abstract class Loop implements Runnable {
      *
      * @return 一秒間に実行された回数
      */
-    public long getCurrentRate() {
+    public double getCurrentRate() {
         return currentRate;
     }
 
@@ -113,40 +113,36 @@ public abstract class Loop implements Runnable {
             looping = true;
 
             int noDelays = 0;
-            long overSleepTime = 0L;
 
+            long lastTime = System.nanoTime();
             while (loop) {
-                long beforeTime = System.nanoTime();
 
                 //fps計測
                 updateRate(System.nanoTime());
 
                 loop();
 
-                long afterTime = System.nanoTime();
-                //前回のフレームの休止時間誤差も引いておく
-                long sleepTime = this.interval - (afterTime - beforeTime) - overSleepTime;
+                long sleepTime = interval - (System.nanoTime() - lastTime);
 
                 if (0 < sleepTime) {
                     noDelays = 0;
                     //休止時間がとれる場合
                     //一回のループ時間が元々の一ループあたりにかかる時間よりかからなかった場合
                     TimeUnit.NANOSECONDS.sleep(sleepTime);
-                    //スレッドスリープの誤差
-                    overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
+                    lastTime += interval;
                 } else if (sleepTime < 0) {
-                    //休止時間が取れない場合
-                    //一回のループ時間が元々の一ループあたりにかかる時間を超えた場合
+                    lastTime = System.nanoTime();
                     overTime(-sleepTime);
                     if (16 <= ++noDelays) {
                         Thread.yield(); //他のスレッドを強制実行
                         noDelays = 0;
+                        lastTime = System.nanoTime();
                     }
-                    overSleepTime = 0L;
                 } else {
+                    noDelays = 0;
                     //休止時間がとれない場合
                     //一回のループ時間が元々の一ループあたりにかかる時間と全く同じ場合(基本的にない)
-                    overSleepTime = 0L;
+                    lastTime += interval;
                 }
             }
         } catch (InterruptedException e) {
