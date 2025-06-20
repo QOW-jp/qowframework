@@ -177,7 +177,7 @@ class DemoFrameworkRule1 extends Rule {
 
         try {
             FontMetrics fm = g.getFontMetrics();
-            String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
+            String text = "予定eps:" + getExecuteLoop().getRate() + " 予定fps:" + getFrameLoop().getRate() + " | eps:" + (float) Math.round(10 * Arrays.stream(rateCheckerByExecute).average().getAsDouble()) / 10 + " fps:" + (float) Math.round(10 * Arrays.stream(rateCheckerByFrame).average().getAsDouble()) / 10;
             g.drawString(text, 0, fm.getMaxAscent());
         } catch (Exception ignored) {
         }
@@ -390,7 +390,7 @@ class DemoFrameworkRule2 extends Rule {
 
         try {
             FontMetrics fm = g2.getFontMetrics();
-            String text = "予定eps:" + (int) getExecuteLoop().getRate() + " 予定fps:" + (int) getFrameLoop().getRate() + " | eps:" + Math.floor(Arrays.stream(rateCheckerByExecute).average().getAsDouble()) + " fps:" + Math.floor(Arrays.stream(rateCheckerByFrame).average().getAsDouble());
+            String text = "予定eps:" + getExecuteLoop().getRate() + " 予定fps:" + getFrameLoop().getRate() + " | eps:" + (float) Math.round(10 * Arrays.stream(rateCheckerByExecute).average().getAsDouble()) / 10 + " fps:" + (float) Math.round(10 * Arrays.stream(rateCheckerByFrame).average().getAsDouble()) / 10;
             g2.drawString(text, 0, fm.getMaxAscent());
         } catch (Exception ignored) {
         }

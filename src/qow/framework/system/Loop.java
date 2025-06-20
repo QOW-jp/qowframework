@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * 可能な限り一秒間に設定されたレートの回数{@link Loop#loop()}を実行する
  *
  * @author QOW
- * @version 2025/06/14
+ * @version 2025/06/20
  * @since 1.0.0
  */
 public abstract class Loop implements Runnable {
@@ -17,7 +17,7 @@ public abstract class Loop implements Runnable {
     public static int DEFAULT_RATE = 60;
     private boolean loop;   //ループを実行したか
     private boolean looping;    //ループしている最中か
-    private long rate;  //理想的なフレームレート
+    private int rate;  //理想的なフレームレート
     private double currentRate;   //現在のフレームレート
     private long interval;  //一ループあたりにかかる時間
     private long checkPoint;  //前回実行した時間
@@ -27,7 +27,7 @@ public abstract class Loop implements Runnable {
      *
      * @param rate レートの初期値
      */
-    public Loop(long rate) {
+    public Loop(int rate) {
         setRate(rate);
     }
 
@@ -55,7 +55,7 @@ public abstract class Loop implements Runnable {
      *
      * @return 一秒間に実行される回数
      */
-    public long getRate() {
+    public int getRate() {
         return rate;
     }
 
@@ -64,7 +64,7 @@ public abstract class Loop implements Runnable {
      *
      * @param rate 一秒間に実行される回数
      */
-    public void setRate(long rate) {
+    public void setRate(int rate) {
         this.rate = rate;
         if (rate <= 0) {
             interval = 0;
@@ -77,9 +77,9 @@ public abstract class Loop implements Runnable {
         long delay = fpsCheck - checkPoint;
         checkPoint = fpsCheck;
         if (delay == 0) {
-            currentRate = Long.MAX_VALUE;
+            currentRate = Double.MAX_VALUE;
         } else {
-            currentRate = 1000000000L / delay;
+            currentRate = (double) 1000000000 / delay;
         }
     }
 
