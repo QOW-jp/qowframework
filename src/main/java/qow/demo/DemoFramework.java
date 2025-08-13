@@ -17,8 +17,7 @@ import java.util.List;
 
 public class DemoFramework {
     public static void main(String[] args) {
-        System.out.println("build by JDK-17.0.15");
-        System.out.println("qow_framework-2.0.5 DemoModel\n");
+        System.out.println("qow_framework-2.0.6 DemoModel\n");
         try {
             MainSystem ms = new MainSystem();
             DemoFrameworkRule1 gr = new DemoFrameworkRule1();
